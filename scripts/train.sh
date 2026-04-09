@@ -24,6 +24,7 @@ singularity exec --nv \
   /bin/bash -c "
     source /ext3/miniconda3/etc/profile.d/conda.sh
     conda activate dl-active-matter
+    export WANDB_MODE=disabled
 
     cd /scratch/$USER/dl-active-matter
 
