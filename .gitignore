@@ -1,0 +1,49 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Environments
+.env
+*.env
+venv/
+.venv/
+
+# Data (too large for git — lives on /scratch)
+data/active_matter/
+*.hdf5
+*.h5
+*.npy
+*.npz
+*.pt
+*.pth
+
+# Checkpoints (live on /scratch)
+checkpoints/
+*.ckpt
+
+# W&B
+wandb/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# IDE
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Slurm logs
+slurm-*.out
+*.log
+
+# Singularity
+*.sif
+*.ext3
