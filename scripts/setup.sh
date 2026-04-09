@@ -80,10 +80,15 @@ else
         /bin/bash -c '
             source /ext3/miniconda3/etc/profile.d/conda.sh
             conda activate dl-active-matter
-            python -m huggingface_hub.commands.download \
-                --repo-type dataset \
-                polymathic-ai/active_matter \
-                --local-dir '"$DATA_DIR"'
+            python -c "
+from huggingface_hub import snapshot_download
+snapshot_download(
+    repo_id=\"polymathic-ai/active_matter\",
+    repo_type=\"dataset\",
+    local_dir=\"'"$DATA_DIR"'\",
+)
+print(\"  ✓ Download complete\")
+"
         '
     echo "  ✓ Dataset downloaded to $DATA_DIR"
 fi
