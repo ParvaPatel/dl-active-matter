@@ -7,7 +7,10 @@ import torch
 import torch.nn as nn
 from torch.cuda.amp import GradScaler, autocast
 
-import wandb
+try:
+    import wandb
+except ImportError:
+    wandb = None
 
 from data.dataset import ActiveMatterDataset
 from models.encoder import SpatioTemporalViT, count_parameters
@@ -44,7 +47,8 @@ def train_one_epoch(model, dataloader, optimizer, scaler, device, epoch):
 
         if batch_idx % 50 == 0:
             print(f"  Epoch {epoch} | Batch {batch_idx} | Loss: {loss.item():.4f}")
-            wandb.log({"train/batch_loss": loss.item(), "epoch": epoch, "batch": batch_idx})
+            if wandb and wandb.run:
+                wandb.log({"train/batch_loss": loss.item(), "epoch": epoch, "batch": batch_idx})
 
     avg_loss = total_loss / max(num_batches, 1)
     return avg_loss
@@ -163,13 +167,19 @@ def main():
             start_epoch = load_checkpoint(auto_ckpt, model, optimizer, scaler)
             print(f"Auto-resumed from epoch {start_epoch}")
 
-    # W&B
-    wandb.init(
-        project=cfg.get("wandb_project", "dl-active-matter"),
-        config=cfg,
-        resume="allow",
-    )
-    wandb.log({"param_count": param_count})
+    # W&B (optional — set WANDB_API_KEY or run `wandb login` to enable)
+    use_wandb = wandb is not None
+    if use_wandb:
+        try:
+            wandb.init(
+                project=cfg.get("wandb_project", "dl-active-matter"),
+                config=cfg,
+                resume="allow",
+            )
+            wandb.log({"param_count": param_count})
+        except Exception as e:
+            print(f"W&B init failed ({e}), continuing without logging")
+            use_wandb = False
 
     # Training loop
     best_val_loss = float("inf")
@@ -178,11 +188,12 @@ def main():
         val_loss = validate(model, val_loader, device)
 
         print(f"Epoch {epoch} | Train Loss: {train_loss:.4f} | Val Loss: {val_loss:.4f}")
-        wandb.log({
-            "train/loss": train_loss,
-            "val/loss": val_loss,
-            "epoch": epoch,
-        })
+        if use_wandb and wandb.run:
+            wandb.log({
+                "train/loss": train_loss,
+                "val/loss": val_loss,
+                "epoch": epoch,
+            })
 
         # Save latest (for preemption recovery)
         save_checkpoint({
@@ -206,7 +217,8 @@ def main():
             }, checkpoint_dir, "best.pt")
             print(f"  -> New best val loss: {val_loss:.4f}")
 
-    wandb.finish()
+    if use_wandb and wandb.run:
+        wandb.finish()
     print("Training complete.")
 
 
