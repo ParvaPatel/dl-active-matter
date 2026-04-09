@@ -83,9 +83,22 @@ def main():
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
     # Data
-    from torch.utils.data import DataLoader
+    from torch.utils.data import DataLoader, random_split
+
     train_ds = ActiveMatterDataset(cfg["data_dir"], split="train")
-    val_ds = ActiveMatterDataset(cfg["data_dir"], split="val")
+
+    # Try to load a dedicated validation split; if missing, carve from train
+    try:
+        val_ds = ActiveMatterDataset(cfg["data_dir"], split="val")
+    except FileNotFoundError:
+        print("Validation split not found — holding out 10% of training samples")
+        n_val = max(1, int(0.1 * len(train_ds)))
+        n_train = len(train_ds) - n_val
+        train_ds, val_ds = random_split(
+            train_ds,
+            [n_train, n_val],
+            generator=torch.Generator().manual_seed(cfg.get("seed", 42)),
+        )
 
     train_loader = DataLoader(
         train_ds,
