@@ -112,7 +112,7 @@ def main():
     # Load checkpoint
     ckpt = torch.load(args.checkpoint, map_location="cpu", weights_only=False)
     cfg = ckpt["config"]
-    data_dir = args.data_dir or cfg["data_dir"]
+    data_dir = os.path.expandvars(args.data_dir or cfg["data_dir"])
 
     # Rebuild encoder
     encoder = SpatioTemporalViT(

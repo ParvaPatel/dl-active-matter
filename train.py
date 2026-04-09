@@ -73,6 +73,11 @@ def main():
     with open(args.config) as f:
         cfg = yaml.safe_load(f)
 
+    # Expand shell variables like ${USER} in config values
+    for key in ["data_dir", "checkpoint_dir"]:
+        if key in cfg and isinstance(cfg[key], str):
+            cfg[key] = os.path.expandvars(cfg[key])
+
     set_seed(cfg.get("seed", 42))
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")

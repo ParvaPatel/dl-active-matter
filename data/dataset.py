@@ -1,16 +1,21 @@
-"""Active Matter dataset for HuggingFace Arrow files."""
+"""Active Matter dataset loader."""
 
 import os
 import torch
+import numpy as np
 from torch.utils.data import Dataset
-from datasets import load_from_disk
+from datasets import load_dataset, load_from_disk
 
 
 class ActiveMatterDataset(Dataset):
     """
-    Loads active_matter samples from HuggingFace disk format.
+    Loads active_matter samples from local HuggingFace download.
 
     Each sample: (16, 11, 224, 224) float32 tensor + labels (alpha, zeta).
+
+    Supports both:
+      - Raw HuggingFace repo download (via snapshot_download / huggingface-cli)
+      - Arrow format on disk (via dataset.save_to_disk)
     """
 
     FIELD_NAMES = [
@@ -20,6 +25,9 @@ class ActiveMatterDataset(Dataset):
         "strain_rate_xx", "strain_rate_xy", "strain_rate_yx", "strain_rate_yy",  # 4 tensor
     ]
 
+    # Map our split names to HuggingFace split names
+    SPLIT_MAP = {"val": "validation"}
+
     def __init__(self, data_dir, split="train", normalize=True):
         """
         Args:
@@ -27,8 +35,20 @@ class ActiveMatterDataset(Dataset):
             split: One of 'train', 'val', 'test'.
             normalize: Whether to z-score normalize each channel.
         """
+        data_dir = os.path.expandvars(data_dir)
+        hf_split = self.SPLIT_MAP.get(split, split)
+
+        # Try Arrow format first (load_from_disk), fall back to raw repo
         split_dir = os.path.join(data_dir, split)
-        self.ds = load_from_disk(split_dir)
+        arrow_dir = os.path.join(data_dir, hf_split)
+        if os.path.isdir(split_dir) and os.path.exists(os.path.join(split_dir, "dataset_info.json")):
+            self.ds = load_from_disk(split_dir)
+        elif os.path.isdir(arrow_dir) and os.path.exists(os.path.join(arrow_dir, "dataset_info.json")):
+            self.ds = load_from_disk(arrow_dir)
+        else:
+            # Load from raw HuggingFace repo files on disk
+            self.ds = load_dataset(data_dir, split=hf_split)
+
         self.normalize = normalize
         self._channel_stats = None  # Lazy-computed
 
