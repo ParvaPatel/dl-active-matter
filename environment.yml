@@ -1,0 +1,19 @@
+name: dl-active-matter
+channels:
+  - pytorch
+  - nvidia
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.10
+  - pytorch>=2.1.0
+  - torchvision>=0.16.0
+  - pytorch-cuda=12.1
+  - numpy>=1.24.0
+  - pyyaml>=6.0
+  - scikit-learn>=1.3.0
+  - pip
+  - pip:
+      - datasets>=2.14.0
+      - huggingface-hub>=0.17.0
+      - wandb>=0.15.0

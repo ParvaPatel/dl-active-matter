@@ -17,10 +17,12 @@ singularity exec --nv \
   /share/apps/images/cuda12.1.1-cudnn8.9.0-devel-ubuntu22.04.2.sif \
   /bin/bash
 
-# Inside the container, create conda env
-conda create -n dl python=3.10 -y
-conda activate dl
-pip install -r requirements.txt
+# Inside the container, create conda env (or use the automated script)
+conda env create -f environment.yml
+conda activate dl-active-matter
+
+# Or just run the one-command setup (recommended):
+# bash scripts/setup.sh
 ```
 
 ## 3. Download Dataset (Run Once)
@@ -70,3 +72,4 @@ scp -r /scratch/$USER/checkpoints/best.pt $USER@dtn.torch.hpc.nyu.edu:~/
 | Code | `/scratch/$USER/dl-active-matter` |
 | Overlay | `/scratch/$USER/overlay-dl.ext3` |
 | OS image | `/share/apps/images/cuda12.1.1-cudnn8.9.0-devel-ubuntu22.04.2.sif` |
+| Conda env | `dl-active-matter` (from `environment.yml`) |

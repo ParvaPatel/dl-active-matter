@@ -18,7 +18,7 @@ singularity exec --nv \
   /share/apps/images/cuda12.1.1-cudnn8.9.0-devel-ubuntu22.04.2.sif \
   /bin/bash -c "
     source /ext3/miniconda3/etc/profile.d/conda.sh
-    conda activate dl
+    conda activate dl-active-matter
 
     cd /scratch/$USER/dl-active-matter
 
