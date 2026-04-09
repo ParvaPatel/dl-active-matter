@@ -44,22 +44,22 @@ class ActiveMatterDataset(Dataset):
         data_dir = os.path.expandvars(data_dir)
         hf_split = self.SPLIT_MAP.get(split, split)
 
-        # Find the HDF5 files directory
+        # Find the HDF5 files directory — try multiple naming conventions
         split_dir = None
-        for candidate in [
-            os.path.join(data_dir, "data", hf_split),
-            os.path.join(data_dir, "data", split),
-            os.path.join(data_dir, hf_split),
-            os.path.join(data_dir, split),
-        ]:
-            if os.path.isdir(candidate):
-                split_dir = candidate
+        candidates = [hf_split, split, "valid"] if split == "val" else [hf_split, split]
+        for prefix in ["data", ""]:
+            for name in candidates:
+                path = os.path.join(data_dir, prefix, name) if prefix else os.path.join(data_dir, name)
+                if os.path.isdir(path):
+                    split_dir = path
+                    break
+            if split_dir:
                 break
 
         if split_dir is None:
             raise FileNotFoundError(
                 f"Could not find split '{split}' in {data_dir}. "
-                f"Tried: data/{hf_split}/, data/{split}/, {hf_split}/, {split}/"
+                f"Tried names: {candidates}"
             )
 
         self.files = sorted(glob.glob(os.path.join(split_dir, "*.hdf5")))

@@ -5,7 +5,7 @@ import argparse
 import yaml
 import torch
 import torch.nn as nn
-from torch.cuda.amp import GradScaler, autocast
+from torch.amp import GradScaler, autocast
 
 try:
     import wandb
@@ -35,7 +35,7 @@ def train_one_epoch(model, dataloader, optimizer, scaler, device, epoch):
 
         optimizer.zero_grad(set_to_none=True)
 
-        with autocast(device_type="cuda"):
+        with autocast("cuda"):
             loss, pred, mask = model(x)
 
         scaler.scale(loss).backward()
@@ -62,7 +62,7 @@ def validate(model, dataloader, device):
 
     for x, labels in dataloader:
         x = x.to(device, non_blocking=True)
-        with autocast(device_type="cuda"):
+        with autocast("cuda"):
             loss, pred, mask = model(x)
         total_loss += loss.item()
         num_batches += 1
@@ -152,7 +152,7 @@ def main():
         betas=tuple(cfg.get("betas", [0.9, 0.95])),
     )
 
-    scaler = GradScaler()
+    scaler = GradScaler("cuda")
 
     # Resume from checkpoint
     start_epoch = 0

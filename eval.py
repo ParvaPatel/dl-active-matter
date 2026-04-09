@@ -7,7 +7,7 @@ import torch
 import torch.nn as nn
 import numpy as np
 from torch.utils.data import DataLoader
-from torch.cuda.amp import autocast
+from torch.amp import autocast
 from sklearn.neighbors import KNeighborsRegressor
 from sklearn.preprocessing import StandardScaler
 
@@ -37,7 +37,7 @@ def extract_features(encoder, dataloader, device):
 
     for x, labels in dataloader:
         x = x.to(device, non_blocking=True)
-        with autocast(device_type="cuda"):
+        with autocast("cuda"):
             features = encoder(x)              # (B, N, D)
             features = encoder.mean_pool(features)  # (B, D)
         all_features.append(features.cpu())
