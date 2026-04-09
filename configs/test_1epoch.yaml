@@ -1,0 +1,34 @@
+# Quick sanity check — 1 epoch only
+seed: 42
+
+# --- Data ---
+data_dir: /scratch/${USER}/data/active_matter
+in_channels: 11
+batch_size: 4
+num_workers: 4
+
+# --- Encoder ---
+patch_size: [2, 16, 16]
+embed_dim: 384
+encoder_depth: 6
+num_heads: 6
+mlp_ratio: 4.0
+drop_rate: 0.0
+
+# --- MAE Decoder ---
+decoder_dim: 192
+decoder_depth: 2
+decoder_heads: 3
+mask_ratio: 0.75
+
+# --- Optimizer ---
+lr: 1.5e-4
+weight_decay: 0.05
+betas: [0.9, 0.95]
+
+# --- Training ---
+epochs: 1
+checkpoint_dir: /scratch/${USER}/checkpoints
+
+# --- Logging ---
+wandb_project: dl-active-matter
