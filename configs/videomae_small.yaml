@@ -1,5 +1,7 @@
 # VideoMAE Small — baseline config
-# ~9.5M encoder params, ~1M decoder params
+# ~15.76M total params (encoder ~12M + decoder ~3.7M)
+
+experiment_name: videomae_small
 
 seed: 42
 
@@ -31,6 +33,7 @@ betas: [0.9, 0.95]
 # --- Training ---
 epochs: 100
 checkpoint_dir: /scratch/${USER}/checkpoints
+checkpoint_every: 10    # save epoch_N.pt every N epochs
 
 # --- Logging ---
 wandb_project: dl-active-matter

@@ -82,6 +82,19 @@ def main():
         if key in cfg and isinstance(cfg[key], str):
             cfg[key] = os.path.expandvars(cfg[key])
 
+    # Experiment-specific checkpoint directory
+    experiment_name = cfg.get("experiment_name", "default")
+    checkpoint_dir = os.path.join(
+        cfg.get("checkpoint_dir", "checkpoints"), experiment_name
+    )
+    os.makedirs(checkpoint_dir, exist_ok=True)
+    checkpoint_every = cfg.get("checkpoint_every", 10)
+
+    print("=" * 60)
+    print(f"EXPERIMENT: {experiment_name}")
+    print(f"Checkpoints → {checkpoint_dir}")
+    print("=" * 60)
+
     set_seed(cfg.get("seed", 42))
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -156,12 +169,11 @@ def main():
 
     # Resume from checkpoint
     start_epoch = 0
-    checkpoint_dir = cfg.get("checkpoint_dir", "checkpoints")
     if args.resume:
         start_epoch = load_checkpoint(args.resume, model, optimizer, scaler)
         print(f"Resumed from epoch {start_epoch}")
     else:
-        # Check for auto-resume (spot preemption)
+        # Check for auto-resume (spot preemption / --requeue)
         auto_ckpt = os.path.join(checkpoint_dir, "latest.pt")
         if os.path.exists(auto_ckpt):
             start_epoch = load_checkpoint(auto_ckpt, model, optimizer, scaler)
@@ -196,7 +208,7 @@ def main():
             })
 
         # Save latest (for preemption recovery)
-        save_checkpoint({
+        ckpt_state = {
             "epoch": epoch + 1,
             "model_state_dict": model.state_dict(),
             "optimizer_state_dict": optimizer.state_dict(),
@@ -204,7 +216,9 @@ def main():
             "train_loss": train_loss,
             "val_loss": val_loss,
             "config": cfg,
-        }, checkpoint_dir, "latest.pt")
+            "experiment_name": experiment_name,
+        }
+        save_checkpoint(ckpt_state, checkpoint_dir, "latest.pt")
 
         # Save best
         if val_loss < best_val_loss:
@@ -214,12 +228,18 @@ def main():
                 "model_state_dict": model.state_dict(),
                 "config": cfg,
                 "val_loss": val_loss,
+                "experiment_name": experiment_name,
             }, checkpoint_dir, "best.pt")
             print(f"  -> New best val loss: {val_loss:.4f}")
 
+        # Periodic checkpoint (survives preemption between best/latest)
+        if (epoch + 1) % checkpoint_every == 0:
+            save_checkpoint(ckpt_state, checkpoint_dir, f"epoch_{epoch+1}.pt")
+            print(f"  -> Saved periodic checkpoint: epoch_{epoch+1}.pt")
+
     if use_wandb and wandb.run:
         wandb.finish()
-    print("Training complete.")
+    print(f"Training complete. Checkpoints in: {checkpoint_dir}")
 
 
 if __name__ == "__main__":

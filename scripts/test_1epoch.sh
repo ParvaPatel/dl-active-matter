@@ -6,8 +6,8 @@
 #SBATCH --cpus-per-task=4
 #SBATCH --mem=40G
 #SBATCH --time=02:00:00
-#SBATCH --output=slurm-%j.out
-#SBATCH --error=slurm-%j.out
+#SBATCH --output=logs/train-%x-%j.out
+#SBATCH --error=logs/train-%x-%j.out
 #SBATCH --requeue
 
 echo "=== Job started at $(date) ==="
@@ -22,9 +22,9 @@ singularity exec --nv \
     conda activate dl-active-matter
     export WANDB_MODE=disabled
 
-    cd /scratch/$USER/dl-active-matter
+    cd /scratch/\$USER/dl-active-matter
 
     python train.py --config configs/test_1epoch.yaml
 
-    echo '=== Job finished at $(date) ==='
+    echo '=== Job finished at \$(date) ==='
   "
