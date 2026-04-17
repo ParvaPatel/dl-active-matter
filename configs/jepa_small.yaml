@@ -1,5 +1,6 @@
-# Video-JEPA Small — predictive objective config
-# ~11M total params (encoder ~9.5M + predictor ~1.5M)
+# Video-JEPA Small — temporal prediction config
+# Context: first 16 frames → predict representation of next 16 frames
+# Samples: (81 - 32 + 1) × 175 = 8,750 training samples
 
 experiment_name: jepa_small
 
@@ -8,20 +9,20 @@ seed: 42
 # --- Data ---
 data_dir: /scratch/${USER}/data/active_matter
 in_channels: 11
+n_frames: 32             # 32 total: 16 context + 16 target
+context_frames: 16       # first 16 → online encoder
 batch_size: 4
 num_workers: 4
 
 # --- Encoder ---
-patch_size: [2, 16, 16]    # tube patches: 2 temporal × 16×16 spatial → 1568 tokens
+patch_size: [2, 16, 16]    # tube patches: 2 temporal × 16×16 spatial → 1568 tokens per 16 frames
 embed_dim: 384
 encoder_depth: 6
 num_heads: 6
 mlp_ratio: 4.0
 drop_rate: 0.0
 
-# --- JEPA Objective ---
-target_ratio: 0.20
-context_ratio: 0.40
+# --- JEPA Predictor ---
 predictor_dim: 256
 predictor_depth: 3
 predictor_heads: 4

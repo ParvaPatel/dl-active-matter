@@ -117,10 +117,12 @@ def main():
     # Data
     from torch.utils.data import DataLoader, random_split
 
-    train_ds = ActiveMatterDataset(cfg["data_dir"], split="train")
+    train_ds = ActiveMatterDataset(cfg["data_dir"], split="train",
+                                    n_frames=cfg.get("n_frames", 32))
 
     try:
-        val_ds = ActiveMatterDataset(cfg["data_dir"], split="val")
+        val_ds = ActiveMatterDataset(cfg["data_dir"], split="val",
+                                      n_frames=cfg.get("n_frames", 32))
     except FileNotFoundError:
         print("Validation split not found — holding out 10% of training samples")
         n_val = max(1, int(0.1 * len(train_ds)))
@@ -163,8 +165,7 @@ def main():
         predictor_dim=cfg.get("predictor_dim", 256),
         predictor_depth=cfg.get("predictor_depth", 3),
         predictor_heads=cfg.get("predictor_heads", 4),
-        context_ratio=cfg.get("context_ratio", 0.40),
-        target_ratio=cfg.get("target_ratio", 0.20),
+        context_frames=cfg.get("context_frames", 16),
     )
     model = model.to(device)
 
