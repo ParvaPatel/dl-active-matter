@@ -35,7 +35,7 @@ def extract_features(encoder, dataloader, device):
     all_alpha = []
     all_zeta = []
 
-    for x, labels in dataloader:
+    for batch_idx, (x, labels) in enumerate(dataloader):
         x = x.to(device, non_blocking=True)
         with autocast("cuda"):
             features = encoder(x)              # (B, N, D)
@@ -43,6 +43,9 @@ def extract_features(encoder, dataloader, device):
         all_features.append(features.cpu())
         all_alpha.append(labels["alpha"])
         all_zeta.append(labels["zeta"])
+
+        if batch_idx % 50 == 0:
+            print(f"    Processed batch {batch_idx}/{len(dataloader)}")
 
     features = torch.cat(all_features, dim=0).numpy()
     alpha = torch.cat(all_alpha, dim=0).numpy()
