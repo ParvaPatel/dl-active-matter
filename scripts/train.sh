@@ -36,7 +36,12 @@ singularity exec --nv \
         export \$(cat .env | grep -v '^#' | xargs)
     fi
 
-    python train.py --config $CONFIG
+    # Route to correct entrypoint based on config name
+    if [[ "$CONFIG" == *"jepa"* ]]; then
+        python train_jepa.py --config $CONFIG
+    else
+        python train.py --config $CONFIG
+    fi
 
     echo '=== Job finished at \$(date) ==='
   "

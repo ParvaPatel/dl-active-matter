@@ -1,0 +1,41 @@
+# Video-JEPA Small — predictive objective config
+# ~11M total params (encoder ~9.5M + predictor ~1.5M)
+
+experiment_name: jepa_small
+
+seed: 42
+
+# --- Data ---
+data_dir: /scratch/${USER}/data/active_matter
+in_channels: 11
+batch_size: 4
+num_workers: 4
+
+# --- Encoder ---
+patch_size: [2, 16, 16]    # tube patches: 2 temporal × 16×16 spatial → 1568 tokens
+embed_dim: 384
+encoder_depth: 6
+num_heads: 6
+mlp_ratio: 4.0
+drop_rate: 0.0
+
+# --- JEPA Objective ---
+target_ratio: 0.20
+context_ratio: 0.40
+predictor_dim: 256
+predictor_depth: 3
+predictor_heads: 4
+ema_momentum: 0.996
+
+# --- Optimizer ---
+lr: 1.5e-4
+weight_decay: 0.05
+betas: [0.9, 0.95]
+
+# --- Training ---
+epochs: 100
+checkpoint_dir: /scratch/${USER}/checkpoints
+checkpoint_every: 10
+
+# --- Logging ---
+wandb_project: dl-active-matter
