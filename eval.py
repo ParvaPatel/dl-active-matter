@@ -28,7 +28,7 @@ def parse_args():
 
 
 @torch.no_grad()
-def extract_features(encoder, dataloader, device):
+def extract_features(encoder, dataloader, device, context_frames=16):
     """Extract mean-pooled features from frozen encoder."""
     encoder.eval()
     all_features = []
@@ -37,6 +37,11 @@ def extract_features(encoder, dataloader, device):
 
     for batch_idx, (x, labels) in enumerate(dataloader):
         x = x.to(device, non_blocking=True)
+        
+        # If the sample has more frames than the encoder expects (e.g. JEPA uses 32, wants 16)
+        if x.shape[1] > context_frames:
+            x = x[:, :context_frames]
+
         with autocast("cuda"):
             features = encoder(x)              # (B, N, D)
             features = encoder.mean_pool(features)  # (B, D)
@@ -45,7 +50,7 @@ def extract_features(encoder, dataloader, device):
         all_zeta.append(labels["zeta"])
 
         if batch_idx % 50 == 0:
-            print(f"    Processed batch {batch_idx}/{len(dataloader)}")
+            print(f"    Processed batch {batch_idx}/{len(dataloader)}", flush=True)
 
     features = torch.cat(all_features, dim=0).numpy()
     alpha = torch.cat(all_alpha, dim=0).numpy()
@@ -146,17 +151,20 @@ def main():
     print(f"Encoder parameters: {count_parameters(encoder):,}")
 
     # Data
-    train_ds = ActiveMatterDataset(data_dir, split="train")
-    eval_ds = ActiveMatterDataset(data_dir, split=args.split)
+    n_frames_total = cfg.get("n_frames", 16)
+    context_frames_eval = cfg.get("context_frames", 16)
+
+    train_ds = ActiveMatterDataset(data_dir, split="train", n_frames=n_frames_total)
+    eval_ds = ActiveMatterDataset(data_dir, split=args.split, n_frames=n_frames_total)
 
     train_loader = DataLoader(train_ds, batch_size=args.batch_size, shuffle=False, num_workers=4, pin_memory=True)
     eval_loader = DataLoader(eval_ds, batch_size=args.batch_size, shuffle=False, num_workers=4, pin_memory=True)
 
     # Extract features
     print("Extracting train features...")
-    train_feat, train_alpha, train_zeta = extract_features(encoder, train_loader, device)
+    train_feat, train_alpha, train_zeta = extract_features(encoder, train_loader, device, context_frames_eval)
     print("Extracting eval features...")
-    eval_feat, eval_alpha, eval_zeta = extract_features(encoder, eval_loader, device)
+    eval_feat, eval_alpha, eval_zeta = extract_features(encoder, eval_loader, device, context_frames_eval)
 
     # Z-score normalize targets
     scaler = StandardScaler()

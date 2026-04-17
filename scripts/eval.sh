@@ -29,6 +29,8 @@ singularity exec --nv \
     source /ext3/miniconda3/etc/profile.d/conda.sh
     conda activate dl-active-matter
 
+    export PYTHONUNBUFFERED=1
+
     cd /scratch/\$USER/dl-active-matter
 
     python eval.py \\
