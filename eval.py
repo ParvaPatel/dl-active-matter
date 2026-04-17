@@ -21,7 +21,7 @@ def parse_args():
     parser.add_argument("--split", type=str, default="val", choices=["val", "test"])
     parser.add_argument("--data_dir", type=str, default=None, help="Override data dir from config")
     parser.add_argument("--batch_size", type=int, default=16)
-    parser.add_argument("--probe_epochs", type=int, default=50)
+    parser.add_argument("--probe_epochs", type=int, default=100)
     parser.add_argument("--probe_lr", type=float, default=1e-3)
     parser.add_argument("--k", type=int, default=10, help="k for kNN")
     return parser.parse_args()
@@ -54,7 +54,7 @@ def extract_features(encoder, dataloader, device):
 
 
 def linear_probe(train_features, train_targets, val_features, val_targets,
-                 embed_dim, epochs=50, lr=1e-3, device="cuda"):
+                 embed_dim, epochs=100, lr=1e-3, device="cuda"):
     """Train a single linear layer on frozen features."""
     probe = nn.Linear(embed_dim, 2).to(device)  # Predict [alpha, zeta]
     optimizer = torch.optim.Adam(probe.parameters(), lr=lr)
@@ -67,6 +67,7 @@ def linear_probe(train_features, train_targets, val_features, val_targets,
     y_val = torch.tensor(val_targets, dtype=torch.float32).to(device)
 
     best_mse = float("inf")
+    best_state = None
     for epoch in range(epochs):
         probe.train()
         pred = probe(X_train)
@@ -82,11 +83,13 @@ def linear_probe(train_features, train_targets, val_features, val_targets,
 
         if val_mse < best_mse:
             best_mse = val_mse
+            best_state = {k: v.clone() for k, v in probe.state_dict().items()}
 
         if epoch % 10 == 0:
             print(f"  Probe epoch {epoch} | Train MSE: {loss.item():.4f} | Val MSE: {val_mse:.4f}")
 
-    # Per-target MSE
+    # Reload best weights for per-target MSE breakdown
+    probe.load_state_dict(best_state)
     probe.eval()
     with torch.no_grad():
         val_pred = probe(X_val)
@@ -183,7 +186,8 @@ def main():
     print("=" * 50)
     print(f"{'Method':<15} {'Total MSE':<12} {'α MSE':<12} {'ζ MSE':<12}")
     print(f"{'Linear Probe':<15} {lp_mse:<12.4f} {lp_alpha:<12.4f} {lp_zeta:<12.4f}")
-    print(f"{'kNN (k={args.k})':<15} {knn_mse:<12.4f} {knn_alpha:<12.4f} {knn_zeta:<12.4f}")
+    knn_label = f"kNN (k={args.k})"
+    print(f"{knn_label:<15} {knn_mse:<12.4f} {knn_alpha:<12.4f} {knn_zeta:<12.4f}")
 
 
 if __name__ == "__main__":
