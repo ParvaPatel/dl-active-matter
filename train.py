@@ -46,7 +46,7 @@ def train_one_epoch(model, dataloader, optimizer, scaler, device, epoch):
         num_batches += 1
 
         if batch_idx % 50 == 0:
-            print(f"  Epoch {epoch} | Batch {batch_idx} | Loss: {loss.item():.4f}")
+            print(f"  Epoch {epoch} | Batch {batch_idx} | Loss: {loss.item():.4f}", flush=True)
             if wandb and wandb.run:
                 wandb.log({"train/batch_loss": loss.item(), "epoch": epoch, "batch": batch_idx})
 
@@ -199,7 +199,7 @@ def main():
         train_loss = train_one_epoch(model, train_loader, optimizer, scaler, device, epoch)
         val_loss = validate(model, val_loader, device)
 
-        print(f"Epoch {epoch} | Train Loss: {train_loss:.4f} | Val Loss: {val_loss:.4f}")
+        print(f"Epoch {epoch} | Train Loss: {train_loss:.4f} | Val Loss: {val_loss:.4f}", flush=True)
         if use_wandb and wandb.run:
             wandb.log({
                 "train/loss": train_loss,
