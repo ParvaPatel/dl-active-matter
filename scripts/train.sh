@@ -31,6 +31,11 @@ singularity exec --nv \
 
     cd /scratch/\$USER/dl-active-matter
 
+    # Source .env if it exists (great for WANDB_API_KEY)
+    if [ -f ".env" ]; then
+        export \$(cat .env | grep -v '^#' | xargs)
+    fi
+
     python train.py --config $CONFIG
 
     echo '=== Job finished at \$(date) ==='
