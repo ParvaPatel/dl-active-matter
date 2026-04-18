@@ -108,23 +108,30 @@ class ActiveMatterDataset(Dataset):
         file_idx, traj_idx, t_start = self.samples[idx]
         t_end = t_start + self.n_frames
 
-        with h5py.File(self.files[file_idx], "r") as f:
-            # Read labels — try scalars/ datasets first, then attributes, then filename
-            alpha = self._read_label(f, "alpha")
-            zeta = self._read_label(f, "zeta")
+        # Cache file handles per-worker to prevent h5py memory leak & speed up
+        if not hasattr(self, "_handles"):
+            self._handles = {}
+        if file_idx not in self._handles:
+            self._handles[file_idx] = h5py.File(self.files[file_idx], "r")
+            
+        f = self._handles[file_idx]
 
-            # Read fields for this trajectory and time window
-            # concentration: (N, T, H, W) → (n_frames, 1, H, W)
-            conc = f["t0_fields/concentration"][traj_idx, t_start:t_end]  # (16, 256, 256)
+        # Read labels — try scalars/ datasets first, then attributes, then filename
+        alpha = self._read_label(f, "alpha")
+        zeta = self._read_label(f, "zeta")
 
-            # velocity: (N, T, H, W, 2) → (n_frames, 2, H, W)
-            vel = f["t1_fields/velocity"][traj_idx, t_start:t_end]  # (16, 256, 256, 2)
+        # Read fields for this trajectory and time window
+        # concentration: (N, T, H, W) → (n_frames, 1, H, W)
+        conc = f["t0_fields/concentration"][traj_idx, t_start:t_end]  # (16, 256, 256)
 
-            # D (orientation): (N, T, H, W, 2, 2) → (n_frames, 4, H, W)
-            D = f["t2_fields/D"][traj_idx, t_start:t_end]  # (16, 256, 256, 2, 2)
+        # velocity: (N, T, H, W, 2) → (n_frames, 2, H, W)
+        vel = f["t1_fields/velocity"][traj_idx, t_start:t_end]  # (16, 256, 256, 2)
 
-            # E (strain-rate): (N, T, H, W, 2, 2) → (n_frames, 4, H, W)
-            E = f["t2_fields/E"][traj_idx, t_start:t_end]  # (16, 256, 256, 2, 2)
+        # D (orientation): (N, T, H, W, 2, 2) → (n_frames, 4, H, W)
+        D = f["t2_fields/D"][traj_idx, t_start:t_end]  # (16, 256, 256, 2, 2)
+
+        # E (strain-rate): (N, T, H, W, 2, 2) → (n_frames, 4, H, W)
+        E = f["t2_fields/E"][traj_idx, t_start:t_end]  # (16, 256, 256, 2, 2)
 
         # Reshape to (T, C, H, W)
         T, H, W = conc.shape
