@@ -157,8 +157,8 @@ def main():
     train_ds = ActiveMatterDataset(data_dir, split="train", n_frames=n_frames_total)
     eval_ds = ActiveMatterDataset(data_dir, split=args.split, n_frames=n_frames_total)
 
-    train_loader = DataLoader(train_ds, batch_size=args.batch_size, shuffle=False, num_workers=2, pin_memory=True)
-    eval_loader = DataLoader(eval_ds, batch_size=args.batch_size, shuffle=False, num_workers=2, pin_memory=True)
+    train_loader = DataLoader(train_ds, batch_size=args.batch_size, shuffle=False, num_workers=4, pin_memory=True)
+    eval_loader = DataLoader(eval_ds, batch_size=args.batch_size, shuffle=False, num_workers=4, pin_memory=True)
 
     # Extract features
     print("Extracting train features...")
