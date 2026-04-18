@@ -1,11 +1,11 @@
 #!/bin/bash
 #SBATCH --job-name=eval-probe
 #SBATCH --account=csci_ga_2572-2026sp
-#SBATCH --partition=g2-standard-12
+#SBATCH --partition=c12m85-a100-1
 #SBATCH --gres=gpu:1
 #SBATCH --cpus-per-task=4
-#SBATCH --mem=24G
-#SBATCH --time=01:00:00
+#SBATCH --mem=40G
+#SBATCH --time=12:00:00
 #SBATCH --output=logs/eval-%x-%j.out
 #SBATCH --error=logs/eval-%x-%j.out
 #SBATCH --requeue
