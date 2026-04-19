@@ -21,7 +21,7 @@ def parse_args():
     parser.add_argument("--split", type=str, default="val", choices=["val", "test"])
     parser.add_argument("--data_dir", type=str, default=None, help="Override data dir from config")
     parser.add_argument("--batch_size", type=int, default=16)
-    parser.add_argument("--probe_epochs", type=int, default=100)
+    parser.add_argument("--probe_epochs", type=int, default=200)
     parser.add_argument("--probe_lr", type=float, default=1e-3)
     parser.add_argument("--k", type=int, default=10, help="k for kNN")
     return parser.parse_args()
@@ -59,10 +59,11 @@ def extract_features(encoder, dataloader, device, context_frames=16):
 
 
 def linear_probe(train_features, train_targets, val_features, val_targets,
-                 embed_dim, epochs=100, lr=1e-3, device="cuda"):
+                 embed_dim, epochs=200, lr=1e-3, device="cuda"):
     """Train a single linear layer on frozen features."""
     probe = nn.Linear(embed_dim, 2).to(device)  # Predict [alpha, zeta]
     optimizer = torch.optim.Adam(probe.parameters(), lr=lr)
+    scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=epochs, eta_min=1e-6)
     criterion = nn.MSELoss()
 
     # Convert to tensors
@@ -80,6 +81,7 @@ def linear_probe(train_features, train_targets, val_features, val_targets,
         optimizer.zero_grad()
         loss.backward()
         optimizer.step()
+        scheduler.step()
 
         probe.eval()
         with torch.no_grad():
@@ -166,10 +168,22 @@ def main():
     print("Extracting eval features...")
     eval_feat, eval_alpha, eval_zeta = extract_features(encoder, eval_loader, device, context_frames_eval)
 
+    # Feature statistics (for debugging scale drift)
+    print(f"\nFeature stats (raw):")
+    print(f"  Train — mean: {train_feat.mean():.4f}, std: {train_feat.std():.4f}, "
+          f"min: {train_feat.min():.4f}, max: {train_feat.max():.4f}")
+    print(f"  Eval  — mean: {eval_feat.mean():.4f}, std: {eval_feat.std():.4f}, "
+          f"min: {eval_feat.min():.4f}, max: {eval_feat.max():.4f}")
+
+    # Z-score normalize features (critical for scale-invariant probing)
+    feat_scaler = StandardScaler()
+    train_feat = feat_scaler.fit_transform(train_feat)
+    eval_feat = feat_scaler.transform(eval_feat)
+
     # Z-score normalize targets
-    scaler = StandardScaler()
-    train_targets = scaler.fit_transform(np.stack([train_alpha, train_zeta], axis=1))
-    eval_targets = scaler.transform(np.stack([eval_alpha, eval_zeta], axis=1))
+    target_scaler = StandardScaler()
+    train_targets = target_scaler.fit_transform(np.stack([train_alpha, train_zeta], axis=1))
+    eval_targets = target_scaler.transform(np.stack([eval_alpha, eval_zeta], axis=1))
 
     embed_dim = cfg.get("embed_dim", 384)
 

@@ -37,7 +37,7 @@ singularity exec --nv \
       --checkpoint $CHECKPOINT \\
       --split $SPLIT \\
       --batch_size 16 \\
-      --probe_epochs 50 \\
+      --probe_epochs 200 \\
       --k 10
 
     echo '=== Eval finished at \$(date) ==='
