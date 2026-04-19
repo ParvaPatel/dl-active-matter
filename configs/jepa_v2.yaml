@@ -1,0 +1,52 @@
+# Video-JEPA v2 — improved regularization config
+# Changes from v1: Full VICReg, cosine LR, EMA warmup, gradient clipping
+
+experiment_name: jepa_v2
+
+seed: 42
+
+# --- Data ---
+data_dir: /scratch/${USER}/data/active_matter
+in_channels: 11
+n_frames: 32             # 32 total: 16 context + 16 target
+context_frames: 16       # first 16 → online encoder
+batch_size: 4
+num_workers: 4
+
+# --- Encoder (same as v1 for fair comparison) ---
+patch_size: [2, 16, 16]
+embed_dim: 384
+encoder_depth: 6
+num_heads: 6
+mlp_ratio: 4.0
+drop_rate: 0.0
+
+# --- JEPA Predictor (same as v1) ---
+predictor_dim: 256
+predictor_depth: 3
+predictor_heads: 4
+
+# --- EMA Schedule (cosine warmup) ---
+ema_momentum_start: 0.996
+ema_momentum_end: 0.999
+
+# --- VICReg Regularization (NEW in v2) ---
+var_weight: 5.0          # 5x stronger than v1 to fight feature σ collapse
+cov_weight: 0.04         # decorrelate feature dimensions
+var_gamma: 1.0           # target std per dimension
+
+# --- Optimizer ---
+lr: 1.5e-4
+min_lr: 1.0e-6           # cosine schedule floor
+weight_decay: 0.05
+betas: [0.9, 0.95]
+warmup_epochs: 10        # linear LR warmup
+grad_clip: 1.0           # gradient clipping max norm
+
+# --- Training ---
+epochs: 100
+checkpoint_dir: /scratch/${USER}/checkpoints
+checkpoint_every: 5      # finer-grained checkpoints for analysis
+
+# --- Logging ---
+wandb_project: dl-active-matter

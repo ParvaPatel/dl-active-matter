@@ -37,7 +37,9 @@ singularity exec --nv \
     fi
 
     # Route to correct entrypoint based on config name
-    if [[ "$CONFIG" == *"jepa"* ]]; then
+    if [[ "$CONFIG" == *"jepa_v2"* ]]; then
+        python train_jepa_v2.py --config $CONFIG
+    elif [[ "$CONFIG" == *"jepa"* ]]; then
         python train_jepa.py --config $CONFIG
     else
         python train.py --config $CONFIG
