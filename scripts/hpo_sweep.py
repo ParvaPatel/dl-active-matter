@@ -29,6 +29,7 @@ Usage:
 import os
 import sys
 import math
+import signal
 import argparse
 import yaml
 import copy
@@ -52,6 +53,39 @@ from data.dataset import ActiveMatterDataset
 from models.encoder import SpatioTemporalViT, count_parameters
 from models.jepa_v3 import VideoJEPAv3
 from utils.training import set_seed, log_gpu_memory
+
+
+# ---------------------------------------------------------------------------
+# Graceful shutdown for SLURM preemption
+# ---------------------------------------------------------------------------
+
+class GracefulKiller:
+    """Catches SIGTERM/SIGUSR1 from SLURM to stop the study between trials.
+
+    SLURM sends SIGTERM ~30s before killing a job (preemption or walltime).
+    Some clusters send SIGUSR1 even earlier as a warning.
+    When caught, we set a flag so the current trial finishes its epoch,
+    then the study stops cleanly — all completed trials stay in SQLite.
+    """
+    kill_now = False
+
+    def __init__(self):
+        signal.signal(signal.SIGTERM, self._handler)
+        # SIGUSR1 is not available on Windows, but HPC is Linux
+        if hasattr(signal, "SIGUSR1"):
+            signal.signal(signal.SIGUSR1, self._handler)
+
+    def _handler(self, signum, frame):
+        sig_name = signal.Signals(signum).name
+        print(f"\n{'!'*60}")
+        print(f"RECEIVED {sig_name} — stopping after current trial completes")
+        print(f"Completed trials are safe in SQLite. Resubmit to resume.")
+        print(f"{'!'*60}\n", flush=True)
+        self.kill_now = True
+
+
+# Global killer instance (set in main)
+_killer = None
 
 
 # ---------------------------------------------------------------------------
@@ -182,6 +216,11 @@ def create_objective(cfg, train_loader, val_loader, device):
         best_val = float("inf")
 
         for epoch in range(hpo_epochs):
+            # Check for SLURM shutdown signal before starting a new epoch
+            if _killer is not None and _killer.kill_now:
+                print(f"  Trial {trial.number} interrupted by shutdown signal at epoch {epoch}")
+                break
+
             current_lr = get_lr(epoch, hpo_epochs, warmup_epochs, lr, min_lr)
             set_lr(optimizer, current_lr)
             ema_m = get_ema_momentum(epoch, hpo_epochs, ema_start, ema_end)
@@ -303,8 +342,18 @@ def main():
         sampler=optuna.samplers.TPESampler(seed=cfg.get("seed", 42)),
     )
 
+    # Set up graceful shutdown handler
+    global _killer
+    _killer = GracefulKiller()
+
+    def stop_callback(study, trial):
+        """Stop the study if SLURM sent a shutdown signal."""
+        if _killer.kill_now:
+            print("Stopping study due to shutdown signal...")
+            study.stop()
+
     objective = create_objective(cfg, train_loader, val_loader, device)
-    study.optimize(objective, n_trials=args.n_trials)
+    study.optimize(objective, n_trials=args.n_trials, callbacks=[stop_callback])
 
     # ---- Print results ----
     print("\n" + "=" * 60)
