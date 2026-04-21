@@ -1,0 +1,57 @@
+# Video-JEPA v3 — v1's loss + v2's training stabilizers + performance optimizations
+# Key: raw MSE prediction (not L2-normed), moderate VICReg, cosine LR, EMA warmup
+
+experiment_name: jepa_v3
+
+seed: 42
+
+# --- Data ---
+data_dir: /scratch/${USER}/data/active_matter
+in_channels: 11
+n_frames: 32             # 32 total: 16 context + 16 target
+context_frames: 16       # first 16 → online encoder
+batch_size: 4
+num_workers: 4
+
+# --- Encoder (same architecture for fair comparison) ---
+patch_size: [2, 16, 16]
+embed_dim: 384
+encoder_depth: 6
+num_heads: 6
+mlp_ratio: 4.0
+drop_rate: 0.0
+
+# --- JEPA Predictor ---
+predictor_dim: 256
+predictor_depth: 3
+predictor_heads: 4
+
+# --- EMA Schedule (cosine warmup, from v2) ---
+ema_momentum_start: 0.996
+ema_momentum_end: 0.999
+
+# --- VICReg Regularization (tuned down from v2) ---
+var_weight: 1.0          # v1 level — prediction loss must dominate
+cov_weight: 0.01         # very gentle decorrelation (v2 was 0.04)
+var_gamma: 1.0           # target std per dimension
+
+# --- Optimizer (training stabilizers from v2) ---
+lr: 1.5e-4
+min_lr: 1.0e-6           # cosine schedule floor
+weight_decay: 0.05
+betas: [0.9, 0.95]
+warmup_epochs: 10        # linear LR warmup
+grad_clip: 1.0           # gradient clipping max norm
+
+# --- Performance Optimizations ---
+grad_accum_steps: 2      # effective batch = 4 × 2 = 8 (better VICReg stats, no extra VRAM)
+early_stopping_patience: 15  # stop if val_loss doesn't improve for 15 epochs
+compile: true            # torch.compile() — 10-30% speedup (PyTorch 2.x)
+
+# --- Training ---
+epochs: 100
+checkpoint_dir: /scratch/${USER}/checkpoints
+checkpoint_every: 5      # finer-grained checkpoints for analysis
+
+# --- Logging ---
+wandb_project: dl-active-matter
