@@ -263,7 +263,15 @@ def main():
     parser = argparse.ArgumentParser(description="HPO sweep for JEPA v3")
     parser.add_argument("--config", type=str, required=True, help="Base YAML config")
     parser.add_argument("--n_trials", type=int, default=20, help="Number of Optuna trials")
-    parser.add_argument("--hpo_epochs", type=int, default=30, help="Epochs per trial (shortened)")
+    parser.add_argument("--hpo_epochs", type=int, default=15,
+                        help="Epochs per trial. 15 is enough to see trends with pruning kicking in at epoch 5.")
+    parser.add_argument("--hpo_subsample", type=float, default=0.20,
+                        help="Fraction of training data to use per trial (default: 0.20). "
+                             "HPO only needs relative ranking, not the full dataset. "
+                             "0.20 × 8750 = 1750 samples → ~100 batches/epoch at bs=16 → ~1 min/epoch.")
+    parser.add_argument("--hpo_batch_size", type=int, default=16,
+                        help="Batch size for HPO trials (default: 16). Larger than training bs=4 "
+                             "because we're not memory-constrained in short trials and want faster epochs.")
     parser.add_argument("--study_name", type=str, default="jepa_v3_hpo", help="Optuna study name")
     parser.add_argument("--db_path", type=str, default=None, help="SQLite DB path for study persistence")
     args = parser.parse_args()
@@ -281,10 +289,20 @@ def main():
     set_seed(cfg.get("seed", 42))
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
+    # Speed calculation for the user
+    full_n = 8750  # approximate, shown in logs
+    subsample_n = int(full_n * args.hpo_subsample)
+    batches_per_epoch = subsample_n // args.hpo_batch_size
+    est_min_per_epoch = batches_per_epoch * 3 / 60  # ~3s/batch on A100
+    est_total_h = args.hpo_epochs * est_min_per_epoch * args.n_trials / 60
+
     print("=" * 60)
     print(f"HPO SWEEP: {args.study_name}")
-    print(f"  Trials: {args.n_trials}")
-    print(f"  Epochs per trial: {args.hpo_epochs}")
+    print(f"  Trials: {args.n_trials} | Epochs/trial: {args.hpo_epochs}")
+    print(f"  Train subsample: {args.hpo_subsample:.0%} × ~{full_n} = ~{subsample_n} samples")
+    print(f"  Batch size (HPO): {args.hpo_batch_size} → ~{batches_per_epoch} batches/epoch")
+    print(f"  Estimated time: ~{est_min_per_epoch:.1f} min/epoch, "
+          f"~{est_total_h:.1f} GPU-hours total (before pruning)")
     print(f"  Search space:")
     print(f"    var_weight:   [0.25, 3.0]  (log-uniform)")
     print(f"    cov_weight:   [0.001, 0.05] (log-uniform)")
@@ -307,14 +325,27 @@ def main():
             generator=torch.Generator().manual_seed(cfg.get("seed", 42)),
         )
 
+    # Subsample training data for HPO speed.
+    # HPO only needs to rank hyperparameter combos, not learn the full dataset.
+    # 20% of data gives the same relative ranking at 5x the speed.
+    n_subsample = max(1, int(len(train_ds) * args.hpo_subsample))
+    n_discard = len(train_ds) - n_subsample
+    train_ds_hpo, _ = random_split(
+        train_ds, [n_subsample, n_discard],
+        generator=torch.Generator().manual_seed(cfg.get("seed", 42)),
+    )
+    print(f"Train subsample: {len(train_ds_hpo)}/{len(train_ds)} samples "
+          f"({args.hpo_subsample:.0%}) for HPO speed")
+
     num_workers = cfg.get("num_workers", 4)
+    hpo_batch_size = args.hpo_batch_size
     train_loader = DataLoader(
-        train_ds, batch_size=cfg["batch_size"], shuffle=True,
+        train_ds_hpo, batch_size=hpo_batch_size, shuffle=True,
         num_workers=num_workers, pin_memory=True, drop_last=True,
         persistent_workers=num_workers > 0,
     )
     val_loader = DataLoader(
-        val_ds, batch_size=cfg["batch_size"], shuffle=False,
+        val_ds, batch_size=hpo_batch_size, shuffle=False,
         num_workers=num_workers, pin_memory=True,
         persistent_workers=num_workers > 0,
     )
@@ -337,7 +368,7 @@ def main():
         load_if_exists=True,  # resume previous study if DB exists
         pruner=optuna.pruners.MedianPruner(
             n_startup_trials=3,   # don't prune the first 3 trials (need baseline)
-            n_warmup_steps=10,    # don't prune before epoch 10 (LR warmup phase)
+            n_warmup_steps=5,     # with 15 epochs total, prune after epoch 5 (warmup done)
         ),
         sampler=optuna.samplers.TPESampler(seed=cfg.get("seed", 42)),
     )
