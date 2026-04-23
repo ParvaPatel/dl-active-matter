@@ -28,7 +28,7 @@ def log_gpu_memory(tag=""):
     allocated = torch.cuda.memory_allocated() / 1024**3
     reserved = torch.cuda.memory_reserved() / 1024**3
     max_allocated = torch.cuda.max_memory_allocated() / 1024**3
-    total = torch.cuda.get_device_properties(0).total_mem / 1024**3
+    total = torch.cuda.get_device_properties(0).total_memory / 1024**3
     utilization = max_allocated / total * 100
     print(
         f"GPU Memory {tag}: "

@@ -164,9 +164,9 @@ class VideoJEPAv3(nn.Module):
         # pred_loss dominates (~0.01–0.5), VICReg is a gentle regularizer
         total_loss = pred_loss + self.var_weight * var_loss + self.cov_weight * cov_loss
 
-        # --- Monitoring metric ---
-        target_std = torch.sqrt(
-            flat_target.var(dim=0) + 1e-4
-        ).mean().item()
+        # --- Monitoring metric (returned as tensor — caller calls .item() outside compiled region) ---
+        # NOTE: .item() inside a compiled forward() causes a graph break in torch.compile,
+        # splitting the graph into two and reducing the speedup. Keep as tensor here.
+        target_std = torch.sqrt(flat_target.var(dim=0) + 1e-4).mean()
 
         return total_loss, pred_loss, var_loss, cov_loss, target_std

@@ -83,6 +83,9 @@ def train_one_epoch(model, dataloader, optimizer, scaler, device, epoch,
             # Scale loss by accumulation steps for correct gradient magnitude
             scaled_loss = total_loss / grad_accum_steps
 
+        # .item() called OUTSIDE autocast/compiled region to avoid torch.compile graph break
+        target_std_val = target_std.item()
+
         scaler.scale(scaled_loss).backward()
 
         # Step optimizer every grad_accum_steps batches (or at end of epoch)
@@ -110,7 +113,7 @@ def train_one_epoch(model, dataloader, optimizer, scaler, device, epoch,
                 f"  Epoch {epoch} | Batch {batch_idx} | "
                 f"Total: {total_loss.item():.4f} | Pred: {pred_loss.item():.4f} | "
                 f"Var: {var_loss.item():.4f} | Cov: {cov_loss.item():.4f} | "
-                f"TargetStd: {target_std:.4f} | LR: {current_lr:.2e} | "
+                f"TargetStd: {target_std_val:.4f} | LR: {current_lr:.2e} | "
                 f"EMA_m: {ema_momentum:.4f}",
                 flush=True,
             )
@@ -120,12 +123,13 @@ def train_one_epoch(model, dataloader, optimizer, scaler, device, epoch,
                     "train/batch_pred_loss": pred_loss.item(),
                     "train/batch_var_loss": var_loss.item(),
                     "train/batch_cov_loss": cov_loss.item(),
-                    "train/target_std": target_std,
+                    "train/target_std": target_std_val,
                     "train/lr": current_lr,
                     "train/ema_momentum": ema_momentum,
                     "epoch": epoch,
                     "batch": batch_idx,
                 })
+
 
         # Log GPU memory after first batch (once per training run)
         if epoch == 0 and batch_idx == 0:
