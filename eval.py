@@ -137,15 +137,30 @@ def main():
         mlp_ratio=cfg.get("mlp_ratio", 4.0),
     )
 
-    # Load encoder weights (handle full MAE checkpoint)
+    # Load encoder weights — handle 3 checkpoint formats:
+    #   1. Plain keys:             "pos_embed", "blocks.0.*"  — VideoMAE / raw encoder
+    #   2. JEPA (no compile):      "encoder.*", "target_encoder.*", "predictor.*"
+    #   3. JEPA + torch.compile:   "_orig_mod.encoder.*" — torch.compile wraps the whole
+    #                              model and prepends "_orig_mod." to every key.
     state_dict = ckpt["model_state_dict"]
-    encoder_state = {
-        k.replace("encoder.", ""): v
-        for k, v in state_dict.items()
-        if k.startswith("encoder.")
-    }
-    if not encoder_state:
-        encoder_state = state_dict
+
+    def extract_encoder_state(sd):
+        """Strip _orig_mod. and/or encoder. prefixes, return encoder-only weights."""
+        # Normalise: remove _orig_mod. prefix added by torch.compile
+        sd = {k.replace("_orig_mod.", ""): v for k, v in sd.items()}
+        # Try to extract encoder sub-module keys
+        encoder_sd = {
+            k[len("encoder."):]: v
+            for k, v in sd.items()
+            if k.startswith("encoder.")
+        }
+        if encoder_sd:
+            return encoder_sd
+        # Fallback: assume the whole state dict IS the encoder (VideoMAE / raw encoder ckpt)
+        return sd
+
+    encoder_state = extract_encoder_state(state_dict)
+
     encoder.load_state_dict(encoder_state)
     encoder = encoder.to(device)
     encoder.eval()
