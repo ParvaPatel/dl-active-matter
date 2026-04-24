@@ -45,18 +45,24 @@ var_weight: 0.256809   # was 1.0 — HPO found optimal is 4x lower
 cov_weight: 0.009520   # was 0.01 — essentially confirmed correct
 var_gamma: 1.0
 
-# --- Optimizer (HPO-tuned) ---
-lr: 0.000340           # was 1.5e-4 — HPO found optimal is 2.3x higher
+# --- Optimizer (HPO-tuned, batch-size corrected) ---
+# HPO found lr=3.4e-4 with bs=16. Full training uses effective bs=8 (4×2 accum).
+# Linear scaling rule: lr ∝ bs → 3.4e-4 × (8/16) = 1.7e-4
+lr: 1.7e-4
 min_lr: 1.0e-6
-weight_decay: 0.086518 # was 0.05 — HPO found slightly higher wd helps
+weight_decay: 0.086518
 betas: [0.9, 0.95]
 warmup_epochs: 10
 grad_clip: 1.0
 
-# --- Performance Optimizations (same as v3) ---
+# --- Performance Optimizations ---
 grad_accum_steps: 2
-early_stopping_patience: 15
+# Early stopping: warmup causes val loss to temporarily increase (expected).
+# Don't start counting "no improvement" until after warmup(10) + grace(10) = epoch 20.
+early_stopping_patience: 20    # epochs of no improvement before stopping
+early_stopping_start_epoch: 20 # warmup(10) + grace period(10)
 compile: true
+
 
 # --- Training ---
 epochs: 100

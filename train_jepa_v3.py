@@ -269,10 +269,14 @@ def main():
     grad_clip = cfg.get("grad_clip", 1.0)
     grad_accum_steps = cfg.get("grad_accum_steps", 1)
     early_stopping_patience = cfg.get("early_stopping_patience", 15)
+    # Don't start early stopping until past warmup + a grace period.
+    # Warmup causes val loss to temporarily worsen (LR is ramping up) —
+    # counting those epochs as "no improvement" fires early stopping prematurely.
+    early_stopping_start_epoch = cfg.get("early_stopping_start_epoch", warmup_epochs + 5)
 
     effective_batch = cfg["batch_size"] * grad_accum_steps
     print(f"Batch size: {cfg['batch_size']} × {grad_accum_steps} accum = {effective_batch} effective")
-    print(f"Early stopping: patience={early_stopping_patience} epochs")
+    print(f"Early stopping: patience={early_stopping_patience} epochs (active from epoch {early_stopping_start_epoch})")
 
     optimizer = torch.optim.AdamW(
         model.parameters(),
@@ -372,17 +376,20 @@ def main():
                 "experiment_name": experiment_name,
             }, checkpoint_dir, "best.pt")
             print(f"  -> New best val loss: {val_loss:.4f}")
-        else:
+        elif epoch >= early_stopping_start_epoch:
+            # Only count no-improvement epochs AFTER warmup+grace period
             epochs_without_improvement += 1
             print(f"  -> No improvement for {epochs_without_improvement}/{early_stopping_patience} epochs")
+        else:
+            print(f"  -> Val: {val_loss:.4f} (warmup phase, epoch {epoch}/{early_stopping_start_epoch-1} — early stopping not active)")
 
         # Periodic checkpoint (every 5 epochs for finer analysis)
         if (epoch + 1) % checkpoint_every == 0:
             save_checkpoint(ckpt_state, checkpoint_dir, f"epoch_{epoch+1}.pt")
             print(f"  -> Saved periodic checkpoint: epoch_{epoch+1}.pt")
 
-        # Early stopping check
-        if epochs_without_improvement >= early_stopping_patience:
+        # Early stopping check — only fires after warmup+grace period
+        if epoch >= early_stopping_start_epoch and epochs_without_improvement >= early_stopping_patience:
             print(f"\n{'='*60}")
             print(f"EARLY STOPPING at epoch {epoch} — no improvement for {early_stopping_patience} epochs")
             print(f"Best val loss: {best_val_loss:.4f}")
