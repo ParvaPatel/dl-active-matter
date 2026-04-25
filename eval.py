@@ -24,6 +24,10 @@ def parse_args():
     parser.add_argument("--probe_epochs", type=int, default=200)
     parser.add_argument("--probe_lr", type=float, default=1e-3)
     parser.add_argument("--k", type=int, default=10, help="k for kNN")
+    parser.add_argument("--use_target_encoder", action="store_true",
+                        help="Use EMA target encoder instead of online encoder. "
+                             "In JEPA/BYOL, the target (EMA) encoder is the recommended "
+                             "representation network for downstream evaluation.")
     return parser.parse_args()
 
 
@@ -142,24 +146,31 @@ def main():
     #   2. JEPA (no compile):      "encoder.*", "target_encoder.*", "predictor.*"
     #   3. JEPA + torch.compile:   "_orig_mod.encoder.*" — torch.compile wraps the whole
     #                              model and prepends "_orig_mod." to every key.
+    #
+    # JEPA has two encoders:
+    #   - online encoder ("encoder.*")        — trained to predict, not ideal for eval
+    #   - target encoder ("target_encoder.*") — EMA of online, recommended for downstream eval
     state_dict = ckpt["model_state_dict"]
+    encoder_key = "target_encoder" if args.use_target_encoder else "encoder"
 
-    def extract_encoder_state(sd):
-        """Strip _orig_mod. and/or encoder. prefixes, return encoder-only weights."""
-        # Normalise: remove _orig_mod. prefix added by torch.compile
+    def extract_encoder_state(sd, key="encoder"):
+        """Strip _orig_mod. prefix and extract named sub-module weights."""
+        # Remove _orig_mod. prefix added by torch.compile
         sd = {k.replace("_orig_mod.", ""): v for k, v in sd.items()}
-        # Try to extract encoder sub-module keys
-        encoder_sd = {
-            k[len("encoder."):]: v
+        # Extract the requested sub-module (encoder or target_encoder)
+        sub_sd = {
+            k[len(key) + 1:]: v
             for k, v in sd.items()
-            if k.startswith("encoder.")
+            if k.startswith(key + ".")
         }
-        if encoder_sd:
-            return encoder_sd
-        # Fallback: assume the whole state dict IS the encoder (VideoMAE / raw encoder ckpt)
+        if sub_sd:
+            return sub_sd
+        # Fallback: state dict IS the encoder (VideoMAE / raw encoder ckpt)
         return sd
 
-    encoder_state = extract_encoder_state(state_dict)
+    encoder_state = extract_encoder_state(state_dict, key=encoder_key)
+    enc_label = "target (EMA)" if args.use_target_encoder else "online"
+    print(f"Loading {enc_label} encoder weights ({len(encoder_state)} keys)")
 
     encoder.load_state_dict(encoder_state)
     encoder = encoder.to(device)

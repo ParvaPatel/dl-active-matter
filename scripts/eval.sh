@@ -11,15 +11,17 @@
 #SBATCH --requeue
 
 # ---- Usage ----
-# sbatch scripts/eval.sh                                                    # default: videomae_small/best.pt
-# sbatch scripts/eval.sh /scratch/$USER/checkpoints/jepa_small/best.pt      # custom checkpoint
-# sbatch scripts/eval.sh /scratch/$USER/checkpoints/videomae_small/best.pt test  # eval on test split
+# sbatch scripts/eval.sh <checkpoint> <split> [extra eval.py flags]
+# sbatch scripts/eval.sh /scratch/$USER/checkpoints/jepa_v3_tuned/epoch_90.pt test
+# sbatch scripts/eval.sh /scratch/$USER/checkpoints/jepa_v3_tuned/best.pt test --use_target_encoder
 
 CHECKPOINT=${1:-/scratch/$USER/checkpoints/videomae_small/best.pt}
 SPLIT=${2:-val}
+shift 2  # remaining args forwarded to eval.py (e.g. --use_target_encoder)
+EXTRA_ARGS="$@"
 
 echo "=== Eval started at $(date) ==="
-echo "Checkpoint: $CHECKPOINT | Split: $SPLIT"
+echo "Checkpoint: $CHECKPOINT | Split: $SPLIT | Extra: $EXTRA_ARGS"
 nvidia-smi
 
 singularity exec --nv \
@@ -38,7 +40,8 @@ singularity exec --nv \
       --split $SPLIT \\
       --batch_size 16 \\
       --probe_epochs 200 \\
-      --k 10
+      --k 10 \\
+      $EXTRA_ARGS
 
     echo '=== Eval finished at \$(date) ==='
   "
