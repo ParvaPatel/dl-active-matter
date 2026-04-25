@@ -317,7 +317,11 @@ def main():
             use_wandb = False
 
     # Training loop
-    best_val_loss = float("inf")
+    best_val_loss = float("inf")   # global best → controls best.pt
+    es_best_val_loss = float("inf")  # post-warmup best → controls early stopping
+    # NOTE: es_best_val_loss is intentionally NOT saved/loaded from checkpoint.
+    # On any resume it resets to inf, so the first post-warmup epoch becomes the
+    # new baseline. This correctly handles warmup-phase val_loss artifacts.
     epochs_without_improvement = 0
 
     for epoch in range(start_epoch, total_epochs):
@@ -335,10 +339,12 @@ def main():
         )
         val_loss = validate(model, val_loader, device)
 
+        in_warmup = epoch < early_stopping_start_epoch
         print(
             f"Epoch {epoch} | Train: {train_total:.4f} "
             f"(pred={train_pred:.4f}, var={train_var:.4f}, cov={train_cov:.4f}) | "
-            f"Val: {val_loss:.4f} | LR: {current_lr:.2e} | EMA: {ema_momentum:.4f}",
+            f"Val: {val_loss:.4f} | LR: {current_lr:.2e} | EMA: {ema_momentum:.4f}"
+            + (" [warmup]" if in_warmup else ""),
             flush=True,
         )
         if use_wandb and wandb.run:
@@ -364,10 +370,9 @@ def main():
         }
         save_checkpoint(ckpt_state, checkpoint_dir, "latest.pt")
 
-        # Save best + early stopping tracking
+        # --- Global best: saves best.pt (all epochs, including warmup) ---
         if val_loss < best_val_loss:
             best_val_loss = val_loss
-            epochs_without_improvement = 0
             save_checkpoint({
                 "epoch": epoch + 1,
                 "model_state_dict": model.state_dict(),
@@ -375,13 +380,23 @@ def main():
                 "val_loss": val_loss,
                 "experiment_name": experiment_name,
             }, checkpoint_dir, "best.pt")
-            print(f"  -> New best val loss: {val_loss:.4f}")
-        elif epoch >= early_stopping_start_epoch:
-            # Only count no-improvement epochs AFTER warmup+grace period
-            epochs_without_improvement += 1
-            print(f"  -> No improvement for {epochs_without_improvement}/{early_stopping_patience} epochs")
+            print(f"  -> New global best val loss: {val_loss:.4f} (saved best.pt)")
+
+        # --- Early stopping: tracks improvement only AFTER warmup ---
+        # Uses es_best_val_loss (separate from best_val_loss) so warmup-phase
+        # artifacts (e.g., low val at epoch 0 due to tiny warmup LR) don't
+        # prevent the patience counter from ever resetting during real training.
+        if not in_warmup:
+            if val_loss < es_best_val_loss:
+                es_best_val_loss = val_loss
+                epochs_without_improvement = 0
+                print(f"  -> New post-warmup best: {val_loss:.4f} (early stopping counter reset)")
+            else:
+                epochs_without_improvement += 1
+                print(f"  -> No improvement for {epochs_without_improvement}/{early_stopping_patience} epochs "
+                      f"(post-warmup best: {es_best_val_loss:.4f})")
         else:
-            print(f"  -> Val: {val_loss:.4f} (warmup phase, epoch {epoch}/{early_stopping_start_epoch-1} — early stopping not active)")
+            print(f"  -> Warmup phase (epoch {epoch+1}/{early_stopping_start_epoch}) — early stopping not active")
 
         # Periodic checkpoint (every 5 epochs for finer analysis)
         if (epoch + 1) % checkpoint_every == 0:
@@ -389,10 +404,10 @@ def main():
             print(f"  -> Saved periodic checkpoint: epoch_{epoch+1}.pt")
 
         # Early stopping check — only fires after warmup+grace period
-        if epoch >= early_stopping_start_epoch and epochs_without_improvement >= early_stopping_patience:
+        if not in_warmup and epochs_without_improvement >= early_stopping_patience:
             print(f"\n{'='*60}")
-            print(f"EARLY STOPPING at epoch {epoch} — no improvement for {early_stopping_patience} epochs")
-            print(f"Best val loss: {best_val_loss:.4f}")
+            print(f"EARLY STOPPING at epoch {epoch} — no post-warmup improvement for {early_stopping_patience} epochs")
+            print(f"Global best val: {best_val_loss:.4f} | Post-warmup best: {es_best_val_loss:.4f}")
             print(f"{'='*60}")
             break
 
