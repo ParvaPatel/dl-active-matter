@@ -1,0 +1,71 @@
+# Video-JEPA v3 — Strong Variance Config
+#
+# Motivation: jepa_v3_tuned (var_weight=0.257) still showed feature collapse:
+#   σ: 0.785 (ep5) → 0.229 (ep100), -71% collapse despite VICReg
+#   Best LP MSE: 0.0756 (ep90) vs JEPA v1: 0.0601 (no VICReg, full collapse)
+#
+# Hypothesis: HPO var_weight=0.257 was calibrated on 15-epoch trials.
+#   It's too weak for 100-epoch training where collapse accumulates.
+#   Target: maintain σ ≥ 0.45 throughout training.
+#   Fix: var_weight=0.8 (3x stronger) — strong enough to resist long-run collapse
+#        without dominating the prediction loss (pred_loss should still lead).
+#
+# Everything else identical to jepa_v3_tuned for clean ablation comparison.
+
+experiment_name: jepa_v3_strongvar
+
+seed: 42
+
+# --- Data ---
+data_dir: /scratch/${USER}/data/active_matter
+in_channels: 11
+n_frames: 32
+context_frames: 16
+batch_size: 4
+num_workers: 4
+
+# --- Encoder (unchanged for fair comparison) ---
+patch_size: [2, 16, 16]
+embed_dim: 384
+encoder_depth: 6
+num_heads: 6
+mlp_ratio: 4.0
+drop_rate: 0.0
+
+# --- JEPA Predictor (unchanged) ---
+predictor_dim: 256
+predictor_depth: 3
+predictor_heads: 4
+
+# --- EMA Schedule (unchanged) ---
+ema_momentum_start: 0.996
+ema_momentum_end: 0.999
+
+# --- VICReg Regularization ---
+# Key change: var_weight 0.257 → 0.8 (3x stronger to resist 100-epoch collapse)
+# cov_weight unchanged — confirmed correct by HPO
+var_weight: 0.8       # was 0.257 — stronger enforcement to maintain feature variance
+cov_weight: 0.009520  # unchanged from HPO-tuned
+var_gamma: 1.0
+
+# --- Optimizer (same as jepa_v3_tuned) ---
+lr: 1.7e-4
+min_lr: 1.0e-6
+weight_decay: 0.086518
+betas: [0.9, 0.95]
+warmup_epochs: 10
+grad_clip: 1.0
+
+# --- Performance Optimizations ---
+grad_accum_steps: 2
+early_stopping_patience: 20
+early_stopping_start_epoch: 20
+compile: true
+
+# --- Training ---
+epochs: 100
+checkpoint_dir: /scratch/${USER}/checkpoints
+checkpoint_every: 5
+
+# --- Logging ---
+wandb_project: dl-active-matter
