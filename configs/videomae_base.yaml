@@ -10,7 +10,7 @@ seed: 42
 # --- Data ---
 data_dir: /scratch/${USER}/data/active_matter
 in_channels: 11
-batch_size: 2        # reduced from 4 due to larger model
+batch_size: 4        # Base model ~7x larger; BS=4 should use ~25GB/39GB
 num_workers: 4
 
 # --- Encoder (ViT-Base) ---
@@ -32,7 +32,7 @@ lr: 1.5e-4
 weight_decay: 0.05
 betas: [0.9, 0.95]
 grad_clip: 1.0
-grad_accum_steps: 4  # bs=2 × 4 accum = effective bs=8
+grad_accum_steps: 2  # bs=4 × 2 accum = effective bs=8
 compile: true
 
 # --- Training ---
