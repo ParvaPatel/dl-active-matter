@@ -135,8 +135,10 @@ class VideoJEPA(nn.Module):
         total_loss = mse_loss + 1.0 * var_loss
 
         # Collapse monitoring metric: mean std of target features
+        # NOTE: returned as tensor (no .item()) to avoid torch.compile graph break.
+        # Caller should call .item() outside the compiled forward region.
         target_std = torch.sqrt(
             target_features.reshape(-1, target_features.shape[-1]).var(dim=0) + 1e-4
-        ).mean().item()
+        ).mean()
 
         return total_loss, mse_loss, var_loss, target_std

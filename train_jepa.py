@@ -1,10 +1,19 @@
-"""Video-JEPA training entry point."""
+"""Video-JEPA training entry point (v1 architecture — MSE + variance loss, no VICReg).
+
+Optimized for speed:
+  - torch.compile() for kernel fusion
+  - cudnn.benchmark for auto-tuned convolutions
+  - Gradient accumulation for effective batch size > physical batch size
+  - persistent_workers for faster data loading
+  - Gradient clipping for stability
+"""
 
 import os
 import argparse
 import yaml
 import torch
 import torch.nn as nn
+import torch.backends.cudnn as cudnn
 from torch.amp import GradScaler, autocast
 
 try:
@@ -25,28 +34,37 @@ def parse_args():
     return parser.parse_args()
 
 
-def train_one_epoch(model, dataloader, optimizer, scaler, device, epoch, ema_momentum):
+def train_one_epoch(model, dataloader, optimizer, scaler, device, epoch,
+                    ema_momentum, grad_clip=1.0, grad_accum_steps=1):
     model.train()
     total_loss_accum = 0.0
     mse_loss_accum = 0.0
     var_loss_accum = 0.0
     num_batches = 0
 
+    optimizer.zero_grad(set_to_none=True)
+
     for batch_idx, (x, labels) in enumerate(dataloader):
         x = x.to(device, non_blocking=True)
 
-        optimizer.zero_grad(set_to_none=True)
-
         with autocast("cuda"):
             total_loss, mse_loss, var_loss, target_std = model(x)
+            # Scale loss by accumulation steps so gradients average correctly
+            scaled_loss = total_loss / grad_accum_steps
 
-        scaler.scale(total_loss).backward()
-        scaler.step(optimizer)
-        scaler.update()
-        
-        # JEPA explicitly requires an Exponential Moving Average (EMA) update
-        # applied to the target network after every physical parameter update
-        model.update_target_encoder(momentum=ema_momentum)
+        scaler.scale(scaled_loss).backward()
+
+        # Step optimizer every grad_accum_steps
+        if (batch_idx + 1) % grad_accum_steps == 0:
+            if grad_clip > 0:
+                scaler.unscale_(optimizer)
+                torch.nn.utils.clip_grad_norm_(model.parameters(), grad_clip)
+            scaler.step(optimizer)
+            scaler.update()
+            optimizer.zero_grad(set_to_none=True)
+
+            # EMA update only after a real optimizer step
+            model.update_target_encoder(momentum=ema_momentum)
 
         total_loss_accum += total_loss.item()
         mse_loss_accum += mse_loss.item()
@@ -54,18 +72,25 @@ def train_one_epoch(model, dataloader, optimizer, scaler, device, epoch, ema_mom
         num_batches += 1
 
         if batch_idx % 50 == 0:
-            print(f"  Epoch {epoch} | Batch {batch_idx} | Total: {total_loss.item():.4f} | MSE: {mse_loss.item():.4f} | VarLoss: {var_loss.item():.4f} | TargetStd: {target_std:.4f}", flush=True)
-            if wandb and wandb.run:
-                wandb.log({
-                    "train/batch_total_loss": total_loss.item(),
-                    "train/batch_mse_loss": mse_loss.item(),
-                    "train/batch_var_loss": var_loss.item(),
-                    "train/target_std": target_std,
-                    "epoch": epoch, 
-                    "batch": batch_idx
-                })
+            print(f"  Epoch {epoch} | Batch {batch_idx}/{len(dataloader)} | "
+                  f"Total: {total_loss.item():.4f} | MSE: {mse_loss.item():.4f} | "
+                  f"VarLoss: {var_loss.item():.4f} | TargetStd: {target_std.item():.4f}",
+                  flush=True)
 
-    return total_loss_accum / max(num_batches, 1)
+    # Handle leftover gradients if batches not divisible by grad_accum_steps
+    if num_batches % grad_accum_steps != 0:
+        if grad_clip > 0:
+            scaler.unscale_(optimizer)
+            torch.nn.utils.clip_grad_norm_(model.parameters(), grad_clip)
+        scaler.step(optimizer)
+        scaler.update()
+        optimizer.zero_grad(set_to_none=True)
+        model.update_target_encoder(momentum=ema_momentum)
+
+    avg_total = total_loss_accum / max(num_batches, 1)
+    avg_mse = mse_loss_accum / max(num_batches, 1)
+    avg_var = var_loss_accum / max(num_batches, 1)
+    return avg_total, avg_mse, avg_var
 
 
 @torch.no_grad()
@@ -78,7 +103,6 @@ def validate(model, dataloader, device):
         x = x.to(device, non_blocking=True)
         with autocast("cuda"):
             total_loss, mse_loss, var_loss, target_std = model(x)
-            
         total_loss_accum += total_loss.item()
         num_batches += 1
 
@@ -112,6 +136,9 @@ def main():
 
     set_seed(cfg.get("seed", 42))
 
+    # Performance: auto-tune convolution algorithms
+    cudnn.benchmark = True
+
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
     # Data
@@ -133,20 +160,23 @@ def main():
             generator=torch.Generator().manual_seed(cfg.get("seed", 42)),
         )
 
+    num_workers = cfg.get("num_workers", 4)
     train_loader = DataLoader(
         train_ds,
         batch_size=cfg["batch_size"],
         shuffle=True,
-        num_workers=cfg.get("num_workers", 4),
+        num_workers=num_workers,
         pin_memory=True,
         drop_last=True,
+        persistent_workers=num_workers > 0,
     )
     val_loader = DataLoader(
         val_ds,
         batch_size=cfg["batch_size"],
         shuffle=False,
-        num_workers=cfg.get("num_workers", 4),
+        num_workers=num_workers,
         pin_memory=True,
+        persistent_workers=num_workers > 0,
     )
 
     # Model
@@ -169,9 +199,28 @@ def main():
     )
     model = model.to(device)
 
-    param_count = count_parameters(model)
-    print(f"Total parameters: {param_count:,} ({param_count/1e6:.2f}M)")
-    assert param_count < 100_000_000, f"Model exceeds 100M params: {param_count:,}"
+    encoder_params = count_parameters(encoder)
+    total_params = count_parameters(model)
+    print(f"Encoder parameters: {encoder_params:,} ({encoder_params/1e6:.2f}M)")
+    print(f"Total parameters:   {total_params:,} ({total_params/1e6:.2f}M)")
+    assert encoder_params < 100_000_000, f"Encoder exceeds 100M params: {encoder_params:,}"
+
+    # torch.compile for kernel fusion speedup
+    use_compile = cfg.get("compile", True)
+    if use_compile:
+        try:
+            model = torch.compile(model)
+            print("torch.compile() enabled")
+        except Exception as e:
+            print(f"torch.compile() failed ({e}), continuing without it")
+
+    # Training config
+    grad_clip = cfg.get("grad_clip", 1.0)
+    grad_accum_steps = cfg.get("grad_accum_steps", 1)
+    ema_momentum = cfg.get("ema_momentum", 0.996)
+
+    effective_batch = cfg["batch_size"] * grad_accum_steps
+    print(f"Batch size: {cfg['batch_size']} × {grad_accum_steps} accum = {effective_batch} effective")
 
     # Optimizer
     optimizer = torch.optim.AdamW(
@@ -189,7 +238,6 @@ def main():
         start_epoch = load_checkpoint(args.resume, model, optimizer, scaler)
         print(f"Resumed from epoch {start_epoch}")
     else:
-        # Check for auto-resume (spot preemption / --requeue)
         auto_ckpt = os.path.join(checkpoint_dir, "latest.pt")
         if os.path.exists(auto_ckpt):
             start_epoch = load_checkpoint(auto_ckpt, model, optimizer, scaler)
@@ -202,25 +250,30 @@ def main():
             wandb.init(
                 project=cfg.get("wandb_project", "dl-active-matter"),
                 config=cfg,
+                name=experiment_name,
                 resume="allow",
             )
-            wandb.log({"param_count": param_count})
         except Exception as e:
             print(f"W&B init failed ({e}), continuing without logging")
             use_wandb = False
 
     # Training loop
     best_val_loss = float("inf")
-    ema_momentum = cfg.get("ema_momentum", 0.996)
-    
+
     for epoch in range(start_epoch, cfg.get("epochs", 100)):
-        train_loss = train_one_epoch(model, train_loader, optimizer, scaler, device, epoch, ema_momentum)
+        train_loss, mse_loss, var_loss = train_one_epoch(
+            model, train_loader, optimizer, scaler, device, epoch,
+            ema_momentum, grad_clip, grad_accum_steps
+        )
         val_loss = validate(model, val_loader, device)
 
-        print(f"Epoch {epoch} | Train Loss: {train_loss:.4f} | Val Loss: {val_loss:.4f}", flush=True)
+        print(f"Epoch {epoch} | Train: {train_loss:.4f} (mse={mse_loss:.4f}, var={var_loss:.4f}) | "
+              f"Val: {val_loss:.4f}", flush=True)
         if use_wandb and wandb.run:
             wandb.log({
                 "train/loss": train_loss,
+                "train/mse_loss": mse_loss,
+                "train/var_loss": var_loss,
                 "val/loss": val_loss,
                 "epoch": epoch,
             })

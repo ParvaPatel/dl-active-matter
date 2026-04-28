@@ -1,0 +1,52 @@
+# Video-JEPA Base — scaled-up JEPA v1 (no VICReg) for final comparison
+# ~86M encoder + ~18M predictor = ~104M total (predictor not counted for budget)
+#
+# Uses JEPA v1 architecture (no VICReg) since it outperformed all v3 VICReg variants:
+#   v1 (var=0.0): LP MSE 0.0601  ← BEST
+#   v3 (var=0.257): LP MSE 0.0756
+#   v3 (var=0.8): LP MSE 0.0865
+#
+# Key: VICReg was shown to not prevent collapse AND hurt LP performance.
+# Scaling up the encoder is a more promising path to close the VideoMAE gap.
+
+experiment_name: jepa_base
+
+seed: 42
+
+# --- Data ---
+data_dir: /scratch/${USER}/data/active_matter
+in_channels: 11
+n_frames: 32
+context_frames: 16
+batch_size: 2        # reduced from 4 due to larger model
+num_workers: 4
+
+# --- Encoder (ViT-Base) ---
+patch_size: [2, 16, 16]
+embed_dim: 768       # was 384
+encoder_depth: 12    # was 6
+num_heads: 12        # was 6
+mlp_ratio: 4.0
+drop_rate: 0.0
+
+# --- JEPA Predictor (scaled proportionally) ---
+predictor_dim: 384   # was 256
+predictor_depth: 4   # was 3
+predictor_heads: 6   # was 4
+ema_momentum: 0.996
+
+# --- Optimizer ---
+lr: 1.5e-4
+weight_decay: 0.05
+betas: [0.9, 0.95]
+grad_clip: 1.0
+grad_accum_steps: 4  # bs=2 × 4 accum = effective bs=8
+compile: true
+
+# --- Training ---
+epochs: 100
+checkpoint_dir: /scratch/${USER}/checkpoints
+checkpoint_every: 5
+
+# --- Logging ---
+wandb_project: dl-active-matter

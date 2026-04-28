@@ -1,0 +1,44 @@
+# VideoMAE Base — scaled-up encoder for final comparison
+# ~86M encoder params (6x larger than videomae_small)
+# Rationale: param budget is 100M, small model only used 15M.
+# Same training recipe as videomae_small, just bigger architecture.
+
+experiment_name: videomae_base
+
+seed: 42
+
+# --- Data ---
+data_dir: /scratch/${USER}/data/active_matter
+in_channels: 11
+batch_size: 2        # reduced from 4 due to larger model
+num_workers: 4
+
+# --- Encoder (ViT-Base) ---
+patch_size: [2, 16, 16]
+embed_dim: 768       # was 384
+encoder_depth: 12    # was 6
+num_heads: 12        # was 6
+mlp_ratio: 4.0
+drop_rate: 0.0
+
+# --- MAE Decoder (scaled proportionally) ---
+decoder_dim: 384     # was 192
+decoder_depth: 3     # was 2
+decoder_heads: 6     # was 3
+mask_ratio: 0.75
+
+# --- Optimizer ---
+lr: 1.5e-4
+weight_decay: 0.05
+betas: [0.9, 0.95]
+grad_clip: 1.0
+grad_accum_steps: 4  # bs=2 × 4 accum = effective bs=8
+compile: true
+
+# --- Training ---
+epochs: 100
+checkpoint_dir: /scratch/${USER}/checkpoints
+checkpoint_every: 5
+
+# --- Logging ---
+wandb_project: dl-active-matter

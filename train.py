@@ -1,10 +1,19 @@
-"""VideoMAE training entry point."""
+"""VideoMAE training entry point.
+
+Optimized for speed:
+  - torch.compile() for kernel fusion
+  - cudnn.benchmark for auto-tuned convolutions
+  - Gradient accumulation for effective batch size > physical batch size
+  - persistent_workers for faster data loading
+  - Gradient clipping for stability
+"""
 
 import os
 import argparse
 import yaml
 import torch
 import torch.nn as nn
+import torch.backends.cudnn as cudnn
 from torch.amp import GradScaler, autocast
 
 try:
@@ -25,30 +34,46 @@ def parse_args():
     return parser.parse_args()
 
 
-def train_one_epoch(model, dataloader, optimizer, scaler, device, epoch):
+def train_one_epoch(model, dataloader, optimizer, scaler, device, epoch,
+                    grad_clip=1.0, grad_accum_steps=1):
     model.train()
     total_loss = 0.0
     num_batches = 0
 
+    optimizer.zero_grad(set_to_none=True)
+
     for batch_idx, (x, labels) in enumerate(dataloader):
         x = x.to(device, non_blocking=True)
 
-        optimizer.zero_grad(set_to_none=True)
-
         with autocast("cuda"):
             loss, pred, mask = model(x)
+            scaled_loss = loss / grad_accum_steps
 
-        scaler.scale(loss).backward()
-        scaler.step(optimizer)
-        scaler.update()
+        scaler.scale(scaled_loss).backward()
+
+        if (batch_idx + 1) % grad_accum_steps == 0:
+            if grad_clip > 0:
+                scaler.unscale_(optimizer)
+                torch.nn.utils.clip_grad_norm_(model.parameters(), grad_clip)
+            scaler.step(optimizer)
+            scaler.update()
+            optimizer.zero_grad(set_to_none=True)
 
         total_loss += loss.item()
         num_batches += 1
 
         if batch_idx % 50 == 0:
-            print(f"  Epoch {epoch} | Batch {batch_idx} | Loss: {loss.item():.4f}", flush=True)
-            if wandb and wandb.run:
-                wandb.log({"train/batch_loss": loss.item(), "epoch": epoch, "batch": batch_idx})
+            print(f"  Epoch {epoch} | Batch {batch_idx}/{len(dataloader)} | "
+                  f"Loss: {loss.item():.4f}", flush=True)
+
+    # Handle leftover gradients
+    if num_batches % grad_accum_steps != 0:
+        if grad_clip > 0:
+            scaler.unscale_(optimizer)
+            torch.nn.utils.clip_grad_norm_(model.parameters(), grad_clip)
+        scaler.step(optimizer)
+        scaler.update()
+        optimizer.zero_grad(set_to_none=True)
 
     avg_loss = total_loss / max(num_batches, 1)
     return avg_loss
@@ -97,6 +122,9 @@ def main():
 
     set_seed(cfg.get("seed", 42))
 
+    # Performance: auto-tune convolution algorithms
+    cudnn.benchmark = True
+
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
     # Data
@@ -104,7 +132,6 @@ def main():
 
     train_ds = ActiveMatterDataset(cfg["data_dir"], split="train")
 
-    # Try to load a dedicated validation split; if missing, carve from train
     try:
         val_ds = ActiveMatterDataset(cfg["data_dir"], split="val")
     except FileNotFoundError:
@@ -117,20 +144,23 @@ def main():
             generator=torch.Generator().manual_seed(cfg.get("seed", 42)),
         )
 
+    num_workers = cfg.get("num_workers", 4)
     train_loader = DataLoader(
         train_ds,
         batch_size=cfg["batch_size"],
         shuffle=True,
-        num_workers=cfg.get("num_workers", 4),
+        num_workers=num_workers,
         pin_memory=True,
         drop_last=True,
+        persistent_workers=num_workers > 0,
     )
     val_loader = DataLoader(
         val_ds,
         batch_size=cfg["batch_size"],
         shuffle=False,
-        num_workers=cfg.get("num_workers", 4),
+        num_workers=num_workers,
         pin_memory=True,
+        persistent_workers=num_workers > 0,
     )
 
     # Model
@@ -153,9 +183,27 @@ def main():
     )
     model = model.to(device)
 
-    param_count = count_parameters(model)
-    print(f"Total parameters: {param_count:,} ({param_count/1e6:.2f}M)")
-    assert param_count < 100_000_000, f"Model exceeds 100M params: {param_count:,}"
+    encoder_params = count_parameters(encoder)
+    total_params = count_parameters(model)
+    print(f"Encoder parameters: {encoder_params:,} ({encoder_params/1e6:.2f}M)")
+    print(f"Total parameters:   {total_params:,} ({total_params/1e6:.2f}M)")
+    assert total_params < 100_000_000, f"Model exceeds 100M params: {total_params:,}"
+
+    # torch.compile for kernel fusion speedup
+    use_compile = cfg.get("compile", True)
+    if use_compile:
+        try:
+            model = torch.compile(model)
+            print("torch.compile() enabled")
+        except Exception as e:
+            print(f"torch.compile() failed ({e}), continuing without it")
+
+    # Training config
+    grad_clip = cfg.get("grad_clip", 1.0)
+    grad_accum_steps = cfg.get("grad_accum_steps", 1)
+
+    effective_batch = cfg["batch_size"] * grad_accum_steps
+    print(f"Batch size: {cfg['batch_size']} × {grad_accum_steps} accum = {effective_batch} effective")
 
     # Optimizer
     optimizer = torch.optim.AdamW(
@@ -173,22 +221,21 @@ def main():
         start_epoch = load_checkpoint(args.resume, model, optimizer, scaler)
         print(f"Resumed from epoch {start_epoch}")
     else:
-        # Check for auto-resume (spot preemption / --requeue)
         auto_ckpt = os.path.join(checkpoint_dir, "latest.pt")
         if os.path.exists(auto_ckpt):
             start_epoch = load_checkpoint(auto_ckpt, model, optimizer, scaler)
             print(f"Auto-resumed from epoch {start_epoch}")
 
-    # W&B (optional — set WANDB_API_KEY or run `wandb login` to enable)
+    # W&B
     use_wandb = wandb is not None
     if use_wandb:
         try:
             wandb.init(
                 project=cfg.get("wandb_project", "dl-active-matter"),
                 config=cfg,
+                name=experiment_name,
                 resume="allow",
             )
-            wandb.log({"param_count": param_count})
         except Exception as e:
             print(f"W&B init failed ({e}), continuing without logging")
             use_wandb = False
@@ -196,10 +243,14 @@ def main():
     # Training loop
     best_val_loss = float("inf")
     for epoch in range(start_epoch, cfg.get("epochs", 100)):
-        train_loss = train_one_epoch(model, train_loader, optimizer, scaler, device, epoch)
+        train_loss = train_one_epoch(
+            model, train_loader, optimizer, scaler, device, epoch,
+            grad_clip, grad_accum_steps
+        )
         val_loss = validate(model, val_loader, device)
 
-        print(f"Epoch {epoch} | Train Loss: {train_loss:.4f} | Val Loss: {val_loss:.4f}", flush=True)
+        print(f"Epoch {epoch} | Train Loss: {train_loss:.4f} | Val Loss: {val_loss:.4f}",
+              flush=True)
         if use_wandb and wandb.run:
             wandb.log({
                 "train/loss": train_loss,
@@ -207,7 +258,7 @@ def main():
                 "epoch": epoch,
             })
 
-        # Save latest (for preemption recovery)
+        # Save latest
         ckpt_state = {
             "epoch": epoch + 1,
             "model_state_dict": model.state_dict(),
@@ -232,7 +283,7 @@ def main():
             }, checkpoint_dir, "best.pt")
             print(f"  -> New best val loss: {val_loss:.4f}")
 
-        # Periodic checkpoint (survives preemption between best/latest)
+        # Periodic checkpoint
         if (epoch + 1) % checkpoint_every == 0:
             save_checkpoint(ckpt_state, checkpoint_dir, f"epoch_{epoch+1}.pt")
             print(f"  -> Saved periodic checkpoint: epoch_{epoch+1}.pt")
