@@ -11,7 +11,7 @@ seed: 42
 data_dir: /scratch/${USER}/data/active_matter
 in_channels: 11
 n_frames: 16           # only need 16 frames (no context/target split needed)
-batch_size: 16          # A100 has headroom: Small model peaks ~3.2GB at BS=2
+batch_size: 32          # Supervised has no EMA/predictor → ~40% lighter than JEPA. JEPA@BS4=3.2GB, so sup@BS32≈20GB
 num_workers: 4
 
 # --- Encoder (same as JEPA/VideoMAE Small for fair comparison) ---
