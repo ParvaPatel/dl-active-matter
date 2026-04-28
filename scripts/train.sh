@@ -5,7 +5,7 @@
 #SBATCH --gres=gpu:1
 #SBATCH --cpus-per-task=4
 #SBATCH --mem=40G
-#SBATCH --time=12:00:00
+#SBATCH --time=24:00:00
 #SBATCH --output=logs/train-%x-%j.out
 #SBATCH --error=logs/train-%x-%j.out
 #SBATCH --requeue
@@ -37,7 +37,9 @@ singularity exec --nv \
     fi
 
     # Route to correct entrypoint based on config name
-    if [[ "$CONFIG" == *"jepa_v3"* ]]; then
+    if [[ "$CONFIG" == *"supervised"* ]]; then
+        python train_supervised.py --config $CONFIG
+    elif [[ "$CONFIG" == *"jepa_v3"* ]]; then
         python train_jepa_v3.py --config $CONFIG
     elif [[ "$CONFIG" == *"jepa_v2"* ]]; then
         python train_jepa_v2.py --config $CONFIG
