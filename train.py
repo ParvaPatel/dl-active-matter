@@ -208,9 +208,9 @@ def main():
     # Optimizer
     optimizer = torch.optim.AdamW(
         model.parameters(),
-        lr=cfg.get("lr", 1.5e-4),
-        weight_decay=cfg.get("weight_decay", 0.05),
-        betas=tuple(cfg.get("betas", [0.9, 0.95])),
+        lr=float(cfg.get("lr", 1.5e-4)),
+        weight_decay=float(cfg.get("weight_decay", 0.05)),
+        betas=tuple(float(b) for b in cfg.get("betas", [0.9, 0.95])),
     )
 
     scaler = GradScaler("cuda")

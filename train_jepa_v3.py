@@ -262,8 +262,8 @@ def main():
         print("torch.compile() not available (requires PyTorch 2.x), skipping")
 
     # Optimizer (no scheduler — we manually set LR each epoch)
-    base_lr = cfg.get("lr", 1.5e-4)
-    min_lr = cfg.get("min_lr", 1e-6)
+    base_lr = float(cfg.get("lr", 1.5e-4))
+    min_lr = float(cfg.get("min_lr", 1e-6))
     warmup_epochs = cfg.get("warmup_epochs", 10)
     total_epochs = cfg.get("epochs", 100)
     grad_clip = cfg.get("grad_clip", 1.0)
@@ -280,9 +280,9 @@ def main():
 
     optimizer = torch.optim.AdamW(
         model.parameters(),
-        lr=base_lr,
-        weight_decay=cfg.get("weight_decay", 0.05),
-        betas=tuple(cfg.get("betas", [0.9, 0.95])),
+        lr=float(base_lr),
+        weight_decay=float(cfg.get("weight_decay", 0.05)),
+        betas=tuple(float(b) for b in cfg.get("betas", [0.9, 0.95])),
     )
     scaler = GradScaler("cuda")
 

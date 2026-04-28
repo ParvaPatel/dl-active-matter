@@ -196,9 +196,9 @@ def main():
     # Optimizer + scheduler
     optimizer = torch.optim.AdamW(
         model.parameters(),
-        lr=cfg.get("lr", 3e-4),
-        weight_decay=cfg.get("weight_decay", 0.05),
-        betas=tuple(cfg.get("betas", [0.9, 0.95])),
+        lr=float(cfg.get("lr", 3e-4)),
+        weight_decay=float(cfg.get("weight_decay", 0.05)),
+        betas=tuple(float(b) for b in cfg.get("betas", [0.9, 0.95])),
     )
     scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(
         optimizer, T_max=cfg.get("epochs", 100), eta_min=1e-6
