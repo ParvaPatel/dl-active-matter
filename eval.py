@@ -213,7 +213,7 @@ def main():
 
     embed_dim = cfg.get("embed_dim", 384)
 
-    # Linear probe
+    # === Primary Linear Probe (default LR) ===
     print("\n=== Linear Probe ===")
     lp_mse, lp_alpha, lp_zeta = linear_probe(
         train_feat, train_targets, eval_feat, eval_targets,
@@ -221,12 +221,33 @@ def main():
     )
     print(f"Linear Probe — Total MSE: {lp_mse:.4f} | α MSE: {lp_alpha:.4f} | ζ MSE: {lp_zeta:.4f}")
 
-    # kNN
+    # === Primary kNN (default k) ===
     print(f"\n=== kNN (k={args.k}) ===")
     knn_mse, knn_alpha, knn_zeta = knn_evaluate(
         train_feat, train_targets, eval_feat, eval_targets, k=args.k,
     )
     print(f"kNN — Total MSE: {knn_mse:.4f} | α MSE: {knn_alpha:.4f} | ζ MSE: {knn_zeta:.4f}")
+
+    # === kNN k-sweep (for ablation) ===
+    k_values = [1, 3, 5, 10, 20, 50]
+    print(f"\n=== kNN k-sweep ===")
+    print(f"{'k':<6} {'Total MSE':<12} {'α MSE':<12} {'ζ MSE':<12}")
+    for k_val in k_values:
+        k_mse, k_alpha, k_zeta = knn_evaluate(
+            train_feat, train_targets, eval_feat, eval_targets, k=k_val,
+        )
+        print(f"{k_val:<6} {k_mse:<12.4f} {k_alpha:<12.4f} {k_zeta:<12.4f}")
+
+    # === Linear Probe LR sweep (for ablation) ===
+    lr_values = [1e-2, 1e-3, 1e-4]
+    print(f"\n=== Linear Probe LR sweep (epochs={args.probe_epochs}) ===")
+    print(f"{'LR':<12} {'Total MSE':<12} {'α MSE':<12} {'ζ MSE':<12}")
+    for lr_val in lr_values:
+        lr_mse, lr_alpha, lr_zeta = linear_probe(
+            train_feat, train_targets, eval_feat, eval_targets,
+            embed_dim, epochs=args.probe_epochs, lr=lr_val, device=device,
+        )
+        print(f"{lr_val:<12.0e} {lr_mse:<12.4f} {lr_alpha:<12.4f} {lr_zeta:<12.4f}")
 
     # Summary
     print("\n" + "=" * 50)
