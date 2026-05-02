@@ -3,7 +3,7 @@
 > **Project**: NYU CSCI-GA 2572 Deep Learning Final Project  
 > **Task**: Self-supervised representation learning on `active_matter` physical simulation data  
 > **Goal**: Learn frozen encoder features that enable accurate regression of physical parameters (α, ζ) via Linear Probe and kNN  
-> **Last Updated**: 2026-04-23
+> **Last Updated**: 2026-05-01
 
 ---
 
@@ -399,4 +399,74 @@ Lower VICReg weight → encoder focuses on physics prediction → needs higher L
 | cov_weight | 0.01 | **0.0095** | essentially same |
 | lr | 1.5e-4 | **3.4e-4** | 2.3× higher |
 | weight_decay | 0.05 | **0.087** | 1.7× higher |
+
+---
+
+## Phase 8: ViT-Base Scaling Study (Apr 28–30)
+
+Scaled encoder from ViT-Small (13.4M) to ViT-Base (90.6M) for both VideoMAE and JEPA v1.
+
+### VideoMAE Base (test set, epoch sweep)
+
+| Epoch | LP MSE | kNN MSE | Feat σ |
+|-------|--------|---------|--------|
+| 25 | 0.1537 | 0.2154 | 0.0271 |
+| 50 | 0.0997 | 0.1526 | 0.0138 |
+| 75 | 0.0805 | 0.1341 | 0.0093 |
+| 100 | 0.0833 | 0.1275 | 0.0094 |
+
+**★ Best LP: epoch 75 (MSE=0.0805) — 2.2× worse than ViT-Small**
+
+### JEPA Base (test set, epoch sweep, target encoder)
+
+| Epoch | LP MSE | kNN MSE | Feat σ |
+|-------|--------|---------|--------|
+| 25 | 0.1195 | 0.0926 | 0.7115 |
+| 50 | 0.1036 | 0.7538 | 0.3329 |
+| 75 | 0.0839 | 0.1432 | 0.2101 |
+| 100 | 0.0986 | 0.1594 | 0.1580 |
+
+**★ Best LP: epoch 75 (MSE=0.0839) — 1.4× worse than ViT-Small**  
+**★ Catastrophic kNN collapse at epoch 50 (MSE spikes to 0.75)**
+
+---
+
+## Phase 9: Evaluation Sensitivity Sweeps (Apr 30 – May 1)
+
+Enhanced `eval.py` with automatic k-sweep and LR-sweep.
+
+### kNN k-Sweep (best checkpoint per model, test set)
+
+| k | VMae-S | JEPA-S | VMae-B | JEPA-B |
+|---|--------|--------|--------|--------|
+| 1 | 0.067 | 0.115 | 0.182 | 0.115 |
+| 5 | 0.058 | 0.098 | 0.144 | 0.096 |
+| 10 | 0.050 | 0.088 | 0.128 | 0.090 |
+| 20 | **0.045** | 0.076 | 0.115 | **0.089** |
+| 50 | 0.047 | **0.067** | **0.110** | 0.093 |
+
+### LP LR-Sweep (best checkpoint per model, test set)
+
+| LR | VMae-S | JEPA-S | VMae-B | JEPA-B |
+|---|--------|--------|--------|--------|
+| 1e-2 | **0.024** | **0.053** | 0.085 | **0.078** |
+| 1e-3 | 0.035 | 0.058 | **0.078** | 0.081 |
+| 1e-4 | 0.152 | 0.372 | 0.268 | 0.278 |
+
+**★ Best overall: VideoMAE Small @ LP lr=1e-2 → MSE=0.024**
+
+---
+
+## Final Results Summary (Test Set)
+
+| Model | Params | LP MSE (lr=1e-3) | kNN MSE (k=10) |
+|-------|--------|------------------|----------------|
+| **VideoMAE Small** | 13.4M | **0.035** | **0.050** |
+| JEPA v1 Small | 13.4M | 0.058 | 0.088 |
+| JEPA v3 (λv=0.26) | 13.4M | 0.084 | 0.089 |
+| JEPA v3 (λv=0.80) | 13.4M | 0.087 | 0.067 |
+| JEPA v2 Small | 13.4M | 0.142 | 0.207 |
+| VideoMAE Base | 90.6M | 0.078 | 0.128 |
+| JEPA v1 Base | 90.6M | 0.081 | 0.159 |
+| Supervised Small | 13.4M | *pending* | *pending* |
 

@@ -2,144 +2,232 @@
 
 NYU CSCI-GA 2572 — Deep Learning, Spring 2026 Final Project
 
-Self-supervised representation learning on the [`active_matter`](https://huggingface.co/datasets/polymathic-ai/active_matter) physical simulation dataset using **VideoMAE** (Masked Autoencoder) and **Video-JEPA** architectures.
+Self-supervised representation learning on the [`active_matter`](https://huggingface.co/datasets/polymathic-ai/active_matter) dataset from The Well, comparing **VideoMAE** and **Video-JEPA** architectures with a shared Vision Transformer backbone.
+
+## Results
+
+Test-set performance (z-score normalized MSE, lower is better):
+
+| Model | Encoder | Params | LP MSE | kNN MSE |
+|-------|---------|--------|--------|---------|
+| **VideoMAE** | ViT-S | 13.4M | **0.035** | **0.050** |
+| JEPA v1 | ViT-S | 13.4M | 0.058 | 0.088 |
+| JEPA v3 (λ_v=0.26) | ViT-S | 13.4M | 0.084 | 0.089 |
+| JEPA v3 (λ_v=0.80) | ViT-S | 13.4M | 0.087 | 0.067 |
+| VideoMAE | ViT-B | 90.6M | 0.078 | 0.128 |
+| JEPA v1 | ViT-B | 90.6M | 0.081 | 0.159 |
+
+**Key finding**: VideoMAE consistently outperforms JEPA with ViT encoders — the opposite of prior work using CNN encoders.
+
+---
 
 ## Quick Start (Reproduce Our Results)
 
-### 1. HPC Environment Setup
+### 1. Environment Setup
 
 ```bash
-# SSH into NYU HPC or use OOD: https://ood-burst-001.hpc.nyu.edu/
-
-# Clone the repo
+# SSH to NYU HPC, then:
 cd /scratch/$USER
-git clone https://github.com/<YOUR-USERNAME>/dl-active-matter.git
+git clone https://github.com/ParvaPatel/dl-active-matter.git
 cd dl-active-matter
 
-# One-command setup: creates conda env + downloads dataset
+# One-command setup: creates conda env + downloads dataset (~52 GB)
 bash scripts/setup.sh
 ```
+
+See [ENV.md](ENV.md) for detailed environment instructions.
 
 ### 2. Train
 
 ```bash
-# Submit training job (A100, auto-resumes on spot preemption)
-sbatch scripts/train.sh
+# VideoMAE (best model)
+sbatch --job-name=vmae-small scripts/train.sh configs/videomae_small.yaml
+
+# JEPA v1
+sbatch --job-name=jepa-small scripts/train.sh configs/jepa_small.yaml
+
+# JEPA v3 (HPO-tuned VICReg)
+sbatch --job-name=jepa-v3t scripts/train.sh configs/jepa_v3_tuned.yaml
+
+# JEPA v3 (strong VICReg)
+sbatch --job-name=jepa-v3s scripts/train.sh configs/jepa_v3_strongvar.yaml
+
+# Supervised baseline (upper bound)
+sbatch --job-name=sup-small scripts/train.sh configs/supervised_small.yaml
+
+# Scaled ViT-Base variants
+sbatch --job-name=vmae-base scripts/train.sh configs/videomae_base.yaml
+sbatch --job-name=jepa-base scripts/train.sh configs/jepa_base.yaml
 ```
 
-### 3. Evaluate
+All training auto-resumes from the latest checkpoint on SLURM preemption (`--requeue`).
+
+### 3. Evaluate (Frozen Encoder → Linear Probe + kNN)
 
 ```bash
-# Linear probe + kNN on frozen encoder
-sbatch scripts/eval.sh
+# Single checkpoint evaluation
+sbatch scripts/eval.sh /scratch/$USER/checkpoints/videomae_small/epoch_90.pt test
 
-# Or run interactively
-python eval.py --checkpoint /scratch/$USER/checkpoints/best.pt --split val
+# For JEPA, use --use_target_encoder to evaluate the EMA encoder
+sbatch scripts/eval.sh /scratch/$USER/checkpoints/jepa_small/epoch_80.pt test --use_target_encoder
+
+# Epoch sweep (evaluates every 5th epoch)
+bash scripts/eval_videomae_base_sweep.sh
+
+# Parse results into table
+python scripts/parse_logs.py --experiment videomae_small --log_dir logs/videomae_small_eval/
 ```
+
+### 4. Visualize
+
+```bash
+# t-SNE embeddings of learned representations
+python scripts/visualize_tsne.py --checkpoint <path> --split test
+
+# Training curves & comparison plots
+python scripts/visualize.py
+```
+
+---
 
 ## Project Structure
 
 ```
 .
-├── configs/                    # YAML experiment configs (no magic numbers)
-│   └── videomae_small.yaml     # Baseline VideoMAE config (~10M params)
-├── data/                       # Dataset loading & preprocessing
-│   └── dataset.py              # ActiveMatter HuggingFace Arrow loader
-├── models/                     # Architecture implementations
-│   ├── encoder.py              # SpatioTemporalViT with tube patch embedding
-│   └── mae.py                  # VideoMAE: masking, decoder, reconstruction loss
-├── scripts/                    # Slurm batch scripts & automation
-│   ├── train.sh                # Training job (A100, --requeue for spot instances)
-│   ├── eval.sh                 # Evaluation job (L4)
-│   └── setup.sh                # One-command HPC environment bootstrap
+├── configs/                         # YAML experiment configs (all hyperparams)
+│   ├── videomae_small.yaml          # VideoMAE ViT-Small (best model)
+│   ├── videomae_base.yaml           # VideoMAE ViT-Base (scaling study)
+│   ├── jepa_small.yaml              # JEPA v1 ViT-Small
+│   ├── jepa_base.yaml               # JEPA v1 ViT-Base (scaling study)
+│   ├── jepa_v2.yaml                 # JEPA v2 (failed — documented)
+│   ├── jepa_v3.yaml                 # JEPA v3 default
+│   ├── jepa_v3_tuned.yaml           # JEPA v3 HPO-optimized
+│   ├── jepa_v3_strongvar.yaml       # JEPA v3 high VICReg
+│   └── supervised_small.yaml        # End-to-end supervised baseline
+│
+├── models/                          # Architecture implementations
+│   ├── encoder.py                   # SpatioTemporalViT (shared backbone)
+│   ├── mae.py                       # VideoMAE: tube masking + pixel decoder
+│   ├── jepa.py                      # Video-JEPA v1: temporal prediction + EMA
+│   ├── jepa_v2.py                   # Video-JEPA v2: L2-norm + Smooth-L1 (failed)
+│   └── jepa_v3.py                   # Video-JEPA v3: raw MSE + tuned VICReg
+│
+├── data/
+│   └── dataset.py                   # HDF5 dataset loader (sliding windows, center crop)
+│
+├── train.py                         # VideoMAE training (AMP, compile, auto-resume)
+├── train_jepa.py                    # JEPA v1 training
+├── train_jepa_v2.py                 # JEPA v2 training
+├── train_jepa_v3.py                 # JEPA v3 training (early stopping, grad accum)
+├── train_supervised.py              # Supervised baseline training
+├── eval.py                          # Frozen encoder evaluation (LP + kNN + sweeps)
+│
+├── scripts/
+│   ├── train.sh                     # SLURM training job (routes config → entrypoint)
+│   ├── eval.sh                      # SLURM evaluation job
+│   ├── setup.sh                     # One-command HPC bootstrap
+│   ├── hpo_sweep.py                 # Optuna HPO sweep (20 trials, TPE + pruning)
+│   ├── hpo_sweep.sh                 # SLURM job for HPO
+│   ├── parse_logs.py                # Parse eval logs → results tables
+│   ├── visualize.py                 # Training curve plots
+│   ├── visualize_tsne.py            # t-SNE embedding visualization
+│   └── eval_*_sweep.sh              # Per-experiment evaluation sweeps
+│
 ├── utils/
-│   └── training.py             # Seed fixing, checkpoint save/load
-├── train.py                    # Training entry point (AMP, W&B, auto-resume)
-├── eval.py                     # Linear probe + kNN evaluation entry point
-├── environment.yml             # Conda environment (exact reproducibility)
-├── requirements.txt            # pip dependencies
-└── ENV.md                      # Detailed HPC environment setup guide
+│   └── training.py                  # Seed fixing, checkpointing, GPU monitoring
+│
+├── report/                          # ICML 2026 format paper
+│   ├── main.tex
+│   └── references.bib
+│
+├── EXPERIMENT_LOG.md                # Detailed experiment diary with all results
+├── ENV.md                           # HPC environment setup guide
+├── environment.yml                  # Conda environment spec
+└── requirements.txt                 # pip dependencies
 ```
 
 ## Method
 
-### Architecture
+### Shared Encoder
 
-We treat each simulation sample as a **video**: 16 time steps × 11 physical channels × 224×224 spatial resolution.
+All models use a **SpatioTemporalViT** encoder processing `(16, 11, 224, 224)` inputs:
+- **Tokenization**: 3D patch embedding `(2, 16, 16)` → 1,568 tokens per sample
+- **ViT-Small**: D=384, 6 layers, 6 heads (13.4M params)
+- **ViT-Base**: D=768, 12 layers, 12 heads (90.6M params)
 
-**Tokenization**: 3D tube patches of size `(2, 16, 16)` — 2 frames × 16×16 pixels — producing **784 tokens** per sample.
+### VideoMAE
+Mask 75% of spatiotemporal tube patches → reconstruct pixel values. Dense pixel-level supervision forces fine-grained feature learning.
 
-**Encoder**: Spatiotemporal Vision Transformer (ViT-Small variant):
-- Embedding dimension: 384
-- Depth: 6 transformer blocks
-- Heads: 6
-- **~9.5M parameters** (well under 100M limit)
+### Video-JEPA (3 variants)
 
-**Self-supervised objective**: Masked reconstruction (VideoMAE) — mask 75% of tube patches, reconstruct pixel values from visible patches only.
+| Variant | Pred. Loss | VICReg | Result |
+|---------|-----------|--------|--------|
+| **v1** | Raw MSE | None | Best LP (0.058) |
+| **v2** | Smooth-L1 on L2-normed targets | λ_v=5.0, λ_c=0.04 | ❌ Failed (0.142) |
+| **v3** | Raw MSE | λ_v∈{0.26, 0.80}, λ_c=0.01 | Intermediate |
 
-### Evaluation
+v2 failed because L2-normalization made prediction trivially easy (pred_loss ≈ 0.001), letting VICReg dominate. v3 corrects this.
 
-Frozen encoder → mean-pooled features → evaluated with:
-1. **Linear probe**: Single `nn.Linear(384, 2)` trained on frozen features
-2. **kNN regression**: `k=10`, distance-weighted, scikit-learn
+### Evaluation Protocol
+1. **Freeze** encoder after self-supervised pretraining
+2. **Extract** mean-pooled features, z-score normalize
+3. **Linear Probe**: `nn.Linear(D, 2)`, 200 epochs, Adam, cosine LR
+4. **kNN**: distance-weighted, k=10, scikit-learn
 
-Target: z-score normalized α (active dipole strength) and ζ (steric alignment), metric = **MSE**.
+Targets: z-score normalized α (active dipole) and ζ (steric alignment). Metric: **MSE**.
 
 ## Dataset
 
 | Property | Value |
 |----------|-------|
-| Name | `active_matter` from The Well |
-| Size | ~52 GB |
-| Splits | 8,750 train / 1,200 val / 1,300 test |
-| Shape | `(16, 11, 224, 224)` per sample |
-| Channels | concentration (1), velocity (2), orientation (4), strain-rate (4) |
-| Labels | α (5 values) × ζ (9 values) = 45 combos |
+| Name | `active_matter` from [The Well](https://github.com/PolymathicAI/the_well) |
+| Size | ~52 GB (HDF5 files) |
+| Train / Val / Test | 45 / 16 / 21 HDF5 files (175 / 64 / 84 trajectories) |
+| Channels | concentration (1), velocity (2), orientation (4), strain-rate (4) = 11 |
+| Resolution | 81 time steps × 256×256 (center-cropped to 224×224) |
+| Labels | α ∈ {0.5, 1.0, 1.5, 2.0, 2.5} × ζ ∈ {0.1, …, 0.9} = 45 combos |
+| Samples (16-frame) | 11,550 train / 1,584 val / 1,716 test |
+| Samples (32-frame, JEPA) | 8,750 train / 1,200 val / 1,300 test |
 
-## Results
+## Experiment Tracking
 
-| Method | Total MSE | α MSE | ζ MSE |
-|--------|-----------|-------|-------|
-| Linear Probe | — | — | — |
-| kNN (k=10) | — | — | — |
-| Supervised baseline* | — | — | — |
-
-*End-to-end finetuned; for comparison only, not our main submission.
-
-## Reproducibility
-
-- **Seeds**: All experiments use seed `42` (configurable in YAML). Seeds are logged to W&B.
-- **Configs**: All hyperparameters live in `configs/` — no magic numbers in code.
-- **Checkpoints**: Saved every epoch to `/scratch/$USER/checkpoints/` for spot-instance resilience.
-- **Mixed precision**: `torch.cuda.amp` (FP16) used throughout training.
-- **Parameter count**: Verified < 100M at training start (assertion in `train.py`).
+- **W&B**: Training metrics logged to Weights & Biases (optional — set `WANDB_API_KEY` in `.env`)
+- **Checkpoints**: Saved every 5 epochs + `best.pt` + `latest.pt` to `/scratch/$USER/checkpoints/<experiment>/`
+- **Seeds**: All experiments use seed 42 (configurable in YAML configs)
+- **Configs**: All hyperparameters in `configs/*.yaml` — zero magic numbers in code
+- **Mixed precision**: FP16 via `torch.amp` + `torch.compile()` for kernel fusion
 
 ## Compute
 
 | Resource | Detail |
 |----------|--------|
-| Cluster | NYU HPC OOD Burst (Google Cloud) |
-| Slurm account | `csci_ga_2572-2026sp` |
-| GPU | NVIDIA A100 40GB (training), L4 24GB (eval) |
-| Training time | — |
-| Total GPU hours | — |
-| Peak VRAM | — |
+| Cluster | NYU HPC Greene (OOD Burst, Google Cloud) |
+| GPU | NVIDIA A100-SXM4-40GB |
+| Total GPU hours | ~90.5h across all experiments |
+| Training (per model) | ~8–15h for 100 epochs |
+| Eval (per checkpoint) | ~5 min (feature extraction + probe + kNN) |
+| HPO sweep | ~7.5h (20 trials × 15 epochs × 20% data) |
 
-## Team
+## Reproducibility Checklist
 
-| Member | Contribution |
-|--------|-------------|
-| — | — |
-| — | — |
-| — | — |
+- [x] All hyperparameters in version-controlled YAML configs
+- [x] Fixed random seeds (torch, numpy, cuda)
+- [x] `assert encoder_params < 100_000_000` enforced at training start
+- [x] Auto-resume from checkpoints on SLURM preemption
+- [x] Feature z-score normalization in evaluation
+- [x] All results reproducible from configs + training scripts
+- [x] Environment specified in `requirements.txt` + `environment.yml`
+- [x] Detailed experiment log in `EXPERIMENT_LOG.md`
 
 ## References
 
-1. Baseline paper: [arXiv:2603.13227](https://arxiv.org/abs/2603.13227)
-2. EB-JEPA: [GitHub](https://github.com/facebookresearch/ijepa)
-3. Dataset: [polymathic-ai/active_matter](https://huggingface.co/datasets/polymathic-ai/active_matter)
-4. VideoMAE: [He et al., 2022](https://arxiv.org/abs/2203.12602)
+1. Qu & Cranmer. *Representation Learning for Physical Simulations*. [arXiv:2603.13227](https://arxiv.org/abs/2603.13227)
+2. Tong et al. *VideoMAE: Masked Autoencoders are Data-Efficient Learners*. NeurIPS 2022.
+3. Assran et al. *Self-Supervised Learning from Images with a JEPA*. CVPR 2023.
+4. Bardes et al. *VICReg: Variance-Invariance-Covariance Regularization*. ICLR 2022.
+5. Bardes et al. *Revisiting Feature Prediction for Learning Visual Representations from Video*. 2024.
+6. The Well Dataset: [polymathic-ai/active_matter](https://huggingface.co/datasets/polymathic-ai/active_matter)
 
 ## License
 
-Academic use only — NYU CSCI-GA 2572 Final Project.
+Academic use only — NYU CSCI-GA 2572 Final Project, Spring 2026.
