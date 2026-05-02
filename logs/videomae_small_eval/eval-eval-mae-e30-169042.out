@@ -1,0 +1,83 @@
+=== Eval started at Sun Apr 19 15:50:00 EDT 2026 ===
+Checkpoint: /scratch/psp8502/checkpoints/videomae_small/epoch_30.pt | Split: test
+Sun Apr 19 15:50:00 2026       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 580.126.09             Driver Version: 580.126.09     CUDA Version: 13.0     |
++-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA A100-SXM4-40GB          On  |   00000000:00:04.0 Off |                    0 |
+| N/A   32C    P0             44W /  400W |       0MiB /  40960MiB |      0%      Default |
+|                                         |                        |             Disabled |
++-----------------------------------------+------------------------+----------------------+
+
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+Encoder parameters: 13,412,736
+[train] 45 HDF5 files → 11550 samples (16 frames, 224×224 crop, stride=1)
+[test] 21 HDF5 files → 1716 samples (16 frames, 224×224 crop, stride=1)
+Extracting train features...
+    Processed batch 0/722
+    Processed batch 50/722
+    Processed batch 100/722
+    Processed batch 150/722
+    Processed batch 200/722
+    Processed batch 250/722
+    Processed batch 300/722
+    Processed batch 350/722
+    Processed batch 400/722
+    Processed batch 450/722
+    Processed batch 500/722
+    Processed batch 550/722
+    Processed batch 600/722
+    Processed batch 650/722
+    Processed batch 700/722
+Extracting eval features...
+    Processed batch 0/108
+    Processed batch 50/108
+    Processed batch 100/108
+
+Feature stats (raw):
+  Train — mean: -0.0011, std: 0.2284, min: -3.7375, max: 2.2082
+  Eval  — mean: -0.0011, std: 0.2292, min: -3.7243, max: 2.1843
+
+=== Linear Probe ===
+  Probe epoch 0 | Train MSE: 0.9259 | Val MSE: 0.6034
+  Probe epoch 10 | Train MSE: 0.2361 | Val MSE: 0.2329
+  Probe epoch 20 | Train MSE: 0.1952 | Val MSE: 0.1535
+  Probe epoch 30 | Train MSE: 0.1660 | Val MSE: 0.1245
+  Probe epoch 40 | Train MSE: 0.1433 | Val MSE: 0.1197
+  Probe epoch 50 | Train MSE: 0.1352 | Val MSE: 0.1124
+  Probe epoch 60 | Train MSE: 0.1277 | Val MSE: 0.1002
+  Probe epoch 70 | Train MSE: 0.1224 | Val MSE: 0.0991
+  Probe epoch 80 | Train MSE: 0.1186 | Val MSE: 0.0973
+  Probe epoch 90 | Train MSE: 0.1155 | Val MSE: 0.0942
+  Probe epoch 100 | Train MSE: 0.1130 | Val MSE: 0.0934
+  Probe epoch 110 | Train MSE: 0.1111 | Val MSE: 0.0926
+  Probe epoch 120 | Train MSE: 0.1097 | Val MSE: 0.0917
+  Probe epoch 130 | Train MSE: 0.1085 | Val MSE: 0.0912
+  Probe epoch 140 | Train MSE: 0.1076 | Val MSE: 0.0909
+  Probe epoch 150 | Train MSE: 0.1070 | Val MSE: 0.0906
+  Probe epoch 160 | Train MSE: 0.1066 | Val MSE: 0.0905
+  Probe epoch 170 | Train MSE: 0.1063 | Val MSE: 0.0904
+  Probe epoch 180 | Train MSE: 0.1062 | Val MSE: 0.0903
+  Probe epoch 190 | Train MSE: 0.1061 | Val MSE: 0.0903
+Linear Probe — Total MSE: 0.0903 | α MSE: 0.0289 | ζ MSE: 0.1517
+
+=== kNN (k=10) ===
+kNN — Total MSE: 0.1050 | α MSE: 0.0168 | ζ MSE: 0.1931
+
+==================================================
+RESULTS SUMMARY
+==================================================
+Method          Total MSE    α MSE        ζ MSE       
+Linear Probe    0.0903       0.0289       0.1517      
+kNN (k=10)      0.1050       0.0168       0.1931      
+=== Eval finished at $(date) ===

@@ -1,0 +1,40 @@
+=== Job started at Tue Apr 28 03:15:25 EDT 2026 ===
+Node: b-19-76 | GPU: 0
+Config: configs/supervised_small.yaml
+Tue Apr 28 03:15:25 2026       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 580.126.09             Driver Version: 580.126.09     CUDA Version: 13.0     |
++-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA A100-SXM4-40GB          On  |   00000000:00:04.0 Off |                    0 |
+| N/A   31C    P0             50W /  400W |       0MiB /  40960MiB |      0%      Default |
+|                                         |                        |             Disabled |
++-----------------------------------------+------------------------+----------------------+
+
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+============================================================
+EXPERIMENT: supervised_small (supervised baseline)
+Checkpoints → /scratch/psp8502/checkpoints/supervised_small
+============================================================
+[train] 45 HDF5 files → 11550 samples (16 frames, 224×224 crop, stride=1)
+[val] 16 HDF5 files → 1584 samples (16 frames, 224×224 crop, stride=1)
+Total parameters: 13,413,506 (13.41M)
+torch.compile() enabled
+Traceback (most recent call last):
+  File "/scratch/psp8502/dl-active-matter/train_supervised.py", line 291, in <module>
+    main()
+  File "/scratch/psp8502/dl-active-matter/train_supervised.py", line 197, in main
+    optimizer = torch.optim.AdamW(
+  File "/ext3/miniconda3/envs/dl-active-matter/lib/python3.10/site-packages/torch/optim/adamw.py", line 55, in __init__
+    if not 0.0 <= lr:
+TypeError: '<=' not supported between instances of 'float' and 'str'
+=== Job finished at $(date) ===

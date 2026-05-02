@@ -1,0 +1,1082 @@
+=== Job started at Sat Apr 18 12:18:00 EDT 2026 ===
+Node: b-19-1 | GPU: 0
+Config: configs/jepa_small.yaml
+Sat Apr 18 12:18:00 2026       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 580.126.09             Driver Version: 580.126.09     CUDA Version: 13.0     |
++-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA A100-SXM4-40GB          On  |   00000000:00:04.0 Off |                    0 |
+| N/A   33C    P0             48W /  400W |       0MiB /  40960MiB |      0%      Default |
+|                                         |                        |             Disabled |
++-----------------------------------------+------------------------+----------------------+
+
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+wandb: [wandb.login()] Loaded credentials for https://api.wandb.ai from WANDB_API_KEY.
+wandb: Currently logged in as: psp8502 (psp8502-new-york-university) to https://api.wandb.ai. Use `wandb login --relogin` to force relogin
+wandb: setting up run vz6hiqph
+wandb: Tracking run with wandb version 0.25.1
+wandb: Run data is saved locally in /scratch/psp8502/dl-active-matter/wandb/run-20260418_121833-vz6hiqph
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run restful-monkey-12
+wandb: ⭐️ View project at https://wandb.ai/psp8502-new-york-university/dl-active-matter
+wandb: 🚀 View run at https://wandb.ai/psp8502-new-york-university/dl-active-matter/runs/vz6hiqph
+============================================================
+EXPERIMENT: jepa_small
+Checkpoints → /scratch/psp8502/checkpoints/jepa_small
+============================================================
+[train] 45 HDF5 files → 8750 samples (32 frames, 224×224 crop, stride=1)
+[val] 16 HDF5 files → 1200 samples (32 frames, 224×224 crop, stride=1)
+Total parameters: 15,979,776 (15.98M)
+Auto-resumed from epoch 78
+  Epoch 78 | Batch 0 | Total: 0.6466 | MSE: 0.2735 | VarLoss: 0.3730 | TargetStd: 0.2127
+  Epoch 78 | Batch 50 | Total: 0.6441 | MSE: 0.2620 | VarLoss: 0.3821 | TargetStd: 0.1968
+  Epoch 78 | Batch 100 | Total: 0.6555 | MSE: 0.2444 | VarLoss: 0.4111 | TargetStd: 0.2247
+  Epoch 78 | Batch 150 | Total: 0.6871 | MSE: 0.2386 | VarLoss: 0.4485 | TargetStd: 0.2212
+  Epoch 78 | Batch 200 | Total: 0.6685 | MSE: 0.2720 | VarLoss: 0.3965 | TargetStd: 0.2021
+  Epoch 78 | Batch 250 | Total: 0.6826 | MSE: 0.2581 | VarLoss: 0.4246 | TargetStd: 0.2239
+  Epoch 78 | Batch 300 | Total: 0.6620 | MSE: 0.2670 | VarLoss: 0.3950 | TargetStd: 0.2185
+  Epoch 78 | Batch 350 | Total: 0.6530 | MSE: 0.2668 | VarLoss: 0.3862 | TargetStd: 0.2195
+  Epoch 78 | Batch 400 | Total: 0.6553 | MSE: 0.2664 | VarLoss: 0.3889 | TargetStd: 0.1921
+  Epoch 78 | Batch 450 | Total: 0.6551 | MSE: 0.2808 | VarLoss: 0.3743 | TargetStd: 0.2059
+  Epoch 78 | Batch 500 | Total: 0.6438 | MSE: 0.2634 | VarLoss: 0.3804 | TargetStd: 0.1997
+  Epoch 78 | Batch 550 | Total: 0.6330 | MSE: 0.2842 | VarLoss: 0.3489 | TargetStd: 0.2207
+  Epoch 78 | Batch 600 | Total: 0.6517 | MSE: 0.2601 | VarLoss: 0.3916 | TargetStd: 0.2166
+  Epoch 78 | Batch 650 | Total: 0.6718 | MSE: 0.2585 | VarLoss: 0.4133 | TargetStd: 0.2193
+  Epoch 78 | Batch 700 | Total: 0.6404 | MSE: 0.2708 | VarLoss: 0.3696 | TargetStd: 0.2099
+  Epoch 78 | Batch 750 | Total: 0.6455 | MSE: 0.2808 | VarLoss: 0.3647 | TargetStd: 0.2130
+  Epoch 78 | Batch 800 | Total: 0.6479 | MSE: 0.2812 | VarLoss: 0.3667 | TargetStd: 0.2134
+  Epoch 78 | Batch 850 | Total: 0.6413 | MSE: 0.2885 | VarLoss: 0.3528 | TargetStd: 0.2196
+  Epoch 78 | Batch 900 | Total: 0.6415 | MSE: 0.2697 | VarLoss: 0.3718 | TargetStd: 0.2164
+  Epoch 78 | Batch 950 | Total: 0.6349 | MSE: 0.2713 | VarLoss: 0.3635 | TargetStd: 0.2193
+  Epoch 78 | Batch 1000 | Total: 0.6752 | MSE: 0.2496 | VarLoss: 0.4255 | TargetStd: 0.2062
+  Epoch 78 | Batch 1050 | Total: 0.6540 | MSE: 0.2584 | VarLoss: 0.3955 | TargetStd: 0.2049
+  Epoch 78 | Batch 1100 | Total: 0.6554 | MSE: 0.2633 | VarLoss: 0.3921 | TargetStd: 0.2137
+  Epoch 78 | Batch 1150 | Total: 0.6496 | MSE: 0.2670 | VarLoss: 0.3826 | TargetStd: 0.2061
+  Epoch 78 | Batch 1200 | Total: 0.6444 | MSE: 0.2697 | VarLoss: 0.3748 | TargetStd: 0.1996
+  Epoch 78 | Batch 1250 | Total: 0.6407 | MSE: 0.2681 | VarLoss: 0.3726 | TargetStd: 0.2153
+  Epoch 78 | Batch 1300 | Total: 0.6324 | MSE: 0.2554 | VarLoss: 0.3770 | TargetStd: 0.1941
+  Epoch 78 | Batch 1350 | Total: 0.6364 | MSE: 0.2719 | VarLoss: 0.3645 | TargetStd: 0.1935
+  Epoch 78 | Batch 1400 | Total: 0.6750 | MSE: 0.2588 | VarLoss: 0.4163 | TargetStd: 0.2238
+  Epoch 78 | Batch 1450 | Total: 0.6354 | MSE: 0.2736 | VarLoss: 0.3618 | TargetStd: 0.1940
+  Epoch 78 | Batch 1500 | Total: 0.6453 | MSE: 0.2744 | VarLoss: 0.3708 | TargetStd: 0.1947
+  Epoch 78 | Batch 1550 | Total: 0.6329 | MSE: 0.2660 | VarLoss: 0.3669 | TargetStd: 0.2030
+  Epoch 78 | Batch 1600 | Total: 0.6348 | MSE: 0.2644 | VarLoss: 0.3704 | TargetStd: 0.2113
+  Epoch 78 | Batch 1650 | Total: 0.6566 | MSE: 0.2741 | VarLoss: 0.3826 | TargetStd: 0.2076
+  Epoch 78 | Batch 1700 | Total: 0.6511 | MSE: 0.2683 | VarLoss: 0.3828 | TargetStd: 0.1990
+  Epoch 78 | Batch 1750 | Total: 0.6625 | MSE: 0.2716 | VarLoss: 0.3909 | TargetStd: 0.2256
+  Epoch 78 | Batch 1800 | Total: 0.6428 | MSE: 0.2788 | VarLoss: 0.3640 | TargetStd: 0.2156
+  Epoch 78 | Batch 1850 | Total: 0.6504 | MSE: 0.2610 | VarLoss: 0.3894 | TargetStd: 0.2024
+  Epoch 78 | Batch 1900 | Total: 0.6785 | MSE: 0.2529 | VarLoss: 0.4255 | TargetStd: 0.2083
+  Epoch 78 | Batch 1950 | Total: 0.6705 | MSE: 0.2450 | VarLoss: 0.4255 | TargetStd: 0.2222
+  Epoch 78 | Batch 2000 | Total: 0.6291 | MSE: 0.2832 | VarLoss: 0.3459 | TargetStd: 0.2023
+  Epoch 78 | Batch 2050 | Total: 0.6607 | MSE: 0.2667 | VarLoss: 0.3940 | TargetStd: 0.2078
+  Epoch 78 | Batch 2100 | Total: 0.6565 | MSE: 0.2639 | VarLoss: 0.3926 | TargetStd: 0.2191
+  Epoch 78 | Batch 2150 | Total: 0.6574 | MSE: 0.2631 | VarLoss: 0.3943 | TargetStd: 0.2255
+Epoch 78 | Train Loss: 0.6505 | Val Loss: 0.7671
+  -> New best val loss: 0.7671
+  Epoch 79 | Batch 0 | Total: 0.6582 | MSE: 0.2476 | VarLoss: 0.4106 | TargetStd: 0.2052
+  Epoch 79 | Batch 50 | Total: 0.6622 | MSE: 0.2453 | VarLoss: 0.4170 | TargetStd: 0.2134
+  Epoch 79 | Batch 100 | Total: 0.6499 | MSE: 0.2553 | VarLoss: 0.3945 | TargetStd: 0.2090
+  Epoch 79 | Batch 150 | Total: 0.6406 | MSE: 0.2653 | VarLoss: 0.3752 | TargetStd: 0.1777
+  Epoch 79 | Batch 200 | Total: 0.6543 | MSE: 0.2788 | VarLoss: 0.3755 | TargetStd: 0.2154
+  Epoch 79 | Batch 250 | Total: 0.6468 | MSE: 0.2892 | VarLoss: 0.3577 | TargetStd: 0.2177
+  Epoch 79 | Batch 300 | Total: 0.6288 | MSE: 0.2818 | VarLoss: 0.3469 | TargetStd: 0.2038
+  Epoch 79 | Batch 350 | Total: 0.6533 | MSE: 0.2563 | VarLoss: 0.3970 | TargetStd: 0.2184
+  Epoch 79 | Batch 400 | Total: 0.6541 | MSE: 0.2701 | VarLoss: 0.3840 | TargetStd: 0.2156
+  Epoch 79 | Batch 450 | Total: 0.6607 | MSE: 0.2766 | VarLoss: 0.3840 | TargetStd: 0.2131
+  Epoch 79 | Batch 500 | Total: 0.6570 | MSE: 0.2493 | VarLoss: 0.4077 | TargetStd: 0.2131
+  Epoch 79 | Batch 550 | Total: 0.6323 | MSE: 0.2580 | VarLoss: 0.3743 | TargetStd: 0.2009
+  Epoch 79 | Batch 600 | Total: 0.6513 | MSE: 0.2416 | VarLoss: 0.4097 | TargetStd: 0.2129
+  Epoch 79 | Batch 650 | Total: 0.6439 | MSE: 0.2581 | VarLoss: 0.3857 | TargetStd: 0.2137
+  Epoch 79 | Batch 700 | Total: 0.6728 | MSE: 0.2551 | VarLoss: 0.4177 | TargetStd: 0.2055
+  Epoch 79 | Batch 750 | Total: 0.6437 | MSE: 0.2529 | VarLoss: 0.3909 | TargetStd: 0.2046
+  Epoch 79 | Batch 800 | Total: 0.6512 | MSE: 0.2621 | VarLoss: 0.3892 | TargetStd: 0.2031
+  Epoch 79 | Batch 850 | Total: 0.6367 | MSE: 0.2708 | VarLoss: 0.3660 | TargetStd: 0.1855
+  Epoch 79 | Batch 900 | Total: 0.6448 | MSE: 0.2520 | VarLoss: 0.3928 | TargetStd: 0.2086
+  Epoch 79 | Batch 950 | Total: 0.6360 | MSE: 0.2725 | VarLoss: 0.3635 | TargetStd: 0.2052
+  Epoch 79 | Batch 1000 | Total: 0.6451 | MSE: 0.2567 | VarLoss: 0.3884 | TargetStd: 0.2095
+  Epoch 79 | Batch 1050 | Total: 0.6429 | MSE: 0.2867 | VarLoss: 0.3562 | TargetStd: 0.2189
+  Epoch 79 | Batch 1100 | Total: 0.6380 | MSE: 0.2703 | VarLoss: 0.3677 | TargetStd: 0.2075
+  Epoch 79 | Batch 1150 | Total: 0.6303 | MSE: 0.2739 | VarLoss: 0.3564 | TargetStd: 0.2135
+  Epoch 79 | Batch 1200 | Total: 0.6527 | MSE: 0.2745 | VarLoss: 0.3782 | TargetStd: 0.2155
+  Epoch 79 | Batch 1250 | Total: 0.6709 | MSE: 0.2481 | VarLoss: 0.4229 | TargetStd: 0.2172
+  Epoch 79 | Batch 1300 | Total: 0.6440 | MSE: 0.2754 | VarLoss: 0.3687 | TargetStd: 0.1936
+  Epoch 79 | Batch 1350 | Total: 0.6523 | MSE: 0.2622 | VarLoss: 0.3901 | TargetStd: 0.2067
+  Epoch 79 | Batch 1400 | Total: 0.6350 | MSE: 0.2605 | VarLoss: 0.3745 | TargetStd: 0.2160
+  Epoch 79 | Batch 1450 | Total: 0.6506 | MSE: 0.2649 | VarLoss: 0.3857 | TargetStd: 0.2138
+  Epoch 79 | Batch 1500 | Total: 0.6330 | MSE: 0.2588 | VarLoss: 0.3743 | TargetStd: 0.2046
+  Epoch 79 | Batch 1550 | Total: 0.6625 | MSE: 0.2760 | VarLoss: 0.3865 | TargetStd: 0.2221
+  Epoch 79 | Batch 1600 | Total: 0.6395 | MSE: 0.2674 | VarLoss: 0.3721 | TargetStd: 0.1946
+  Epoch 79 | Batch 1650 | Total: 0.6397 | MSE: 0.2390 | VarLoss: 0.4006 | TargetStd: 0.2141
+  Epoch 79 | Batch 1700 | Total: 0.6478 | MSE: 0.2657 | VarLoss: 0.3821 | TargetStd: 0.1995
+  Epoch 79 | Batch 1750 | Total: 0.6560 | MSE: 0.2558 | VarLoss: 0.4001 | TargetStd: 0.2135
+  Epoch 79 | Batch 1800 | Total: 0.6354 | MSE: 0.2653 | VarLoss: 0.3701 | TargetStd: 0.1946
+  Epoch 79 | Batch 1850 | Total: 0.6568 | MSE: 0.2498 | VarLoss: 0.4070 | TargetStd: 0.2059
+  Epoch 79 | Batch 1900 | Total: 0.6362 | MSE: 0.2873 | VarLoss: 0.3489 | TargetStd: 0.2041
+  Epoch 79 | Batch 1950 | Total: 0.6335 | MSE: 0.2729 | VarLoss: 0.3606 | TargetStd: 0.2087
+  Epoch 79 | Batch 2000 | Total: 0.6370 | MSE: 0.2623 | VarLoss: 0.3748 | TargetStd: 0.2008
+  Epoch 79 | Batch 2050 | Total: 0.6289 | MSE: 0.2608 | VarLoss: 0.3682 | TargetStd: 0.1930
+  Epoch 79 | Batch 2100 | Total: 0.7044 | MSE: 0.2271 | VarLoss: 0.4773 | TargetStd: 0.2193
+  Epoch 79 | Batch 2150 | Total: 0.6740 | MSE: 0.2375 | VarLoss: 0.4365 | TargetStd: 0.2106
+Epoch 79 | Train Loss: 0.6502 | Val Loss: 0.7664
+  -> New best val loss: 0.7664
+  -> Saved periodic checkpoint: epoch_80.pt
+  Epoch 80 | Batch 0 | Total: 0.6510 | MSE: 0.2570 | VarLoss: 0.3940 | TargetStd: 0.2111
+  Epoch 80 | Batch 50 | Total: 0.6769 | MSE: 0.2401 | VarLoss: 0.4368 | TargetStd: 0.2165
+  Epoch 80 | Batch 100 | Total: 0.6467 | MSE: 0.2722 | VarLoss: 0.3745 | TargetStd: 0.2133
+  Epoch 80 | Batch 150 | Total: 0.6549 | MSE: 0.2447 | VarLoss: 0.4102 | TargetStd: 0.2021
+  Epoch 80 | Batch 200 | Total: 0.6982 | MSE: 0.2712 | VarLoss: 0.4270 | TargetStd: 0.2226
+  Epoch 80 | Batch 250 | Total: 0.6443 | MSE: 0.2536 | VarLoss: 0.3906 | TargetStd: 0.1885
+  Epoch 80 | Batch 300 | Total: 0.7083 | MSE: 0.2251 | VarLoss: 0.4832 | TargetStd: 0.2186
+  Epoch 80 | Batch 350 | Total: 0.6630 | MSE: 0.2465 | VarLoss: 0.4165 | TargetStd: 0.2089
+  Epoch 80 | Batch 400 | Total: 0.6218 | MSE: 0.2736 | VarLoss: 0.3481 | TargetStd: 0.1995
+  Epoch 80 | Batch 450 | Total: 0.6547 | MSE: 0.2685 | VarLoss: 0.3862 | TargetStd: 0.2023
+  Epoch 80 | Batch 500 | Total: 0.6564 | MSE: 0.2694 | VarLoss: 0.3870 | TargetStd: 0.2149
+  Epoch 80 | Batch 550 | Total: 0.6327 | MSE: 0.2668 | VarLoss: 0.3660 | TargetStd: 0.1975
+  Epoch 80 | Batch 600 | Total: 0.6497 | MSE: 0.2469 | VarLoss: 0.4028 | TargetStd: 0.2096
+  Epoch 80 | Batch 650 | Total: 0.6355 | MSE: 0.2656 | VarLoss: 0.3699 | TargetStd: 0.1956
+  Epoch 80 | Batch 700 | Total: 0.6750 | MSE: 0.2595 | VarLoss: 0.4155 | TargetStd: 0.2157
+  Epoch 80 | Batch 750 | Total: 0.6422 | MSE: 0.2728 | VarLoss: 0.3694 | TargetStd: 0.1956
+  Epoch 80 | Batch 800 | Total: 0.6565 | MSE: 0.2535 | VarLoss: 0.4031 | TargetStd: 0.2010
+  Epoch 80 | Batch 850 | Total: 0.6343 | MSE: 0.2605 | VarLoss: 0.3738 | TargetStd: 0.2138
+  Epoch 80 | Batch 900 | Total: 0.6404 | MSE: 0.2659 | VarLoss: 0.3745 | TargetStd: 0.2032
+  Epoch 80 | Batch 950 | Total: 0.6293 | MSE: 0.2753 | VarLoss: 0.3540 | TargetStd: 0.1925
+  Epoch 80 | Batch 1000 | Total: 0.6427 | MSE: 0.2504 | VarLoss: 0.3923 | TargetStd: 0.1969
+  Epoch 80 | Batch 1050 | Total: 0.6381 | MSE: 0.2675 | VarLoss: 0.3706 | TargetStd: 0.2131
+  Epoch 80 | Batch 1100 | Total: 0.6426 | MSE: 0.2690 | VarLoss: 0.3735 | TargetStd: 0.2106
+  Epoch 80 | Batch 1150 | Total: 0.6348 | MSE: 0.2749 | VarLoss: 0.3599 | TargetStd: 0.1915
+  Epoch 80 | Batch 1200 | Total: 0.6288 | MSE: 0.2753 | VarLoss: 0.3535 | TargetStd: 0.2095
+  Epoch 80 | Batch 1250 | Total: 0.6358 | MSE: 0.2750 | VarLoss: 0.3608 | TargetStd: 0.2109
+  Epoch 80 | Batch 1300 | Total: 0.6556 | MSE: 0.2628 | VarLoss: 0.3928 | TargetStd: 0.2144
+  Epoch 80 | Batch 1350 | Total: 0.6501 | MSE: 0.2639 | VarLoss: 0.3862 | TargetStd: 0.2121
+  Epoch 80 | Batch 1400 | Total: 0.6766 | MSE: 0.2396 | VarLoss: 0.4370 | TargetStd: 0.2137
+  Epoch 80 | Batch 1450 | Total: 0.6353 | MSE: 0.2701 | VarLoss: 0.3652 | TargetStd: 0.2120
+  Epoch 80 | Batch 1500 | Total: 0.6485 | MSE: 0.2769 | VarLoss: 0.3716 | TargetStd: 0.2178
+  Epoch 80 | Batch 1550 | Total: 0.6356 | MSE: 0.2618 | VarLoss: 0.3738 | TargetStd: 0.1829
+  Epoch 80 | Batch 1600 | Total: 0.6491 | MSE: 0.2915 | VarLoss: 0.3577 | TargetStd: 0.2173
+  Epoch 80 | Batch 1650 | Total: 0.6342 | MSE: 0.2590 | VarLoss: 0.3752 | TargetStd: 0.1934
+  Epoch 80 | Batch 1700 | Total: 0.6812 | MSE: 0.2449 | VarLoss: 0.4363 | TargetStd: 0.2201
+  Epoch 80 | Batch 1750 | Total: 0.6556 | MSE: 0.2540 | VarLoss: 0.4016 | TargetStd: 0.2117
+  Epoch 80 | Batch 1800 | Total: 0.6484 | MSE: 0.2433 | VarLoss: 0.4050 | TargetStd: 0.2075
+  Epoch 80 | Batch 1850 | Total: 0.6523 | MSE: 0.2507 | VarLoss: 0.4016 | TargetStd: 0.1985
+  Epoch 80 | Batch 1900 | Total: 0.6467 | MSE: 0.2727 | VarLoss: 0.3740 | TargetStd: 0.2118
+  Epoch 80 | Batch 1950 | Total: 0.6440 | MSE: 0.2714 | VarLoss: 0.3726 | TargetStd: 0.1990
+  Epoch 80 | Batch 2000 | Total: 0.6537 | MSE: 0.2560 | VarLoss: 0.3977 | TargetStd: 0.2068
+  Epoch 80 | Batch 2050 | Total: 0.6505 | MSE: 0.2501 | VarLoss: 0.4004 | TargetStd: 0.2014
+  Epoch 80 | Batch 2100 | Total: 0.6633 | MSE: 0.2617 | VarLoss: 0.4016 | TargetStd: 0.2107
+  Epoch 80 | Batch 2150 | Total: 0.6435 | MSE: 0.2451 | VarLoss: 0.3984 | TargetStd: 0.2070
+Epoch 80 | Train Loss: 0.6498 | Val Loss: 0.7632
+  -> New best val loss: 0.7632
+  Epoch 81 | Batch 0 | Total: 0.6509 | MSE: 0.2622 | VarLoss: 0.3887 | TargetStd: 0.2081
+  Epoch 81 | Batch 50 | Total: 0.6736 | MSE: 0.2605 | VarLoss: 0.4131 | TargetStd: 0.2014
+  Epoch 81 | Batch 100 | Total: 0.6419 | MSE: 0.2752 | VarLoss: 0.3667 | TargetStd: 0.2021
+  Epoch 81 | Batch 150 | Total: 0.6616 | MSE: 0.2588 | VarLoss: 0.4028 | TargetStd: 0.2105
+  Epoch 81 | Batch 200 | Total: 0.6743 | MSE: 0.2561 | VarLoss: 0.4182 | TargetStd: 0.2017
+  Epoch 81 | Batch 250 | Total: 0.6442 | MSE: 0.2563 | VarLoss: 0.3879 | TargetStd: 0.2066
+  Epoch 81 | Batch 300 | Total: 0.6456 | MSE: 0.2530 | VarLoss: 0.3926 | TargetStd: 0.2015
+  Epoch 81 | Batch 350 | Total: 0.6890 | MSE: 0.2410 | VarLoss: 0.4480 | TargetStd: 0.2101
+  Epoch 81 | Batch 400 | Total: 0.6513 | MSE: 0.2672 | VarLoss: 0.3840 | TargetStd: 0.2075
+  Epoch 81 | Batch 450 | Total: 0.6354 | MSE: 0.2706 | VarLoss: 0.3647 | TargetStd: 0.1948
+  Epoch 81 | Batch 500 | Total: 0.6669 | MSE: 0.2355 | VarLoss: 0.4314 | TargetStd: 0.2123
+  Epoch 81 | Batch 550 | Total: 0.6571 | MSE: 0.2484 | VarLoss: 0.4087 | TargetStd: 0.2101
+  Epoch 81 | Batch 600 | Total: 0.6374 | MSE: 0.2597 | VarLoss: 0.3777 | TargetStd: 0.2018
+  Epoch 81 | Batch 650 | Total: 0.6812 | MSE: 0.2605 | VarLoss: 0.4207 | TargetStd: 0.2196
+  Epoch 81 | Batch 700 | Total: 0.6394 | MSE: 0.2739 | VarLoss: 0.3655 | TargetStd: 0.1798
+  Epoch 81 | Batch 750 | Total: 0.6541 | MSE: 0.2633 | VarLoss: 0.3909 | TargetStd: 0.2051
+  Epoch 81 | Batch 800 | Total: 0.6469 | MSE: 0.2610 | VarLoss: 0.3860 | TargetStd: 0.2062
+  Epoch 81 | Batch 850 | Total: 0.6461 | MSE: 0.2618 | VarLoss: 0.3843 | TargetStd: 0.2078
+  Epoch 81 | Batch 900 | Total: 0.6671 | MSE: 0.2436 | VarLoss: 0.4236 | TargetStd: 0.2026
+  Epoch 81 | Batch 950 | Total: 0.6416 | MSE: 0.2605 | VarLoss: 0.3811 | TargetStd: 0.1945
+  Epoch 81 | Batch 1000 | Total: 0.6776 | MSE: 0.2418 | VarLoss: 0.4358 | TargetStd: 0.2135
+  Epoch 81 | Batch 1050 | Total: 0.6525 | MSE: 0.2650 | VarLoss: 0.3875 | TargetStd: 0.1950
+  Epoch 81 | Batch 1100 | Total: 0.6646 | MSE: 0.2425 | VarLoss: 0.4221 | TargetStd: 0.2088
+  Epoch 81 | Batch 1150 | Total: 0.6571 | MSE: 0.2681 | VarLoss: 0.3889 | TargetStd: 0.2199
+  Epoch 81 | Batch 1200 | Total: 0.6682 | MSE: 0.2438 | VarLoss: 0.4243 | TargetStd: 0.2141
+  Epoch 81 | Batch 1250 | Total: 0.6518 | MSE: 0.2582 | VarLoss: 0.3936 | TargetStd: 0.2111
+  Epoch 81 | Batch 1300 | Total: 0.6450 | MSE: 0.2817 | VarLoss: 0.3633 | TargetStd: 0.2036
+  Epoch 81 | Batch 1350 | Total: 0.6545 | MSE: 0.2558 | VarLoss: 0.3987 | TargetStd: 0.2094
+  Epoch 81 | Batch 1400 | Total: 0.6423 | MSE: 0.2734 | VarLoss: 0.3689 | TargetStd: 0.1850
+  Epoch 81 | Batch 1450 | Total: 0.6410 | MSE: 0.2648 | VarLoss: 0.3762 | TargetStd: 0.2107
+  Epoch 81 | Batch 1500 | Total: 0.6379 | MSE: 0.2590 | VarLoss: 0.3789 | TargetStd: 0.2097
+  Epoch 81 | Batch 1550 | Total: 0.6575 | MSE: 0.2393 | VarLoss: 0.4182 | TargetStd: 0.2146
+  Epoch 81 | Batch 1600 | Total: 0.6627 | MSE: 0.2645 | VarLoss: 0.3982 | TargetStd: 0.2036
+  Epoch 81 | Batch 1650 | Total: 0.6543 | MSE: 0.2649 | VarLoss: 0.3894 | TargetStd: 0.2102
+  Epoch 81 | Batch 1700 | Total: 0.6420 | MSE: 0.2862 | VarLoss: 0.3557 | TargetStd: 0.1952
+  Epoch 81 | Batch 1750 | Total: 0.6751 | MSE: 0.2808 | VarLoss: 0.3943 | TargetStd: 0.2110
+  Epoch 81 | Batch 1800 | Total: 0.6504 | MSE: 0.2588 | VarLoss: 0.3916 | TargetStd: 0.1981
+  Epoch 81 | Batch 1850 | Total: 0.6669 | MSE: 0.2624 | VarLoss: 0.4045 | TargetStd: 0.1962
+  Epoch 81 | Batch 1900 | Total: 0.6595 | MSE: 0.2515 | VarLoss: 0.4080 | TargetStd: 0.2147
+  Epoch 81 | Batch 1950 | Total: 0.6493 | MSE: 0.2679 | VarLoss: 0.3813 | TargetStd: 0.2095
+  Epoch 81 | Batch 2000 | Total: 0.6582 | MSE: 0.2644 | VarLoss: 0.3938 | TargetStd: 0.2076
+  Epoch 81 | Batch 2050 | Total: 0.7080 | MSE: 0.2376 | VarLoss: 0.4705 | TargetStd: 0.2141
+  Epoch 81 | Batch 2100 | Total: 0.6465 | MSE: 0.2554 | VarLoss: 0.3911 | TargetStd: 0.1969
+  Epoch 81 | Batch 2150 | Total: 0.6330 | MSE: 0.2741 | VarLoss: 0.3589 | TargetStd: 0.2099
+Epoch 81 | Train Loss: 0.6493 | Val Loss: 0.7601
+  -> New best val loss: 0.7601
+  Epoch 82 | Batch 0 | Total: 0.6450 | MSE: 0.2558 | VarLoss: 0.3892 | TargetStd: 0.1992
+  Epoch 82 | Batch 50 | Total: 0.6555 | MSE: 0.2698 | VarLoss: 0.3857 | TargetStd: 0.2140
+  Epoch 82 | Batch 100 | Total: 0.6716 | MSE: 0.2353 | VarLoss: 0.4363 | TargetStd: 0.2129
+  Epoch 82 | Batch 150 | Total: 0.6471 | MSE: 0.2721 | VarLoss: 0.3750 | TargetStd: 0.2031
+  Epoch 82 | Batch 200 | Total: 0.6902 | MSE: 0.2407 | VarLoss: 0.4495 | TargetStd: 0.2088
+  Epoch 82 | Batch 250 | Total: 0.6532 | MSE: 0.2777 | VarLoss: 0.3755 | TargetStd: 0.2129
+  Epoch 82 | Batch 300 | Total: 0.6432 | MSE: 0.2692 | VarLoss: 0.3740 | TargetStd: 0.1975
+  Epoch 82 | Batch 350 | Total: 0.6370 | MSE: 0.2733 | VarLoss: 0.3638 | TargetStd: 0.1950
+  Epoch 82 | Batch 400 | Total: 0.6515 | MSE: 0.2501 | VarLoss: 0.4014 | TargetStd: 0.2140
+  Epoch 82 | Batch 450 | Total: 0.6603 | MSE: 0.2518 | VarLoss: 0.4084 | TargetStd: 0.2206
+  Epoch 82 | Batch 500 | Total: 0.6762 | MSE: 0.2426 | VarLoss: 0.4336 | TargetStd: 0.2174
+  Epoch 82 | Batch 550 | Total: 0.6772 | MSE: 0.2358 | VarLoss: 0.4414 | TargetStd: 0.2128
+  Epoch 82 | Batch 600 | Total: 0.6528 | MSE: 0.2573 | VarLoss: 0.3955 | TargetStd: 0.2023
+  Epoch 82 | Batch 650 | Total: 0.6705 | MSE: 0.2589 | VarLoss: 0.4116 | TargetStd: 0.2097
+  Epoch 82 | Batch 700 | Total: 0.6570 | MSE: 0.2676 | VarLoss: 0.3894 | TargetStd: 0.2120
+  Epoch 82 | Batch 750 | Total: 0.6527 | MSE: 0.2482 | VarLoss: 0.4045 | TargetStd: 0.2099
+  Epoch 82 | Batch 800 | Total: 0.6574 | MSE: 0.2754 | VarLoss: 0.3821 | TargetStd: 0.2178
+  Epoch 82 | Batch 850 | Total: 0.6232 | MSE: 0.2836 | VarLoss: 0.3396 | TargetStd: 0.2037
+  Epoch 82 | Batch 900 | Total: 0.6476 | MSE: 0.2558 | VarLoss: 0.3918 | TargetStd: 0.2026
+  Epoch 82 | Batch 950 | Total: 0.6467 | MSE: 0.2763 | VarLoss: 0.3704 | TargetStd: 0.1973
+  Epoch 82 | Batch 1000 | Total: 0.6524 | MSE: 0.2784 | VarLoss: 0.3740 | TargetStd: 0.2061
+  Epoch 82 | Batch 1050 | Total: 0.6384 | MSE: 0.2830 | VarLoss: 0.3555 | TargetStd: 0.2098
+  Epoch 82 | Batch 1100 | Total: 0.6527 | MSE: 0.2545 | VarLoss: 0.3982 | TargetStd: 0.2117
+  Epoch 82 | Batch 1150 | Total: 0.6745 | MSE: 0.2427 | VarLoss: 0.4319 | TargetStd: 0.2150
+  Epoch 82 | Batch 1200 | Total: 0.6495 | MSE: 0.2521 | VarLoss: 0.3975 | TargetStd: 0.1988
+  Epoch 82 | Batch 1250 | Total: 0.6468 | MSE: 0.2373 | VarLoss: 0.4094 | TargetStd: 0.2042
+  Epoch 82 | Batch 1300 | Total: 0.6477 | MSE: 0.2449 | VarLoss: 0.4028 | TargetStd: 0.2035
+  Epoch 82 | Batch 1350 | Total: 0.6669 | MSE: 0.2652 | VarLoss: 0.4016 | TargetStd: 0.2116
+  Epoch 82 | Batch 1400 | Total: 0.6413 | MSE: 0.2734 | VarLoss: 0.3679 | TargetStd: 0.2149
+  Epoch 82 | Batch 1450 | Total: 0.6642 | MSE: 0.2372 | VarLoss: 0.4270 | TargetStd: 0.2023
+  Epoch 82 | Batch 1500 | Total: 0.6375 | MSE: 0.2647 | VarLoss: 0.3728 | TargetStd: 0.1925
+  Epoch 82 | Batch 1550 | Total: 0.6609 | MSE: 0.2481 | VarLoss: 0.4128 | TargetStd: 0.2117
+  Epoch 82 | Batch 1600 | Total: 0.6570 | MSE: 0.2444 | VarLoss: 0.4126 | TargetStd: 0.2072
+  Epoch 82 | Batch 1650 | Total: 0.6448 | MSE: 0.2759 | VarLoss: 0.3689 | TargetStd: 0.1950
+  Epoch 82 | Batch 1700 | Total: 0.6477 | MSE: 0.2610 | VarLoss: 0.3867 | TargetStd: 0.1970
+  Epoch 82 | Batch 1750 | Total: 0.6605 | MSE: 0.2503 | VarLoss: 0.4102 | TargetStd: 0.2059
+  Epoch 82 | Batch 1800 | Total: 0.6504 | MSE: 0.2710 | VarLoss: 0.3794 | TargetStd: 0.2156
+  Epoch 82 | Batch 1850 | Total: 0.6554 | MSE: 0.2475 | VarLoss: 0.4080 | TargetStd: 0.2050
+  Epoch 82 | Batch 1900 | Total: 0.6259 | MSE: 0.2519 | VarLoss: 0.3740 | TargetStd: 0.1975
+  Epoch 82 | Batch 1950 | Total: 0.6621 | MSE: 0.2788 | VarLoss: 0.3833 | TargetStd: 0.2175
+  Epoch 82 | Batch 2000 | Total: 0.6772 | MSE: 0.2453 | VarLoss: 0.4319 | TargetStd: 0.2020
+  Epoch 82 | Batch 2050 | Total: 0.6678 | MSE: 0.2525 | VarLoss: 0.4153 | TargetStd: 0.2114
+  Epoch 82 | Batch 2100 | Total: 0.6481 | MSE: 0.2714 | VarLoss: 0.3767 | TargetStd: 0.1999
+  Epoch 82 | Batch 2150 | Total: 0.6607 | MSE: 0.2478 | VarLoss: 0.4128 | TargetStd: 0.2075
+Epoch 82 | Train Loss: 0.6494 | Val Loss: 0.7587
+  -> New best val loss: 0.7587
+  Epoch 83 | Batch 0 | Total: 0.6438 | MSE: 0.2649 | VarLoss: 0.3789 | TargetStd: 0.1919
+  Epoch 83 | Batch 50 | Total: 0.6665 | MSE: 0.2600 | VarLoss: 0.4065 | TargetStd: 0.1994
+  Epoch 83 | Batch 100 | Total: 0.6580 | MSE: 0.2532 | VarLoss: 0.4048 | TargetStd: 0.2084
+  Epoch 83 | Batch 150 | Total: 0.6613 | MSE: 0.2695 | VarLoss: 0.3918 | TargetStd: 0.2161
+  Epoch 83 | Batch 200 | Total: 0.6474 | MSE: 0.2697 | VarLoss: 0.3777 | TargetStd: 0.2035
+  Epoch 83 | Batch 250 | Total: 0.6428 | MSE: 0.2664 | VarLoss: 0.3765 | TargetStd: 0.2031
+  Epoch 83 | Batch 300 | Total: 0.6330 | MSE: 0.2661 | VarLoss: 0.3669 | TargetStd: 0.1934
+  Epoch 83 | Batch 350 | Total: 0.6707 | MSE: 0.2402 | VarLoss: 0.4304 | TargetStd: 0.2140
+  Epoch 83 | Batch 400 | Total: 0.6565 | MSE: 0.2578 | VarLoss: 0.3987 | TargetStd: 0.2082
+  Epoch 83 | Batch 450 | Total: 0.6428 | MSE: 0.2631 | VarLoss: 0.3796 | TargetStd: 0.1910
+  Epoch 83 | Batch 500 | Total: 0.6417 | MSE: 0.2777 | VarLoss: 0.3640 | TargetStd: 0.2076
+  Epoch 83 | Batch 550 | Total: 0.6724 | MSE: 0.2417 | VarLoss: 0.4307 | TargetStd: 0.2035
+  Epoch 83 | Batch 600 | Total: 0.6516 | MSE: 0.2510 | VarLoss: 0.4006 | TargetStd: 0.2112
+  Epoch 83 | Batch 650 | Total: 0.6673 | MSE: 0.2605 | VarLoss: 0.4067 | TargetStd: 0.1899
+  Epoch 83 | Batch 700 | Total: 0.6598 | MSE: 0.2650 | VarLoss: 0.3948 | TargetStd: 0.2027
+  Epoch 83 | Batch 750 | Total: 0.6582 | MSE: 0.2624 | VarLoss: 0.3958 | TargetStd: 0.2129
+  Epoch 83 | Batch 800 | Total: 0.6274 | MSE: 0.2807 | VarLoss: 0.3467 | TargetStd: 0.1917
+  Epoch 83 | Batch 850 | Total: 0.6667 | MSE: 0.2393 | VarLoss: 0.4275 | TargetStd: 0.2114
+  Epoch 83 | Batch 900 | Total: 0.6445 | MSE: 0.2607 | VarLoss: 0.3838 | TargetStd: 0.1890
+  Epoch 83 | Batch 950 | Total: 0.6493 | MSE: 0.2767 | VarLoss: 0.3726 | TargetStd: 0.2031
+  Epoch 83 | Batch 1000 | Total: 0.6417 | MSE: 0.2701 | VarLoss: 0.3716 | TargetStd: 0.1907
+  Epoch 83 | Batch 1050 | Total: 0.6778 | MSE: 0.2486 | VarLoss: 0.4292 | TargetStd: 0.2130
+  Epoch 83 | Batch 1100 | Total: 0.6533 | MSE: 0.2529 | VarLoss: 0.4004 | TargetStd: 0.2035
+  Epoch 83 | Batch 1150 | Total: 0.6648 | MSE: 0.2446 | VarLoss: 0.4202 | TargetStd: 0.2103
+  Epoch 83 | Batch 1200 | Total: 0.6574 | MSE: 0.2524 | VarLoss: 0.4050 | TargetStd: 0.2161
+  Epoch 83 | Batch 1250 | Total: 0.6608 | MSE: 0.2758 | VarLoss: 0.3850 | TargetStd: 0.2172
+  Epoch 83 | Batch 1300 | Total: 0.6548 | MSE: 0.2581 | VarLoss: 0.3967 | TargetStd: 0.2133
+  Epoch 83 | Batch 1350 | Total: 0.6242 | MSE: 0.2787 | VarLoss: 0.3455 | TargetStd: 0.1752
+  Epoch 83 | Batch 1400 | Total: 0.6512 | MSE: 0.2782 | VarLoss: 0.3730 | TargetStd: 0.2133
+  Epoch 83 | Batch 1450 | Total: 0.6470 | MSE: 0.2657 | VarLoss: 0.3813 | TargetStd: 0.1931
+  Epoch 83 | Batch 1500 | Total: 0.6308 | MSE: 0.2822 | VarLoss: 0.3486 | TargetStd: 0.1961
+  Epoch 83 | Batch 1550 | Total: 0.6583 | MSE: 0.2565 | VarLoss: 0.4019 | TargetStd: 0.2047
+  Epoch 83 | Batch 1600 | Total: 0.6404 | MSE: 0.2786 | VarLoss: 0.3618 | TargetStd: 0.2007
+  Epoch 83 | Batch 1650 | Total: 0.6563 | MSE: 0.2639 | VarLoss: 0.3923 | TargetStd: 0.2058
+  Epoch 83 | Batch 1700 | Total: 0.6703 | MSE: 0.2399 | VarLoss: 0.4304 | TargetStd: 0.2091
+  Epoch 83 | Batch 1750 | Total: 0.6461 | MSE: 0.2633 | VarLoss: 0.3828 | TargetStd: 0.2113
+  Epoch 83 | Batch 1800 | Total: 0.6520 | MSE: 0.2594 | VarLoss: 0.3926 | TargetStd: 0.2064
+  Epoch 83 | Batch 1850 | Total: 0.6487 | MSE: 0.2602 | VarLoss: 0.3884 | TargetStd: 0.1984
+  Epoch 83 | Batch 1900 | Total: 0.6579 | MSE: 0.2497 | VarLoss: 0.4082 | TargetStd: 0.1957
+  Epoch 83 | Batch 1950 | Total: 0.6389 | MSE: 0.2568 | VarLoss: 0.3821 | TargetStd: 0.1909
+  Epoch 83 | Batch 2000 | Total: 0.6684 | MSE: 0.2411 | VarLoss: 0.4272 | TargetStd: 0.2098
+  Epoch 83 | Batch 2050 | Total: 0.6251 | MSE: 0.2891 | VarLoss: 0.3359 | TargetStd: 0.1958
+  Epoch 83 | Batch 2100 | Total: 0.6504 | MSE: 0.2458 | VarLoss: 0.4045 | TargetStd: 0.2048
+  Epoch 83 | Batch 2150 | Total: 0.6484 | MSE: 0.2727 | VarLoss: 0.3757 | TargetStd: 0.2054
+Epoch 83 | Train Loss: 0.6493 | Val Loss: 0.7586
+  -> New best val loss: 0.7586
+  Epoch 84 | Batch 0 | Total: 0.6562 | MSE: 0.2385 | VarLoss: 0.4177 | TargetStd: 0.2093
+  Epoch 84 | Batch 50 | Total: 0.6544 | MSE: 0.2624 | VarLoss: 0.3921 | TargetStd: 0.1997
+  Epoch 84 | Batch 100 | Total: 0.6447 | MSE: 0.2529 | VarLoss: 0.3918 | TargetStd: 0.2047
+  Epoch 84 | Batch 150 | Total: 0.6310 | MSE: 0.2685 | VarLoss: 0.3625 | TargetStd: 0.1882
+  Epoch 84 | Batch 200 | Total: 0.6360 | MSE: 0.2590 | VarLoss: 0.3770 | TargetStd: 0.1948
+  Epoch 84 | Batch 250 | Total: 0.6488 | MSE: 0.2584 | VarLoss: 0.3904 | TargetStd: 0.1906
+  Epoch 84 | Batch 300 | Total: 0.6316 | MSE: 0.2661 | VarLoss: 0.3655 | TargetStd: 0.1980
+  Epoch 84 | Batch 350 | Total: 0.6525 | MSE: 0.2272 | VarLoss: 0.4253 | TargetStd: 0.1973
+  Epoch 84 | Batch 400 | Total: 0.6399 | MSE: 0.2700 | VarLoss: 0.3699 | TargetStd: 0.1850
+  Epoch 84 | Batch 450 | Total: 0.6592 | MSE: 0.2466 | VarLoss: 0.4126 | TargetStd: 0.2095
+  Epoch 84 | Batch 500 | Total: 0.6669 | MSE: 0.2614 | VarLoss: 0.4055 | TargetStd: 0.2049
+  Epoch 84 | Batch 550 | Total: 0.6436 | MSE: 0.2647 | VarLoss: 0.3789 | TargetStd: 0.1961
+  Epoch 84 | Batch 600 | Total: 0.6597 | MSE: 0.2437 | VarLoss: 0.4160 | TargetStd: 0.2069
+  Epoch 84 | Batch 650 | Total: 0.6648 | MSE: 0.2458 | VarLoss: 0.4189 | TargetStd: 0.2045
+  Epoch 84 | Batch 700 | Total: 0.6504 | MSE: 0.2763 | VarLoss: 0.3740 | TargetStd: 0.2089
+  Epoch 84 | Batch 750 | Total: 0.6469 | MSE: 0.2499 | VarLoss: 0.3970 | TargetStd: 0.2031
+  Epoch 84 | Batch 800 | Total: 0.6449 | MSE: 0.2604 | VarLoss: 0.3845 | TargetStd: 0.2004
+  Epoch 84 | Batch 850 | Total: 0.6582 | MSE: 0.2675 | VarLoss: 0.3906 | TargetStd: 0.1972
+  Epoch 84 | Batch 900 | Total: 0.6395 | MSE: 0.2621 | VarLoss: 0.3774 | TargetStd: 0.1985
+  Epoch 84 | Batch 950 | Total: 0.6451 | MSE: 0.2792 | VarLoss: 0.3660 | TargetStd: 0.2046
+  Epoch 84 | Batch 1000 | Total: 0.6446 | MSE: 0.2606 | VarLoss: 0.3840 | TargetStd: 0.1905
+  Epoch 84 | Batch 1050 | Total: 0.6573 | MSE: 0.2362 | VarLoss: 0.4211 | TargetStd: 0.1990
+  Epoch 84 | Batch 1100 | Total: 0.6402 | MSE: 0.2696 | VarLoss: 0.3706 | TargetStd: 0.2045
+  Epoch 84 | Batch 1150 | Total: 0.6575 | MSE: 0.2622 | VarLoss: 0.3953 | TargetStd: 0.2110
+  Epoch 84 | Batch 1200 | Total: 0.6582 | MSE: 0.2377 | VarLoss: 0.4204 | TargetStd: 0.2041
+  Epoch 84 | Batch 1250 | Total: 0.6760 | MSE: 0.2582 | VarLoss: 0.4177 | TargetStd: 0.2080
+  Epoch 84 | Batch 1300 | Total: 0.6300 | MSE: 0.2635 | VarLoss: 0.3665 | TargetStd: 0.1993
+  Epoch 84 | Batch 1350 | Total: 0.6502 | MSE: 0.2708 | VarLoss: 0.3794 | TargetStd: 0.2051
+  Epoch 84 | Batch 1400 | Total: 0.6544 | MSE: 0.2715 | VarLoss: 0.3828 | TargetStd: 0.2085
+  Epoch 84 | Batch 1450 | Total: 0.6625 | MSE: 0.2479 | VarLoss: 0.4146 | TargetStd: 0.1960
+  Epoch 84 | Batch 1500 | Total: 0.6694 | MSE: 0.2573 | VarLoss: 0.4121 | TargetStd: 0.2186
+  Epoch 84 | Batch 1550 | Total: 0.6728 | MSE: 0.2636 | VarLoss: 0.4092 | TargetStd: 0.2074
+  Epoch 84 | Batch 1600 | Total: 0.6431 | MSE: 0.2706 | VarLoss: 0.3726 | TargetStd: 0.1906
+  Epoch 84 | Batch 1650 | Total: 0.6274 | MSE: 0.2717 | VarLoss: 0.3557 | TargetStd: 0.1817
+  Epoch 84 | Batch 1700 | Total: 0.6557 | MSE: 0.2460 | VarLoss: 0.4097 | TargetStd: 0.1971
+  Epoch 84 | Batch 1750 | Total: 0.6458 | MSE: 0.2725 | VarLoss: 0.3733 | TargetStd: 0.1913
+  Epoch 84 | Batch 1800 | Total: 0.6421 | MSE: 0.2727 | VarLoss: 0.3694 | TargetStd: 0.1894
+  Epoch 84 | Batch 1850 | Total: 0.6360 | MSE: 0.2718 | VarLoss: 0.3643 | TargetStd: 0.2050
+  Epoch 84 | Batch 1900 | Total: 0.6540 | MSE: 0.2432 | VarLoss: 0.4109 | TargetStd: 0.2120
+  Epoch 84 | Batch 1950 | Total: 0.6467 | MSE: 0.2439 | VarLoss: 0.4028 | TargetStd: 0.1994
+  Epoch 84 | Batch 2000 | Total: 0.6578 | MSE: 0.2557 | VarLoss: 0.4021 | TargetStd: 0.2076
+  Epoch 84 | Batch 2050 | Total: 0.6443 | MSE: 0.2649 | VarLoss: 0.3794 | TargetStd: 0.1937
+  Epoch 84 | Batch 2100 | Total: 0.6442 | MSE: 0.2604 | VarLoss: 0.3838 | TargetStd: 0.1808
+  Epoch 84 | Batch 2150 | Total: 0.6416 | MSE: 0.2527 | VarLoss: 0.3889 | TargetStd: 0.2038
+Epoch 84 | Train Loss: 0.6490 | Val Loss: 0.7574
+  -> New best val loss: 0.7574
+  Epoch 85 | Batch 0 | Total: 0.6403 | MSE: 0.2514 | VarLoss: 0.3889 | TargetStd: 0.1997
+  Epoch 85 | Batch 50 | Total: 0.6289 | MSE: 0.2742 | VarLoss: 0.3547 | TargetStd: 0.1974
+  Epoch 85 | Batch 100 | Total: 0.6621 | MSE: 0.2512 | VarLoss: 0.4109 | TargetStd: 0.2115
+  Epoch 85 | Batch 150 | Total: 0.6248 | MSE: 0.2662 | VarLoss: 0.3586 | TargetStd: 0.1866
+  Epoch 85 | Batch 200 | Total: 0.6467 | MSE: 0.2602 | VarLoss: 0.3865 | TargetStd: 0.2068
+  Epoch 85 | Batch 250 | Total: 0.6466 | MSE: 0.2677 | VarLoss: 0.3789 | TargetStd: 0.2027
+  Epoch 85 | Batch 300 | Total: 0.6325 | MSE: 0.2653 | VarLoss: 0.3672 | TargetStd: 0.2054
+  Epoch 85 | Batch 350 | Total: 0.6703 | MSE: 0.2501 | VarLoss: 0.4202 | TargetStd: 0.2051
+  Epoch 85 | Batch 400 | Total: 0.6306 | MSE: 0.2637 | VarLoss: 0.3669 | TargetStd: 0.2077
+  Epoch 85 | Batch 450 | Total: 0.6480 | MSE: 0.2437 | VarLoss: 0.4043 | TargetStd: 0.1843
+  Epoch 85 | Batch 500 | Total: 0.6460 | MSE: 0.2846 | VarLoss: 0.3613 | TargetStd: 0.1978
+  Epoch 85 | Batch 550 | Total: 0.6548 | MSE: 0.2515 | VarLoss: 0.4033 | TargetStd: 0.2072
+  Epoch 85 | Batch 600 | Total: 0.6529 | MSE: 0.2628 | VarLoss: 0.3901 | TargetStd: 0.1826
+  Epoch 85 | Batch 650 | Total: 0.6624 | MSE: 0.2771 | VarLoss: 0.3853 | TargetStd: 0.2000
+  Epoch 85 | Batch 700 | Total: 0.6623 | MSE: 0.2651 | VarLoss: 0.3972 | TargetStd: 0.1914
+  Epoch 85 | Batch 750 | Total: 0.6550 | MSE: 0.2368 | VarLoss: 0.4182 | TargetStd: 0.2057
+  Epoch 85 | Batch 800 | Total: 0.6436 | MSE: 0.2659 | VarLoss: 0.3777 | TargetStd: 0.2022
+  Epoch 85 | Batch 850 | Total: 0.6428 | MSE: 0.2585 | VarLoss: 0.3843 | TargetStd: 0.2085
+  Epoch 85 | Batch 900 | Total: 0.6394 | MSE: 0.2779 | VarLoss: 0.3616 | TargetStd: 0.1983
+  Epoch 85 | Batch 950 | Total: 0.6602 | MSE: 0.2591 | VarLoss: 0.4011 | TargetStd: 0.2053
+  Epoch 85 | Batch 1000 | Total: 0.6467 | MSE: 0.2500 | VarLoss: 0.3967 | TargetStd: 0.1910
+  Epoch 85 | Batch 1050 | Total: 0.6300 | MSE: 0.2684 | VarLoss: 0.3616 | TargetStd: 0.1756
+  Epoch 85 | Batch 1100 | Total: 0.6417 | MSE: 0.2677 | VarLoss: 0.3740 | TargetStd: 0.1935
+  Epoch 85 | Batch 1150 | Total: 0.6574 | MSE: 0.2497 | VarLoss: 0.4077 | TargetStd: 0.2030
+  Epoch 85 | Batch 1200 | Total: 0.6398 | MSE: 0.2616 | VarLoss: 0.3782 | TargetStd: 0.1889
+  Epoch 85 | Batch 1250 | Total: 0.6410 | MSE: 0.2743 | VarLoss: 0.3667 | TargetStd: 0.2031
+  Epoch 85 | Batch 1300 | Total: 0.6466 | MSE: 0.2560 | VarLoss: 0.3906 | TargetStd: 0.1955
+  Epoch 85 | Batch 1350 | Total: 0.6371 | MSE: 0.2804 | VarLoss: 0.3567 | TargetStd: 0.1763
+  Epoch 85 | Batch 1400 | Total: 0.6419 | MSE: 0.2610 | VarLoss: 0.3809 | TargetStd: 0.1988
+  Epoch 85 | Batch 1450 | Total: 0.6466 | MSE: 0.2584 | VarLoss: 0.3882 | TargetStd: 0.1952
+  Epoch 85 | Batch 1500 | Total: 0.6336 | MSE: 0.2620 | VarLoss: 0.3716 | TargetStd: 0.1898
+  Epoch 85 | Batch 1550 | Total: 0.6386 | MSE: 0.2731 | VarLoss: 0.3655 | TargetStd: 0.1973
+  Epoch 85 | Batch 1600 | Total: 0.6362 | MSE: 0.2712 | VarLoss: 0.3650 | TargetStd: 0.1827
+  Epoch 85 | Batch 1650 | Total: 0.6490 | MSE: 0.2886 | VarLoss: 0.3604 | TargetStd: 0.2080
+  Epoch 85 | Batch 1700 | Total: 0.6364 | MSE: 0.2509 | VarLoss: 0.3855 | TargetStd: 0.1920
+  Epoch 85 | Batch 1750 | Total: 0.6394 | MSE: 0.2671 | VarLoss: 0.3723 | TargetStd: 0.1946
+  Epoch 85 | Batch 1800 | Total: 0.6718 | MSE: 0.2409 | VarLoss: 0.4309 | TargetStd: 0.2099
+  Epoch 85 | Batch 1850 | Total: 0.6694 | MSE: 0.2475 | VarLoss: 0.4219 | TargetStd: 0.2042
+  Epoch 85 | Batch 1900 | Total: 0.6676 | MSE: 0.2565 | VarLoss: 0.4111 | TargetStd: 0.1936
+  Epoch 85 | Batch 1950 | Total: 0.6338 | MSE: 0.2683 | VarLoss: 0.3655 | TargetStd: 0.1795
+  Epoch 85 | Batch 2000 | Total: 0.6570 | MSE: 0.2510 | VarLoss: 0.4060 | TargetStd: 0.1988
+  Epoch 85 | Batch 2050 | Total: 0.6414 | MSE: 0.2661 | VarLoss: 0.3752 | TargetStd: 0.1925
+  Epoch 85 | Batch 2100 | Total: 0.6421 | MSE: 0.2718 | VarLoss: 0.3704 | TargetStd: 0.1992
+  Epoch 85 | Batch 2150 | Total: 0.6490 | MSE: 0.2528 | VarLoss: 0.3962 | TargetStd: 0.1998
+Epoch 85 | Train Loss: 0.6491 | Val Loss: 0.7546
+  -> New best val loss: 0.7546
+  Epoch 86 | Batch 0 | Total: 0.6602 | MSE: 0.2784 | VarLoss: 0.3818 | TargetStd: 0.2093
+  Epoch 86 | Batch 50 | Total: 0.6584 | MSE: 0.2490 | VarLoss: 0.4094 | TargetStd: 0.2133
+  Epoch 86 | Batch 100 | Total: 0.6452 | MSE: 0.2683 | VarLoss: 0.3770 | TargetStd: 0.1954
+  Epoch 86 | Batch 150 | Total: 0.6328 | MSE: 0.2753 | VarLoss: 0.3574 | TargetStd: 0.2038
+  Epoch 86 | Batch 200 | Total: 0.6528 | MSE: 0.2656 | VarLoss: 0.3872 | TargetStd: 0.1946
+  Epoch 86 | Batch 250 | Total: 0.6823 | MSE: 0.2390 | VarLoss: 0.4434 | TargetStd: 0.2076
+  Epoch 86 | Batch 300 | Total: 0.6360 | MSE: 0.2632 | VarLoss: 0.3728 | TargetStd: 0.2025
+  Epoch 86 | Batch 350 | Total: 0.6413 | MSE: 0.2644 | VarLoss: 0.3770 | TargetStd: 0.2003
+  Epoch 86 | Batch 400 | Total: 0.6475 | MSE: 0.2610 | VarLoss: 0.3865 | TargetStd: 0.1895
+  Epoch 86 | Batch 450 | Total: 0.6469 | MSE: 0.2756 | VarLoss: 0.3713 | TargetStd: 0.2068
+  Epoch 86 | Batch 500 | Total: 0.6359 | MSE: 0.2702 | VarLoss: 0.3657 | TargetStd: 0.1912
+  Epoch 86 | Batch 550 | Total: 0.6446 | MSE: 0.2679 | VarLoss: 0.3767 | TargetStd: 0.1937
+  Epoch 86 | Batch 600 | Total: 0.6765 | MSE: 0.2551 | VarLoss: 0.4214 | TargetStd: 0.2060
+  Epoch 86 | Batch 650 | Total: 0.6556 | MSE: 0.2716 | VarLoss: 0.3840 | TargetStd: 0.2036
+  Epoch 86 | Batch 700 | Total: 0.6697 | MSE: 0.2495 | VarLoss: 0.4202 | TargetStd: 0.1969
+  Epoch 86 | Batch 750 | Total: 0.6479 | MSE: 0.2771 | VarLoss: 0.3708 | TargetStd: 0.1761
+  Epoch 86 | Batch 800 | Total: 0.6424 | MSE: 0.2767 | VarLoss: 0.3657 | TargetStd: 0.2007
+  Epoch 86 | Batch 850 | Total: 0.6627 | MSE: 0.2548 | VarLoss: 0.4080 | TargetStd: 0.2007
+  Epoch 86 | Batch 900 | Total: 0.6320 | MSE: 0.2758 | VarLoss: 0.3562 | TargetStd: 0.2114
+  Epoch 86 | Batch 950 | Total: 0.6517 | MSE: 0.2508 | VarLoss: 0.4009 | TargetStd: 0.1964
+  Epoch 86 | Batch 1000 | Total: 0.6711 | MSE: 0.2507 | VarLoss: 0.4204 | TargetStd: 0.1974
+  Epoch 86 | Batch 1050 | Total: 0.6510 | MSE: 0.2679 | VarLoss: 0.3831 | TargetStd: 0.2023
+  Epoch 86 | Batch 1100 | Total: 0.6600 | MSE: 0.2557 | VarLoss: 0.4043 | TargetStd: 0.2043
+  Epoch 86 | Batch 1150 | Total: 0.6536 | MSE: 0.2432 | VarLoss: 0.4104 | TargetStd: 0.1970
+  Epoch 86 | Batch 1200 | Total: 0.6434 | MSE: 0.2816 | VarLoss: 0.3618 | TargetStd: 0.2026
+  Epoch 86 | Batch 1250 | Total: 0.6582 | MSE: 0.2434 | VarLoss: 0.4148 | TargetStd: 0.2017
+  Epoch 86 | Batch 1300 | Total: 0.6527 | MSE: 0.2660 | VarLoss: 0.3867 | TargetStd: 0.1915
+  Epoch 86 | Batch 1350 | Total: 0.6406 | MSE: 0.2642 | VarLoss: 0.3765 | TargetStd: 0.1969
+  Epoch 86 | Batch 1400 | Total: 0.6368 | MSE: 0.2823 | VarLoss: 0.3545 | TargetStd: 0.1964
+  Epoch 86 | Batch 1450 | Total: 0.6698 | MSE: 0.2492 | VarLoss: 0.4207 | TargetStd: 0.2046
+  Epoch 86 | Batch 1500 | Total: 0.6550 | MSE: 0.2600 | VarLoss: 0.3950 | TargetStd: 0.1882
+  Epoch 86 | Batch 1550 | Total: 0.6319 | MSE: 0.2657 | VarLoss: 0.3662 | TargetStd: 0.1964
+  Epoch 86 | Batch 1600 | Total: 0.6401 | MSE: 0.2582 | VarLoss: 0.3818 | TargetStd: 0.2080
+  Epoch 86 | Batch 1650 | Total: 0.6760 | MSE: 0.2514 | VarLoss: 0.4246 | TargetStd: 0.1885
+  Epoch 86 | Batch 1700 | Total: 0.6465 | MSE: 0.2561 | VarLoss: 0.3904 | TargetStd: 0.2026
+  Epoch 86 | Batch 1750 | Total: 0.6491 | MSE: 0.2658 | VarLoss: 0.3833 | TargetStd: 0.2003
+  Epoch 86 | Batch 1800 | Total: 0.6471 | MSE: 0.2643 | VarLoss: 0.3828 | TargetStd: 0.2080
+  Epoch 86 | Batch 1850 | Total: 0.6436 | MSE: 0.2644 | VarLoss: 0.3792 | TargetStd: 0.2056
+  Epoch 86 | Batch 1900 | Total: 0.6578 | MSE: 0.2616 | VarLoss: 0.3962 | TargetStd: 0.1997
+  Epoch 86 | Batch 1950 | Total: 0.6676 | MSE: 0.2467 | VarLoss: 0.4209 | TargetStd: 0.1998
+  Epoch 86 | Batch 2000 | Total: 0.6493 | MSE: 0.2487 | VarLoss: 0.4006 | TargetStd: 0.2001
+  Epoch 86 | Batch 2050 | Total: 0.6439 | MSE: 0.2677 | VarLoss: 0.3762 | TargetStd: 0.2012
+  Epoch 86 | Batch 2100 | Total: 0.6257 | MSE: 0.2731 | VarLoss: 0.3525 | TargetStd: 0.1916
+  Epoch 86 | Batch 2150 | Total: 0.6392 | MSE: 0.2674 | VarLoss: 0.3718 | TargetStd: 0.1981
+Epoch 86 | Train Loss: 0.6488 | Val Loss: 0.7514
+  -> New best val loss: 0.7514
+  Epoch 87 | Batch 0 | Total: 0.6400 | MSE: 0.2814 | VarLoss: 0.3586 | TargetStd: 0.2057
+  Epoch 87 | Batch 50 | Total: 0.6526 | MSE: 0.2434 | VarLoss: 0.4092 | TargetStd: 0.2007
+  Epoch 87 | Batch 100 | Total: 0.6382 | MSE: 0.2612 | VarLoss: 0.3770 | TargetStd: 0.1896
+  Epoch 87 | Batch 150 | Total: 0.6663 | MSE: 0.2510 | VarLoss: 0.4153 | TargetStd: 0.2043
+  Epoch 87 | Batch 200 | Total: 0.6413 | MSE: 0.2536 | VarLoss: 0.3877 | TargetStd: 0.1787
+  Epoch 87 | Batch 250 | Total: 0.6684 | MSE: 0.2631 | VarLoss: 0.4053 | TargetStd: 0.2121
+  Epoch 87 | Batch 300 | Total: 0.6360 | MSE: 0.2574 | VarLoss: 0.3787 | TargetStd: 0.1979
+  Epoch 87 | Batch 350 | Total: 0.6484 | MSE: 0.2695 | VarLoss: 0.3789 | TargetStd: 0.1978
+  Epoch 87 | Batch 400 | Total: 0.6303 | MSE: 0.2749 | VarLoss: 0.3555 | TargetStd: 0.2072
+  Epoch 87 | Batch 450 | Total: 0.6631 | MSE: 0.2586 | VarLoss: 0.4045 | TargetStd: 0.2028
+  Epoch 87 | Batch 500 | Total: 0.6441 | MSE: 0.2533 | VarLoss: 0.3909 | TargetStd: 0.1937
+  Epoch 87 | Batch 550 | Total: 0.6330 | MSE: 0.2607 | VarLoss: 0.3723 | TargetStd: 0.1913
+  Epoch 87 | Batch 600 | Total: 0.6607 | MSE: 0.2669 | VarLoss: 0.3938 | TargetStd: 0.2055
+  Epoch 87 | Batch 650 | Total: 0.6434 | MSE: 0.2699 | VarLoss: 0.3735 | TargetStd: 0.1849
+  Epoch 87 | Batch 700 | Total: 0.6597 | MSE: 0.2552 | VarLoss: 0.4045 | TargetStd: 0.1943
+  Epoch 87 | Batch 750 | Total: 0.6471 | MSE: 0.2562 | VarLoss: 0.3909 | TargetStd: 0.1997
+  Epoch 87 | Batch 800 | Total: 0.6642 | MSE: 0.2442 | VarLoss: 0.4199 | TargetStd: 0.1869
+  Epoch 87 | Batch 850 | Total: 0.6525 | MSE: 0.2535 | VarLoss: 0.3989 | TargetStd: 0.1948
+  Epoch 87 | Batch 900 | Total: 0.6562 | MSE: 0.2624 | VarLoss: 0.3938 | TargetStd: 0.2043
+  Epoch 87 | Batch 950 | Total: 0.6529 | MSE: 0.2625 | VarLoss: 0.3904 | TargetStd: 0.2061
+  Epoch 87 | Batch 1000 | Total: 0.6388 | MSE: 0.2616 | VarLoss: 0.3772 | TargetStd: 0.1863
+  Epoch 87 | Batch 1050 | Total: 0.6383 | MSE: 0.2684 | VarLoss: 0.3699 | TargetStd: 0.1942
+  Epoch 87 | Batch 1100 | Total: 0.6583 | MSE: 0.2508 | VarLoss: 0.4075 | TargetStd: 0.2031
+  Epoch 87 | Batch 1150 | Total: 0.6498 | MSE: 0.2572 | VarLoss: 0.3926 | TargetStd: 0.1980
+  Epoch 87 | Batch 1200 | Total: 0.6455 | MSE: 0.2802 | VarLoss: 0.3652 | TargetStd: 0.1987
+  Epoch 87 | Batch 1250 | Total: 0.6405 | MSE: 0.2716 | VarLoss: 0.3689 | TargetStd: 0.1770
+  Epoch 87 | Batch 1300 | Total: 0.6401 | MSE: 0.2663 | VarLoss: 0.3738 | TargetStd: 0.2037
+  Epoch 87 | Batch 1350 | Total: 0.6554 | MSE: 0.2528 | VarLoss: 0.4026 | TargetStd: 0.1981
+  Epoch 87 | Batch 1400 | Total: 0.6487 | MSE: 0.2649 | VarLoss: 0.3838 | TargetStd: 0.1961
+  Epoch 87 | Batch 1450 | Total: 0.6491 | MSE: 0.2660 | VarLoss: 0.3831 | TargetStd: 0.1857
+  Epoch 87 | Batch 1500 | Total: 0.6600 | MSE: 0.2584 | VarLoss: 0.4016 | TargetStd: 0.1941
+  Epoch 87 | Batch 1550 | Total: 0.6662 | MSE: 0.2431 | VarLoss: 0.4231 | TargetStd: 0.1968
+  Epoch 87 | Batch 1600 | Total: 0.6706 | MSE: 0.2409 | VarLoss: 0.4297 | TargetStd: 0.1936
+  Epoch 87 | Batch 1650 | Total: 0.6498 | MSE: 0.2584 | VarLoss: 0.3914 | TargetStd: 0.1789
+  Epoch 87 | Batch 1700 | Total: 0.6418 | MSE: 0.2621 | VarLoss: 0.3796 | TargetStd: 0.1849
+  Epoch 87 | Batch 1750 | Total: 0.6516 | MSE: 0.2705 | VarLoss: 0.3811 | TargetStd: 0.2044
+  Epoch 87 | Batch 1800 | Total: 0.6559 | MSE: 0.2475 | VarLoss: 0.4084 | TargetStd: 0.1934
+  Epoch 87 | Batch 1850 | Total: 0.6510 | MSE: 0.2663 | VarLoss: 0.3848 | TargetStd: 0.1885
+  Epoch 87 | Batch 1900 | Total: 0.6337 | MSE: 0.2678 | VarLoss: 0.3660 | TargetStd: 0.1819
+  Epoch 87 | Batch 1950 | Total: 0.6551 | MSE: 0.2477 | VarLoss: 0.4075 | TargetStd: 0.1998
+  Epoch 87 | Batch 2000 | Total: 0.6504 | MSE: 0.2527 | VarLoss: 0.3977 | TargetStd: 0.1946
+  Epoch 87 | Batch 2050 | Total: 0.6567 | MSE: 0.2531 | VarLoss: 0.4036 | TargetStd: 0.2030
+  Epoch 87 | Batch 2100 | Total: 0.6582 | MSE: 0.2576 | VarLoss: 0.4006 | TargetStd: 0.1945
+  Epoch 87 | Batch 2150 | Total: 0.6447 | MSE: 0.2636 | VarLoss: 0.3811 | TargetStd: 0.1967
+Epoch 87 | Train Loss: 0.6488 | Val Loss: 0.7534
+  Epoch 88 | Batch 0 | Total: 0.6644 | MSE: 0.2576 | VarLoss: 0.4067 | TargetStd: 0.1996
+  Epoch 88 | Batch 50 | Total: 0.6524 | MSE: 0.2650 | VarLoss: 0.3875 | TargetStd: 0.1996
+  Epoch 88 | Batch 100 | Total: 0.6324 | MSE: 0.2789 | VarLoss: 0.3535 | TargetStd: 0.1964
+  Epoch 88 | Batch 150 | Total: 0.6387 | MSE: 0.2568 | VarLoss: 0.3818 | TargetStd: 0.1946
+  Epoch 88 | Batch 200 | Total: 0.6527 | MSE: 0.2652 | VarLoss: 0.3875 | TargetStd: 0.1922
+  Epoch 88 | Batch 250 | Total: 0.6527 | MSE: 0.2582 | VarLoss: 0.3945 | TargetStd: 0.1974
+  Epoch 88 | Batch 300 | Total: 0.6440 | MSE: 0.2516 | VarLoss: 0.3923 | TargetStd: 0.1930
+  Epoch 88 | Batch 350 | Total: 0.6465 | MSE: 0.2573 | VarLoss: 0.3892 | TargetStd: 0.2033
+  Epoch 88 | Batch 400 | Total: 0.6588 | MSE: 0.2589 | VarLoss: 0.3999 | TargetStd: 0.2075
+  Epoch 88 | Batch 450 | Total: 0.6661 | MSE: 0.2552 | VarLoss: 0.4109 | TargetStd: 0.1994
+  Epoch 88 | Batch 500 | Total: 0.6502 | MSE: 0.2659 | VarLoss: 0.3843 | TargetStd: 0.1885
+  Epoch 88 | Batch 550 | Total: 0.6381 | MSE: 0.2509 | VarLoss: 0.3872 | TargetStd: 0.1920
+  Epoch 88 | Batch 600 | Total: 0.6422 | MSE: 0.2538 | VarLoss: 0.3884 | TargetStd: 0.1951
+  Epoch 88 | Batch 650 | Total: 0.6326 | MSE: 0.2671 | VarLoss: 0.3655 | TargetStd: 0.1872
+  Epoch 88 | Batch 700 | Total: 0.6407 | MSE: 0.2705 | VarLoss: 0.3701 | TargetStd: 0.1932
+  Epoch 88 | Batch 750 | Total: 0.6445 | MSE: 0.2712 | VarLoss: 0.3733 | TargetStd: 0.1927
+  Epoch 88 | Batch 800 | Total: 0.6308 | MSE: 0.2612 | VarLoss: 0.3696 | TargetStd: 0.1875
+  Epoch 88 | Batch 850 | Total: 0.6642 | MSE: 0.2492 | VarLoss: 0.4150 | TargetStd: 0.1905
+  Epoch 88 | Batch 900 | Total: 0.6719 | MSE: 0.2457 | VarLoss: 0.4263 | TargetStd: 0.2005
+  Epoch 88 | Batch 950 | Total: 0.6487 | MSE: 0.2361 | VarLoss: 0.4126 | TargetStd: 0.1868
+  Epoch 88 | Batch 1000 | Total: 0.6375 | MSE: 0.2586 | VarLoss: 0.3789 | TargetStd: 0.1991
+  Epoch 88 | Batch 1050 | Total: 0.6550 | MSE: 0.2642 | VarLoss: 0.3909 | TargetStd: 0.1981
+  Epoch 88 | Batch 1100 | Total: 0.6464 | MSE: 0.2636 | VarLoss: 0.3828 | TargetStd: 0.1989
+  Epoch 88 | Batch 1150 | Total: 0.6518 | MSE: 0.2660 | VarLoss: 0.3857 | TargetStd: 0.1936
+  Epoch 88 | Batch 1200 | Total: 0.6730 | MSE: 0.2557 | VarLoss: 0.4172 | TargetStd: 0.2039
+  Epoch 88 | Batch 1250 | Total: 0.6397 | MSE: 0.2620 | VarLoss: 0.3777 | TargetStd: 0.1816
+  Epoch 88 | Batch 1300 | Total: 0.6545 | MSE: 0.2600 | VarLoss: 0.3945 | TargetStd: 0.2067
+  Epoch 88 | Batch 1350 | Total: 0.6449 | MSE: 0.2626 | VarLoss: 0.3823 | TargetStd: 0.1977
+  Epoch 88 | Batch 1400 | Total: 0.6473 | MSE: 0.2730 | VarLoss: 0.3743 | TargetStd: 0.2037
+  Epoch 88 | Batch 1450 | Total: 0.6396 | MSE: 0.2661 | VarLoss: 0.3735 | TargetStd: 0.1705
+  Epoch 88 | Batch 1500 | Total: 0.6503 | MSE: 0.2772 | VarLoss: 0.3730 | TargetStd: 0.2001
+  Epoch 88 | Batch 1550 | Total: 0.6358 | MSE: 0.2672 | VarLoss: 0.3687 | TargetStd: 0.1973
+  Epoch 88 | Batch 1600 | Total: 0.6649 | MSE: 0.2518 | VarLoss: 0.4131 | TargetStd: 0.2036
+  Epoch 88 | Batch 1650 | Total: 0.6306 | MSE: 0.2683 | VarLoss: 0.3623 | TargetStd: 0.1817
+  Epoch 88 | Batch 1700 | Total: 0.6374 | MSE: 0.2651 | VarLoss: 0.3723 | TargetStd: 0.1810
+  Epoch 88 | Batch 1750 | Total: 0.6526 | MSE: 0.2615 | VarLoss: 0.3911 | TargetStd: 0.1855
+  Epoch 88 | Batch 1800 | Total: 0.6237 | MSE: 0.2761 | VarLoss: 0.3477 | TargetStd: 0.1808
+  Epoch 88 | Batch 1850 | Total: 0.6328 | MSE: 0.2727 | VarLoss: 0.3601 | TargetStd: 0.1951
+  Epoch 88 | Batch 1900 | Total: 0.6266 | MSE: 0.2682 | VarLoss: 0.3584 | TargetStd: 0.1838
+  Epoch 88 | Batch 1950 | Total: 0.6286 | MSE: 0.2631 | VarLoss: 0.3655 | TargetStd: 0.1794
+  Epoch 88 | Batch 2000 | Total: 0.6453 | MSE: 0.2637 | VarLoss: 0.3816 | TargetStd: 0.2036
+  Epoch 88 | Batch 2050 | Total: 0.6579 | MSE: 0.2546 | VarLoss: 0.4033 | TargetStd: 0.1926
+  Epoch 88 | Batch 2100 | Total: 0.6395 | MSE: 0.2770 | VarLoss: 0.3625 | TargetStd: 0.1953
+  Epoch 88 | Batch 2150 | Total: 0.6587 | MSE: 0.2583 | VarLoss: 0.4004 | TargetStd: 0.1886
+Epoch 88 | Train Loss: 0.6484 | Val Loss: 0.7521
+  Epoch 89 | Batch 0 | Total: 0.6285 | MSE: 0.2772 | VarLoss: 0.3513 | TargetStd: 0.1866
+  Epoch 89 | Batch 50 | Total: 0.6312 | MSE: 0.2642 | VarLoss: 0.3669 | TargetStd: 0.1944
+  Epoch 89 | Batch 100 | Total: 0.6529 | MSE: 0.2679 | VarLoss: 0.3850 | TargetStd: 0.2003
+  Epoch 89 | Batch 150 | Total: 0.6690 | MSE: 0.2647 | VarLoss: 0.4043 | TargetStd: 0.1897
+  Epoch 89 | Batch 200 | Total: 0.6445 | MSE: 0.2687 | VarLoss: 0.3757 | TargetStd: 0.1799
+  Epoch 89 | Batch 250 | Total: 0.6532 | MSE: 0.2714 | VarLoss: 0.3818 | TargetStd: 0.1801
+  Epoch 89 | Batch 300 | Total: 0.6485 | MSE: 0.2589 | VarLoss: 0.3896 | TargetStd: 0.1951
+  Epoch 89 | Batch 350 | Total: 0.6450 | MSE: 0.2688 | VarLoss: 0.3762 | TargetStd: 0.1999
+  Epoch 89 | Batch 400 | Total: 0.6494 | MSE: 0.2544 | VarLoss: 0.3950 | TargetStd: 0.1941
+  Epoch 89 | Batch 450 | Total: 0.6351 | MSE: 0.2752 | VarLoss: 0.3599 | TargetStd: 0.1901
+  Epoch 89 | Batch 500 | Total: 0.6583 | MSE: 0.2596 | VarLoss: 0.3987 | TargetStd: 0.1932
+  Epoch 89 | Batch 550 | Total: 0.6403 | MSE: 0.2653 | VarLoss: 0.3750 | TargetStd: 0.1873
+  Epoch 89 | Batch 600 | Total: 0.6379 | MSE: 0.2680 | VarLoss: 0.3699 | TargetStd: 0.1911
+  Epoch 89 | Batch 650 | Total: 0.6506 | MSE: 0.2578 | VarLoss: 0.3928 | TargetStd: 0.1989
+  Epoch 89 | Batch 700 | Total: 0.6423 | MSE: 0.2746 | VarLoss: 0.3677 | TargetStd: 0.1993
+  Epoch 89 | Batch 750 | Total: 0.6430 | MSE: 0.2570 | VarLoss: 0.3860 | TargetStd: 0.1904
+  Epoch 89 | Batch 800 | Total: 0.6567 | MSE: 0.2463 | VarLoss: 0.4104 | TargetStd: 0.1939
+  Epoch 89 | Batch 850 | Total: 0.6661 | MSE: 0.2430 | VarLoss: 0.4231 | TargetStd: 0.1993
+  Epoch 89 | Batch 900 | Total: 0.6532 | MSE: 0.2574 | VarLoss: 0.3958 | TargetStd: 0.1952
+  Epoch 89 | Batch 950 | Total: 0.6530 | MSE: 0.2760 | VarLoss: 0.3770 | TargetStd: 0.2064
+  Epoch 89 | Batch 1000 | Total: 0.6611 | MSE: 0.2476 | VarLoss: 0.4136 | TargetStd: 0.1956
+  Epoch 89 | Batch 1050 | Total: 0.6441 | MSE: 0.2633 | VarLoss: 0.3809 | TargetStd: 0.1863
+  Epoch 89 | Batch 1100 | Total: 0.6394 | MSE: 0.2615 | VarLoss: 0.3779 | TargetStd: 0.1850
+  Epoch 89 | Batch 1150 | Total: 0.6388 | MSE: 0.2537 | VarLoss: 0.3850 | TargetStd: 0.1832
+  Epoch 89 | Batch 1200 | Total: 0.6401 | MSE: 0.2717 | VarLoss: 0.3684 | TargetStd: 0.1966
+  Epoch 89 | Batch 1250 | Total: 0.6363 | MSE: 0.2703 | VarLoss: 0.3660 | TargetStd: 0.1807
+  Epoch 89 | Batch 1300 | Total: 0.6560 | MSE: 0.2549 | VarLoss: 0.4011 | TargetStd: 0.1985
+  Epoch 89 | Batch 1350 | Total: 0.6479 | MSE: 0.2593 | VarLoss: 0.3887 | TargetStd: 0.1868
+  Epoch 89 | Batch 1400 | Total: 0.6383 | MSE: 0.2552 | VarLoss: 0.3831 | TargetStd: 0.1958
+  Epoch 89 | Batch 1450 | Total: 0.6466 | MSE: 0.2464 | VarLoss: 0.4001 | TargetStd: 0.1955
+  Epoch 89 | Batch 1500 | Total: 0.6486 | MSE: 0.2602 | VarLoss: 0.3884 | TargetStd: 0.1973
+  Epoch 89 | Batch 1550 | Total: 0.6468 | MSE: 0.2637 | VarLoss: 0.3831 | TargetStd: 0.1838
+  Epoch 89 | Batch 1600 | Total: 0.6561 | MSE: 0.2598 | VarLoss: 0.3962 | TargetStd: 0.2044
+  Epoch 89 | Batch 1650 | Total: 0.6465 | MSE: 0.2842 | VarLoss: 0.3623 | TargetStd: 0.2041
+  Epoch 89 | Batch 1700 | Total: 0.6405 | MSE: 0.2787 | VarLoss: 0.3618 | TargetStd: 0.1757
+  Epoch 89 | Batch 1750 | Total: 0.6402 | MSE: 0.2747 | VarLoss: 0.3655 | TargetStd: 0.1971
+  Epoch 89 | Batch 1800 | Total: 0.6457 | MSE: 0.2697 | VarLoss: 0.3760 | TargetStd: 0.1951
+  Epoch 89 | Batch 1850 | Total: 0.6530 | MSE: 0.2629 | VarLoss: 0.3901 | TargetStd: 0.1855
+  Epoch 89 | Batch 1900 | Total: 0.6536 | MSE: 0.2517 | VarLoss: 0.4019 | TargetStd: 0.1986
+  Epoch 89 | Batch 1950 | Total: 0.6366 | MSE: 0.2821 | VarLoss: 0.3545 | TargetStd: 0.1971
+  Epoch 89 | Batch 2000 | Total: 0.6420 | MSE: 0.2673 | VarLoss: 0.3748 | TargetStd: 0.1941
+  Epoch 89 | Batch 2050 | Total: 0.6438 | MSE: 0.2610 | VarLoss: 0.3828 | TargetStd: 0.1997
+  Epoch 89 | Batch 2100 | Total: 0.6391 | MSE: 0.2512 | VarLoss: 0.3879 | TargetStd: 0.1850
+  Epoch 89 | Batch 2150 | Total: 0.6433 | MSE: 0.2627 | VarLoss: 0.3806 | TargetStd: 0.1949
+Epoch 89 | Train Loss: 0.6483 | Val Loss: 0.7476
+  -> New best val loss: 0.7476
+  -> Saved periodic checkpoint: epoch_90.pt
+  Epoch 90 | Batch 0 | Total: 0.6507 | MSE: 0.2579 | VarLoss: 0.3928 | TargetStd: 0.1783
+  Epoch 90 | Batch 50 | Total: 0.6486 | MSE: 0.2660 | VarLoss: 0.3826 | TargetStd: 0.2053
+  Epoch 90 | Batch 100 | Total: 0.6386 | MSE: 0.2675 | VarLoss: 0.3711 | TargetStd: 0.1920
+  Epoch 90 | Batch 150 | Total: 0.6740 | MSE: 0.2426 | VarLoss: 0.4314 | TargetStd: 0.2009
+  Epoch 90 | Batch 200 | Total: 0.6609 | MSE: 0.2619 | VarLoss: 0.3989 | TargetStd: 0.2017
+  Epoch 90 | Batch 250 | Total: 0.6401 | MSE: 0.2619 | VarLoss: 0.3782 | TargetStd: 0.1839
+  Epoch 90 | Batch 300 | Total: 0.6362 | MSE: 0.2578 | VarLoss: 0.3784 | TargetStd: 0.1960
+  Epoch 90 | Batch 350 | Total: 0.6456 | MSE: 0.2545 | VarLoss: 0.3911 | TargetStd: 0.1942
+  Epoch 90 | Batch 400 | Total: 0.6445 | MSE: 0.2663 | VarLoss: 0.3782 | TargetStd: 0.1900
+  Epoch 90 | Batch 450 | Total: 0.6423 | MSE: 0.2639 | VarLoss: 0.3784 | TargetStd: 0.1981
+  Epoch 90 | Batch 500 | Total: 0.6429 | MSE: 0.2753 | VarLoss: 0.3677 | TargetStd: 0.1805
+  Epoch 90 | Batch 550 | Total: 0.6373 | MSE: 0.2685 | VarLoss: 0.3689 | TargetStd: 0.1930
+  Epoch 90 | Batch 600 | Total: 0.6518 | MSE: 0.2648 | VarLoss: 0.3870 | TargetStd: 0.1956
+  Epoch 90 | Batch 650 | Total: 0.6484 | MSE: 0.2546 | VarLoss: 0.3938 | TargetStd: 0.1815
+  Epoch 90 | Batch 700 | Total: 0.6573 | MSE: 0.2494 | VarLoss: 0.4080 | TargetStd: 0.1987
+  Epoch 90 | Batch 750 | Total: 0.6588 | MSE: 0.2425 | VarLoss: 0.4163 | TargetStd: 0.1966
+  Epoch 90 | Batch 800 | Total: 0.6503 | MSE: 0.2507 | VarLoss: 0.3997 | TargetStd: 0.1992
+  Epoch 90 | Batch 850 | Total: 0.6547 | MSE: 0.2509 | VarLoss: 0.4038 | TargetStd: 0.1890
+  Epoch 90 | Batch 900 | Total: 0.6403 | MSE: 0.2619 | VarLoss: 0.3784 | TargetStd: 0.1972
+  Epoch 90 | Batch 950 | Total: 0.6413 | MSE: 0.2539 | VarLoss: 0.3875 | TargetStd: 0.1870
+  Epoch 90 | Batch 1000 | Total: 0.6416 | MSE: 0.2756 | VarLoss: 0.3660 | TargetStd: 0.1939
+  Epoch 90 | Batch 1050 | Total: 0.6497 | MSE: 0.2627 | VarLoss: 0.3870 | TargetStd: 0.1943
+  Epoch 90 | Batch 1100 | Total: 0.6452 | MSE: 0.2685 | VarLoss: 0.3767 | TargetStd: 0.1885
+  Epoch 90 | Batch 1150 | Total: 0.6481 | MSE: 0.2528 | VarLoss: 0.3953 | TargetStd: 0.1872
+  Epoch 90 | Batch 1200 | Total: 0.6581 | MSE: 0.2640 | VarLoss: 0.3940 | TargetStd: 0.2065
+  Epoch 90 | Batch 1250 | Total: 0.6572 | MSE: 0.2581 | VarLoss: 0.3992 | TargetStd: 0.2031
+  Epoch 90 | Batch 1300 | Total: 0.6501 | MSE: 0.2473 | VarLoss: 0.4028 | TargetStd: 0.1937
+  Epoch 90 | Batch 1350 | Total: 0.6320 | MSE: 0.2768 | VarLoss: 0.3552 | TargetStd: 0.1802
+  Epoch 90 | Batch 1400 | Total: 0.6598 | MSE: 0.2589 | VarLoss: 0.4009 | TargetStd: 0.2003
+  Epoch 90 | Batch 1450 | Total: 0.6471 | MSE: 0.2599 | VarLoss: 0.3872 | TargetStd: 0.1965
+  Epoch 90 | Batch 1500 | Total: 0.6462 | MSE: 0.2551 | VarLoss: 0.3911 | TargetStd: 0.1879
+  Epoch 90 | Batch 1550 | Total: 0.6527 | MSE: 0.2545 | VarLoss: 0.3982 | TargetStd: 0.2060
+  Epoch 90 | Batch 1600 | Total: 0.6485 | MSE: 0.2544 | VarLoss: 0.3940 | TargetStd: 0.1967
+  Epoch 90 | Batch 1650 | Total: 0.6415 | MSE: 0.2714 | VarLoss: 0.3701 | TargetStd: 0.1872
+  Epoch 90 | Batch 1700 | Total: 0.6484 | MSE: 0.2556 | VarLoss: 0.3928 | TargetStd: 0.1922
+  Epoch 90 | Batch 1750 | Total: 0.6345 | MSE: 0.2566 | VarLoss: 0.3779 | TargetStd: 0.1906
+  Epoch 90 | Batch 1800 | Total: 0.6491 | MSE: 0.2634 | VarLoss: 0.3857 | TargetStd: 0.2041
+  Epoch 90 | Batch 1850 | Total: 0.6452 | MSE: 0.2654 | VarLoss: 0.3799 | TargetStd: 0.1966
+  Epoch 90 | Batch 1900 | Total: 0.6604 | MSE: 0.2518 | VarLoss: 0.4087 | TargetStd: 0.2029
+  Epoch 90 | Batch 1950 | Total: 0.6524 | MSE: 0.2506 | VarLoss: 0.4019 | TargetStd: 0.1948
+  Epoch 90 | Batch 2000 | Total: 0.6287 | MSE: 0.2647 | VarLoss: 0.3640 | TargetStd: 0.1889
+  Epoch 90 | Batch 2050 | Total: 0.6448 | MSE: 0.2725 | VarLoss: 0.3723 | TargetStd: 0.2008
+  Epoch 90 | Batch 2100 | Total: 0.6570 | MSE: 0.2464 | VarLoss: 0.4106 | TargetStd: 0.1974
+  Epoch 90 | Batch 2150 | Total: 0.6463 | MSE: 0.2439 | VarLoss: 0.4023 | TargetStd: 0.1929
+Epoch 90 | Train Loss: 0.6483 | Val Loss: 0.7491
+  Epoch 91 | Batch 0 | Total: 0.6671 | MSE: 0.2428 | VarLoss: 0.4243 | TargetStd: 0.1974
+  Epoch 91 | Batch 50 | Total: 0.6562 | MSE: 0.2726 | VarLoss: 0.3835 | TargetStd: 0.1979
+  Epoch 91 | Batch 100 | Total: 0.6514 | MSE: 0.2590 | VarLoss: 0.3923 | TargetStd: 0.1981
+  Epoch 91 | Batch 150 | Total: 0.6484 | MSE: 0.2602 | VarLoss: 0.3882 | TargetStd: 0.1961
+  Epoch 91 | Batch 200 | Total: 0.6496 | MSE: 0.2805 | VarLoss: 0.3691 | TargetStd: 0.1986
+  Epoch 91 | Batch 250 | Total: 0.6362 | MSE: 0.2675 | VarLoss: 0.3687 | TargetStd: 0.1975
+  Epoch 91 | Batch 300 | Total: 0.6762 | MSE: 0.2392 | VarLoss: 0.4370 | TargetStd: 0.1982
+  Epoch 91 | Batch 350 | Total: 0.6445 | MSE: 0.2658 | VarLoss: 0.3787 | TargetStd: 0.1899
+  Epoch 91 | Batch 400 | Total: 0.6444 | MSE: 0.2677 | VarLoss: 0.3767 | TargetStd: 0.1920
+  Epoch 91 | Batch 450 | Total: 0.6502 | MSE: 0.2567 | VarLoss: 0.3936 | TargetStd: 0.1897
+  Epoch 91 | Batch 500 | Total: 0.6570 | MSE: 0.2536 | VarLoss: 0.4033 | TargetStd: 0.1912
+  Epoch 91 | Batch 550 | Total: 0.6467 | MSE: 0.2566 | VarLoss: 0.3901 | TargetStd: 0.1960
+  Epoch 91 | Batch 600 | Total: 0.6528 | MSE: 0.2561 | VarLoss: 0.3967 | TargetStd: 0.2011
+  Epoch 91 | Batch 650 | Total: 0.6349 | MSE: 0.2692 | VarLoss: 0.3657 | TargetStd: 0.1933
+  Epoch 91 | Batch 700 | Total: 0.6387 | MSE: 0.2571 | VarLoss: 0.3816 | TargetStd: 0.1949
+  Epoch 91 | Batch 750 | Total: 0.6461 | MSE: 0.2481 | VarLoss: 0.3979 | TargetStd: 0.1872
+  Epoch 91 | Batch 800 | Total: 0.6413 | MSE: 0.2529 | VarLoss: 0.3884 | TargetStd: 0.1938
+  Epoch 91 | Batch 850 | Total: 0.6490 | MSE: 0.2637 | VarLoss: 0.3853 | TargetStd: 0.1899
+  Epoch 91 | Batch 900 | Total: 0.6381 | MSE: 0.2670 | VarLoss: 0.3711 | TargetStd: 0.1877
+  Epoch 91 | Batch 950 | Total: 0.6573 | MSE: 0.2562 | VarLoss: 0.4011 | TargetStd: 0.1952
+  Epoch 91 | Batch 1000 | Total: 0.6542 | MSE: 0.2513 | VarLoss: 0.4028 | TargetStd: 0.1868
+  Epoch 91 | Batch 1050 | Total: 0.6360 | MSE: 0.2530 | VarLoss: 0.3831 | TargetStd: 0.1884
+  Epoch 91 | Batch 1100 | Total: 0.6452 | MSE: 0.2463 | VarLoss: 0.3989 | TargetStd: 0.1925
+  Epoch 91 | Batch 1150 | Total: 0.6455 | MSE: 0.2510 | VarLoss: 0.3945 | TargetStd: 0.1894
+  Epoch 91 | Batch 1200 | Total: 0.6665 | MSE: 0.2624 | VarLoss: 0.4041 | TargetStd: 0.1826
+  Epoch 91 | Batch 1250 | Total: 0.6401 | MSE: 0.2644 | VarLoss: 0.3757 | TargetStd: 0.1773
+  Epoch 91 | Batch 1300 | Total: 0.6525 | MSE: 0.2648 | VarLoss: 0.3877 | TargetStd: 0.1937
+  Epoch 91 | Batch 1350 | Total: 0.6407 | MSE: 0.2562 | VarLoss: 0.3845 | TargetStd: 0.1921
+  Epoch 91 | Batch 1400 | Total: 0.6560 | MSE: 0.2522 | VarLoss: 0.4038 | TargetStd: 0.1984
+  Epoch 91 | Batch 1450 | Total: 0.6486 | MSE: 0.2758 | VarLoss: 0.3728 | TargetStd: 0.2026
+  Epoch 91 | Batch 1500 | Total: 0.6428 | MSE: 0.2663 | VarLoss: 0.3765 | TargetStd: 0.1900
+  Epoch 91 | Batch 1550 | Total: 0.6768 | MSE: 0.2417 | VarLoss: 0.4351 | TargetStd: 0.1912
+  Epoch 91 | Batch 1600 | Total: 0.6585 | MSE: 0.2495 | VarLoss: 0.4089 | TargetStd: 0.1996
+  Epoch 91 | Batch 1650 | Total: 0.6937 | MSE: 0.2425 | VarLoss: 0.4512 | TargetStd: 0.1852
+  Epoch 91 | Batch 1700 | Total: 0.6313 | MSE: 0.2626 | VarLoss: 0.3687 | TargetStd: 0.1924
+  Epoch 91 | Batch 1750 | Total: 0.6464 | MSE: 0.2582 | VarLoss: 0.3882 | TargetStd: 0.1968
+  Epoch 91 | Batch 1800 | Total: 0.6446 | MSE: 0.2547 | VarLoss: 0.3899 | TargetStd: 0.1934
+  Epoch 91 | Batch 1850 | Total: 0.6547 | MSE: 0.2458 | VarLoss: 0.4089 | TargetStd: 0.1926
+  Epoch 91 | Batch 1900 | Total: 0.6489 | MSE: 0.2563 | VarLoss: 0.3926 | TargetStd: 0.1894
+  Epoch 91 | Batch 1950 | Total: 0.6383 | MSE: 0.2648 | VarLoss: 0.3735 | TargetStd: 0.1769
+  Epoch 91 | Batch 2000 | Total: 0.6803 | MSE: 0.2357 | VarLoss: 0.4446 | TargetStd: 0.1938
+  Epoch 91 | Batch 2050 | Total: 0.6564 | MSE: 0.2646 | VarLoss: 0.3918 | TargetStd: 0.1918
+  Epoch 91 | Batch 2100 | Total: 0.6374 | MSE: 0.2624 | VarLoss: 0.3750 | TargetStd: 0.1754
+  Epoch 91 | Batch 2150 | Total: 0.6526 | MSE: 0.2625 | VarLoss: 0.3901 | TargetStd: 0.1846
+Epoch 91 | Train Loss: 0.6480 | Val Loss: 0.7468
+  -> New best val loss: 0.7468
+  Epoch 92 | Batch 0 | Total: 0.6395 | MSE: 0.2745 | VarLoss: 0.3650 | TargetStd: 0.1834
+  Epoch 92 | Batch 50 | Total: 0.6309 | MSE: 0.2615 | VarLoss: 0.3694 | TargetStd: 0.1797
+  Epoch 92 | Batch 100 | Total: 0.6321 | MSE: 0.2559 | VarLoss: 0.3762 | TargetStd: 0.1767
+  Epoch 92 | Batch 150 | Total: 0.6470 | MSE: 0.2527 | VarLoss: 0.3943 | TargetStd: 0.1888
+  Epoch 92 | Batch 200 | Total: 0.6506 | MSE: 0.2534 | VarLoss: 0.3972 | TargetStd: 0.1874
+  Epoch 92 | Batch 250 | Total: 0.6476 | MSE: 0.2533 | VarLoss: 0.3943 | TargetStd: 0.1893
+  Epoch 92 | Batch 300 | Total: 0.6521 | MSE: 0.2712 | VarLoss: 0.3809 | TargetStd: 0.1947
+  Epoch 92 | Batch 350 | Total: 0.6681 | MSE: 0.2453 | VarLoss: 0.4229 | TargetStd: 0.1914
+  Epoch 92 | Batch 400 | Total: 0.6400 | MSE: 0.2694 | VarLoss: 0.3706 | TargetStd: 0.1822
+  Epoch 92 | Batch 450 | Total: 0.6503 | MSE: 0.2587 | VarLoss: 0.3916 | TargetStd: 0.2020
+  Epoch 92 | Batch 500 | Total: 0.6671 | MSE: 0.2555 | VarLoss: 0.4116 | TargetStd: 0.1900
+  Epoch 92 | Batch 550 | Total: 0.6487 | MSE: 0.2396 | VarLoss: 0.4092 | TargetStd: 0.1860
+  Epoch 92 | Batch 600 | Total: 0.6379 | MSE: 0.2597 | VarLoss: 0.3782 | TargetStd: 0.1848
+  Epoch 92 | Batch 650 | Total: 0.6422 | MSE: 0.2660 | VarLoss: 0.3762 | TargetStd: 0.1819
+  Epoch 92 | Batch 700 | Total: 0.6672 | MSE: 0.2668 | VarLoss: 0.4004 | TargetStd: 0.2038
+  Epoch 92 | Batch 750 | Total: 0.6402 | MSE: 0.2599 | VarLoss: 0.3804 | TargetStd: 0.1901
+  Epoch 92 | Batch 800 | Total: 0.6378 | MSE: 0.2702 | VarLoss: 0.3677 | TargetStd: 0.1935
+  Epoch 92 | Batch 850 | Total: 0.6462 | MSE: 0.2556 | VarLoss: 0.3906 | TargetStd: 0.1924
+  Epoch 92 | Batch 900 | Total: 0.6869 | MSE: 0.2382 | VarLoss: 0.4487 | TargetStd: 0.1957
+  Epoch 92 | Batch 950 | Total: 0.6447 | MSE: 0.2582 | VarLoss: 0.3865 | TargetStd: 0.1920
+  Epoch 92 | Batch 1000 | Total: 0.6428 | MSE: 0.2507 | VarLoss: 0.3921 | TargetStd: 0.1844
+  Epoch 92 | Batch 1050 | Total: 0.6433 | MSE: 0.2539 | VarLoss: 0.3894 | TargetStd: 0.1883
+  Epoch 92 | Batch 1100 | Total: 0.6386 | MSE: 0.2709 | VarLoss: 0.3677 | TargetStd: 0.1851
+  Epoch 92 | Batch 1150 | Total: 0.6575 | MSE: 0.2520 | VarLoss: 0.4055 | TargetStd: 0.1996
+  Epoch 92 | Batch 1200 | Total: 0.6669 | MSE: 0.2607 | VarLoss: 0.4062 | TargetStd: 0.1962
+  Epoch 92 | Batch 1250 | Total: 0.6378 | MSE: 0.2691 | VarLoss: 0.3687 | TargetStd: 0.1872
+  Epoch 92 | Batch 1300 | Total: 0.6492 | MSE: 0.2642 | VarLoss: 0.3850 | TargetStd: 0.1964
+  Epoch 92 | Batch 1350 | Total: 0.6430 | MSE: 0.2543 | VarLoss: 0.3887 | TargetStd: 0.1886
+  Epoch 92 | Batch 1400 | Total: 0.6370 | MSE: 0.2595 | VarLoss: 0.3774 | TargetStd: 0.1804
+  Epoch 92 | Batch 1450 | Total: 0.6797 | MSE: 0.2369 | VarLoss: 0.4429 | TargetStd: 0.1901
+  Epoch 92 | Batch 1500 | Total: 0.6405 | MSE: 0.2558 | VarLoss: 0.3848 | TargetStd: 0.1778
+  Epoch 92 | Batch 1550 | Total: 0.6342 | MSE: 0.2651 | VarLoss: 0.3691 | TargetStd: 0.1935
+  Epoch 92 | Batch 1600 | Total: 0.6423 | MSE: 0.2580 | VarLoss: 0.3843 | TargetStd: 0.1964
+  Epoch 92 | Batch 1650 | Total: 0.6373 | MSE: 0.2635 | VarLoss: 0.3738 | TargetStd: 0.1882
+  Epoch 92 | Batch 1700 | Total: 0.6523 | MSE: 0.2488 | VarLoss: 0.4036 | TargetStd: 0.1935
+  Epoch 92 | Batch 1750 | Total: 0.6787 | MSE: 0.2473 | VarLoss: 0.4314 | TargetStd: 0.1878
+  Epoch 92 | Batch 1800 | Total: 0.6362 | MSE: 0.2583 | VarLoss: 0.3779 | TargetStd: 0.1831
+  Epoch 92 | Batch 1850 | Total: 0.6473 | MSE: 0.2518 | VarLoss: 0.3955 | TargetStd: 0.1938
+  Epoch 92 | Batch 1900 | Total: 0.6570 | MSE: 0.2481 | VarLoss: 0.4089 | TargetStd: 0.1797
+  Epoch 92 | Batch 1950 | Total: 0.6327 | MSE: 0.2741 | VarLoss: 0.3586 | TargetStd: 0.1905
+  Epoch 92 | Batch 2000 | Total: 0.6415 | MSE: 0.2574 | VarLoss: 0.3840 | TargetStd: 0.1906
+  Epoch 92 | Batch 2050 | Total: 0.6717 | MSE: 0.2466 | VarLoss: 0.4250 | TargetStd: 0.1832
+  Epoch 92 | Batch 2100 | Total: 0.6448 | MSE: 0.2627 | VarLoss: 0.3821 | TargetStd: 0.1923
+  Epoch 92 | Batch 2150 | Total: 0.6454 | MSE: 0.2740 | VarLoss: 0.3713 | TargetStd: 0.1913
+Epoch 92 | Train Loss: 0.6478 | Val Loss: 0.7450
+  -> New best val loss: 0.7450
+  Epoch 93 | Batch 0 | Total: 0.6508 | MSE: 0.2555 | VarLoss: 0.3953 | TargetStd: 0.1898
+  Epoch 93 | Batch 50 | Total: 0.6523 | MSE: 0.2641 | VarLoss: 0.3882 | TargetStd: 0.1910
+  Epoch 93 | Batch 100 | Total: 0.6445 | MSE: 0.2493 | VarLoss: 0.3953 | TargetStd: 0.1951
+  Epoch 93 | Batch 150 | Total: 0.6583 | MSE: 0.2464 | VarLoss: 0.4119 | TargetStd: 0.1952
+  Epoch 93 | Batch 200 | Total: 0.6359 | MSE: 0.2626 | VarLoss: 0.3733 | TargetStd: 0.1761
+  Epoch 93 | Batch 250 | Total: 0.6518 | MSE: 0.2412 | VarLoss: 0.4106 | TargetStd: 0.1867
+  Epoch 93 | Batch 300 | Total: 0.6622 | MSE: 0.2691 | VarLoss: 0.3931 | TargetStd: 0.1938
+  Epoch 93 | Batch 350 | Total: 0.6519 | MSE: 0.2512 | VarLoss: 0.4006 | TargetStd: 0.1980
+  Epoch 93 | Batch 400 | Total: 0.6471 | MSE: 0.2614 | VarLoss: 0.3857 | TargetStd: 0.1926
+  Epoch 93 | Batch 450 | Total: 0.6468 | MSE: 0.2535 | VarLoss: 0.3933 | TargetStd: 0.1905
+  Epoch 93 | Batch 500 | Total: 0.6543 | MSE: 0.2505 | VarLoss: 0.4038 | TargetStd: 0.1933
+  Epoch 93 | Batch 550 | Total: 0.6411 | MSE: 0.2603 | VarLoss: 0.3809 | TargetStd: 0.1851
+  Epoch 93 | Batch 600 | Total: 0.6356 | MSE: 0.2633 | VarLoss: 0.3723 | TargetStd: 0.1971
+  Epoch 93 | Batch 650 | Total: 0.6408 | MSE: 0.2592 | VarLoss: 0.3816 | TargetStd: 0.1920
+  Epoch 93 | Batch 700 | Total: 0.6546 | MSE: 0.2488 | VarLoss: 0.4058 | TargetStd: 0.1952
+  Epoch 93 | Batch 750 | Total: 0.6355 | MSE: 0.2737 | VarLoss: 0.3618 | TargetStd: 0.1870
+  Epoch 93 | Batch 800 | Total: 0.6388 | MSE: 0.2579 | VarLoss: 0.3809 | TargetStd: 0.1883
+  Epoch 93 | Batch 850 | Total: 0.6549 | MSE: 0.2665 | VarLoss: 0.3884 | TargetStd: 0.1970
+  Epoch 93 | Batch 900 | Total: 0.6585 | MSE: 0.2527 | VarLoss: 0.4058 | TargetStd: 0.1973
+  Epoch 93 | Batch 950 | Total: 0.6563 | MSE: 0.2618 | VarLoss: 0.3945 | TargetStd: 0.1983
+  Epoch 93 | Batch 1000 | Total: 0.6714 | MSE: 0.2647 | VarLoss: 0.4067 | TargetStd: 0.2010
+  Epoch 93 | Batch 1050 | Total: 0.6396 | MSE: 0.2612 | VarLoss: 0.3784 | TargetStd: 0.1871
+  Epoch 93 | Batch 1100 | Total: 0.6620 | MSE: 0.2543 | VarLoss: 0.4077 | TargetStd: 0.1893
+  Epoch 93 | Batch 1150 | Total: 0.6482 | MSE: 0.2683 | VarLoss: 0.3799 | TargetStd: 0.1827
+  Epoch 93 | Batch 1200 | Total: 0.6188 | MSE: 0.2665 | VarLoss: 0.3523 | TargetStd: 0.1751
+  Epoch 93 | Batch 1250 | Total: 0.6359 | MSE: 0.2616 | VarLoss: 0.3743 | TargetStd: 0.1722
+  Epoch 93 | Batch 1300 | Total: 0.6388 | MSE: 0.2680 | VarLoss: 0.3708 | TargetStd: 0.1925
+  Epoch 93 | Batch 1350 | Total: 0.6571 | MSE: 0.2482 | VarLoss: 0.4089 | TargetStd: 0.1844
+  Epoch 93 | Batch 1400 | Total: 0.6530 | MSE: 0.2570 | VarLoss: 0.3960 | TargetStd: 0.1841
+  Epoch 93 | Batch 1450 | Total: 0.6396 | MSE: 0.2565 | VarLoss: 0.3831 | TargetStd: 0.1891
+  Epoch 93 | Batch 1500 | Total: 0.6422 | MSE: 0.2723 | VarLoss: 0.3699 | TargetStd: 0.1920
+  Epoch 93 | Batch 1550 | Total: 0.6368 | MSE: 0.2706 | VarLoss: 0.3662 | TargetStd: 0.1953
+  Epoch 93 | Batch 1600 | Total: 0.6460 | MSE: 0.2585 | VarLoss: 0.3875 | TargetStd: 0.1831
+  Epoch 93 | Batch 1650 | Total: 0.6530 | MSE: 0.2448 | VarLoss: 0.4082 | TargetStd: 0.1975
+  Epoch 93 | Batch 1700 | Total: 0.6533 | MSE: 0.2598 | VarLoss: 0.3936 | TargetStd: 0.1965
+  Epoch 93 | Batch 1750 | Total: 0.6469 | MSE: 0.2521 | VarLoss: 0.3948 | TargetStd: 0.1825
+  Epoch 93 | Batch 1800 | Total: 0.6493 | MSE: 0.2543 | VarLoss: 0.3950 | TargetStd: 0.1971
+  Epoch 93 | Batch 1850 | Total: 0.6447 | MSE: 0.2648 | VarLoss: 0.3799 | TargetStd: 0.1874
+  Epoch 93 | Batch 1900 | Total: 0.6490 | MSE: 0.2581 | VarLoss: 0.3909 | TargetStd: 0.1733
+  Epoch 93 | Batch 1950 | Total: 0.6651 | MSE: 0.2344 | VarLoss: 0.4307 | TargetStd: 0.1968
+  Epoch 93 | Batch 2000 | Total: 0.6481 | MSE: 0.2684 | VarLoss: 0.3796 | TargetStd: 0.1936
+  Epoch 93 | Batch 2050 | Total: 0.6337 | MSE: 0.2612 | VarLoss: 0.3726 | TargetStd: 0.1848
+  Epoch 93 | Batch 2100 | Total: 0.6590 | MSE: 0.2510 | VarLoss: 0.4080 | TargetStd: 0.1908
+  Epoch 93 | Batch 2150 | Total: 0.6762 | MSE: 0.2460 | VarLoss: 0.4302 | TargetStd: 0.1853
+Epoch 93 | Train Loss: 0.6476 | Val Loss: 0.7447
+  -> New best val loss: 0.7447
+  Epoch 94 | Batch 0 | Total: 0.6390 | MSE: 0.2660 | VarLoss: 0.3730 | TargetStd: 0.1812
+  Epoch 94 | Batch 50 | Total: 0.6425 | MSE: 0.2541 | VarLoss: 0.3884 | TargetStd: 0.1917
+  Epoch 94 | Batch 100 | Total: 0.6560 | MSE: 0.2671 | VarLoss: 0.3889 | TargetStd: 0.2009
+  Epoch 94 | Batch 150 | Total: 0.6401 | MSE: 0.2585 | VarLoss: 0.3816 | TargetStd: 0.1809
+  Epoch 94 | Batch 200 | Total: 0.6403 | MSE: 0.2678 | VarLoss: 0.3726 | TargetStd: 0.1927
+  Epoch 94 | Batch 250 | Total: 0.6348 | MSE: 0.2707 | VarLoss: 0.3640 | TargetStd: 0.1858
+  Epoch 94 | Batch 300 | Total: 0.6303 | MSE: 0.2672 | VarLoss: 0.3630 | TargetStd: 0.1859
+  Epoch 94 | Batch 350 | Total: 0.6468 | MSE: 0.2557 | VarLoss: 0.3911 | TargetStd: 0.1785
+  Epoch 94 | Batch 400 | Total: 0.6458 | MSE: 0.2595 | VarLoss: 0.3862 | TargetStd: 0.1982
+  Epoch 94 | Batch 450 | Total: 0.6445 | MSE: 0.2556 | VarLoss: 0.3889 | TargetStd: 0.1811
+  Epoch 94 | Batch 500 | Total: 0.6431 | MSE: 0.2678 | VarLoss: 0.3752 | TargetStd: 0.1954
+  Epoch 94 | Batch 550 | Total: 0.6691 | MSE: 0.2350 | VarLoss: 0.4341 | TargetStd: 0.1911
+  Epoch 94 | Batch 600 | Total: 0.6304 | MSE: 0.2645 | VarLoss: 0.3660 | TargetStd: 0.1849
+  Epoch 94 | Batch 650 | Total: 0.6551 | MSE: 0.2552 | VarLoss: 0.3999 | TargetStd: 0.1950
+  Epoch 94 | Batch 700 | Total: 0.6547 | MSE: 0.2514 | VarLoss: 0.4033 | TargetStd: 0.1777
+  Epoch 94 | Batch 750 | Total: 0.6466 | MSE: 0.2438 | VarLoss: 0.4028 | TargetStd: 0.1906
+  Epoch 94 | Batch 800 | Total: 0.6551 | MSE: 0.2572 | VarLoss: 0.3979 | TargetStd: 0.1872
+  Epoch 94 | Batch 850 | Total: 0.6562 | MSE: 0.2488 | VarLoss: 0.4075 | TargetStd: 0.1953
+  Epoch 94 | Batch 900 | Total: 0.6323 | MSE: 0.2783 | VarLoss: 0.3540 | TargetStd: 0.1846
+  Epoch 94 | Batch 950 | Total: 0.6489 | MSE: 0.2578 | VarLoss: 0.3911 | TargetStd: 0.1894
+  Epoch 94 | Batch 1000 | Total: 0.6601 | MSE: 0.2656 | VarLoss: 0.3945 | TargetStd: 0.1810
+  Epoch 94 | Batch 1050 | Total: 0.6389 | MSE: 0.2495 | VarLoss: 0.3894 | TargetStd: 0.1914
+  Epoch 94 | Batch 1100 | Total: 0.6422 | MSE: 0.2665 | VarLoss: 0.3757 | TargetStd: 0.1829
+  Epoch 94 | Batch 1150 | Total: 0.6356 | MSE: 0.2738 | VarLoss: 0.3618 | TargetStd: 0.1856
+  Epoch 94 | Batch 1200 | Total: 0.6395 | MSE: 0.2653 | VarLoss: 0.3743 | TargetStd: 0.1768
+  Epoch 94 | Batch 1250 | Total: 0.6511 | MSE: 0.2432 | VarLoss: 0.4080 | TargetStd: 0.1955
+  Epoch 94 | Batch 1300 | Total: 0.6443 | MSE: 0.2580 | VarLoss: 0.3862 | TargetStd: 0.1914
+  Epoch 94 | Batch 1350 | Total: 0.6500 | MSE: 0.2550 | VarLoss: 0.3950 | TargetStd: 0.1816
+  Epoch 94 | Batch 1400 | Total: 0.6514 | MSE: 0.2589 | VarLoss: 0.3926 | TargetStd: 0.1793
+  Epoch 94 | Batch 1450 | Total: 0.6405 | MSE: 0.2694 | VarLoss: 0.3711 | TargetStd: 0.1871
+  Epoch 94 | Batch 1500 | Total: 0.6399 | MSE: 0.2691 | VarLoss: 0.3708 | TargetStd: 0.1748
+  Epoch 94 | Batch 1550 | Total: 0.6456 | MSE: 0.2745 | VarLoss: 0.3711 | TargetStd: 0.1985
+  Epoch 94 | Batch 1600 | Total: 0.6371 | MSE: 0.2589 | VarLoss: 0.3782 | TargetStd: 0.1689
+  Epoch 94 | Batch 1650 | Total: 0.6489 | MSE: 0.2471 | VarLoss: 0.4019 | TargetStd: 0.1977
+  Epoch 94 | Batch 1700 | Total: 0.6509 | MSE: 0.2556 | VarLoss: 0.3953 | TargetStd: 0.1984
+  Epoch 94 | Batch 1750 | Total: 0.6449 | MSE: 0.2559 | VarLoss: 0.3889 | TargetStd: 0.1954
+  Epoch 94 | Batch 1800 | Total: 0.6346 | MSE: 0.2582 | VarLoss: 0.3765 | TargetStd: 0.1846
+  Epoch 94 | Batch 1850 | Total: 0.6476 | MSE: 0.2582 | VarLoss: 0.3894 | TargetStd: 0.1901
+  Epoch 94 | Batch 1900 | Total: 0.6568 | MSE: 0.2459 | VarLoss: 0.4109 | TargetStd: 0.1927
+  Epoch 94 | Batch 1950 | Total: 0.6433 | MSE: 0.2524 | VarLoss: 0.3909 | TargetStd: 0.1749
+  Epoch 94 | Batch 2000 | Total: 0.6377 | MSE: 0.2730 | VarLoss: 0.3647 | TargetStd: 0.1754
+  Epoch 94 | Batch 2050 | Total: 0.6749 | MSE: 0.2548 | VarLoss: 0.4202 | TargetStd: 0.1888
+  Epoch 94 | Batch 2100 | Total: 0.6427 | MSE: 0.2609 | VarLoss: 0.3818 | TargetStd: 0.1854
+  Epoch 94 | Batch 2150 | Total: 0.6416 | MSE: 0.2673 | VarLoss: 0.3743 | TargetStd: 0.1897
+Epoch 94 | Train Loss: 0.6475 | Val Loss: 0.7433
+  -> New best val loss: 0.7433
+  Epoch 95 | Batch 0 | Total: 0.6357 | MSE: 0.2612 | VarLoss: 0.3745 | TargetStd: 0.1833
+  Epoch 95 | Batch 50 | Total: 0.6689 | MSE: 0.2421 | VarLoss: 0.4268 | TargetStd: 0.1928
+  Epoch 95 | Batch 100 | Total: 0.6301 | MSE: 0.2612 | VarLoss: 0.3689 | TargetStd: 0.1858
+  Epoch 95 | Batch 150 | Total: 0.6610 | MSE: 0.2536 | VarLoss: 0.4075 | TargetStd: 0.1926
+  Epoch 95 | Batch 200 | Total: 0.6649 | MSE: 0.2465 | VarLoss: 0.4185 | TargetStd: 0.1915
+  Epoch 95 | Batch 250 | Total: 0.6622 | MSE: 0.2516 | VarLoss: 0.4106 | TargetStd: 0.1963
+  Epoch 95 | Batch 300 | Total: 0.6662 | MSE: 0.2370 | VarLoss: 0.4292 | TargetStd: 0.1896
+  Epoch 95 | Batch 350 | Total: 0.6722 | MSE: 0.2552 | VarLoss: 0.4170 | TargetStd: 0.1959
+  Epoch 95 | Batch 400 | Total: 0.6466 | MSE: 0.2690 | VarLoss: 0.3777 | TargetStd: 0.1840
+  Epoch 95 | Batch 450 | Total: 0.6469 | MSE: 0.2565 | VarLoss: 0.3904 | TargetStd: 0.1808
+  Epoch 95 | Batch 500 | Total: 0.6443 | MSE: 0.2583 | VarLoss: 0.3860 | TargetStd: 0.1868
+  Epoch 95 | Batch 550 | Total: 0.6348 | MSE: 0.2791 | VarLoss: 0.3557 | TargetStd: 0.1782
+  Epoch 95 | Batch 600 | Total: 0.6502 | MSE: 0.2639 | VarLoss: 0.3862 | TargetStd: 0.1887
+  Epoch 95 | Batch 650 | Total: 0.6501 | MSE: 0.2692 | VarLoss: 0.3809 | TargetStd: 0.1883
+  Epoch 95 | Batch 700 | Total: 0.6637 | MSE: 0.2460 | VarLoss: 0.4177 | TargetStd: 0.1946
+  Epoch 95 | Batch 750 | Total: 0.6703 | MSE: 0.2541 | VarLoss: 0.4163 | TargetStd: 0.1933
+  Epoch 95 | Batch 800 | Total: 0.6341 | MSE: 0.2539 | VarLoss: 0.3801 | TargetStd: 0.1821
+  Epoch 95 | Batch 850 | Total: 0.6585 | MSE: 0.2489 | VarLoss: 0.4097 | TargetStd: 0.1967
+  Epoch 95 | Batch 900 | Total: 0.6386 | MSE: 0.2541 | VarLoss: 0.3845 | TargetStd: 0.1850
+  Epoch 95 | Batch 950 | Total: 0.6456 | MSE: 0.2677 | VarLoss: 0.3779 | TargetStd: 0.1932
+  Epoch 95 | Batch 1000 | Total: 0.6356 | MSE: 0.2470 | VarLoss: 0.3887 | TargetStd: 0.1844
+  Epoch 95 | Batch 1050 | Total: 0.6495 | MSE: 0.2586 | VarLoss: 0.3909 | TargetStd: 0.1880
+  Epoch 95 | Batch 1100 | Total: 0.6757 | MSE: 0.2390 | VarLoss: 0.4368 | TargetStd: 0.1913
+  Epoch 95 | Batch 1150 | Total: 0.6410 | MSE: 0.2709 | VarLoss: 0.3701 | TargetStd: 0.1814
+  Epoch 95 | Batch 1200 | Total: 0.6513 | MSE: 0.2343 | VarLoss: 0.4170 | TargetStd: 0.1925
+  Epoch 95 | Batch 1250 | Total: 0.6566 | MSE: 0.2601 | VarLoss: 0.3965 | TargetStd: 0.1957
+  Epoch 95 | Batch 1300 | Total: 0.6459 | MSE: 0.2589 | VarLoss: 0.3870 | TargetStd: 0.1921
+  Epoch 95 | Batch 1350 | Total: 0.6688 | MSE: 0.2474 | VarLoss: 0.4214 | TargetStd: 0.1884
+  Epoch 95 | Batch 1400 | Total: 0.6350 | MSE: 0.2671 | VarLoss: 0.3679 | TargetStd: 0.1876
+  Epoch 95 | Batch 1450 | Total: 0.6543 | MSE: 0.2457 | VarLoss: 0.4087 | TargetStd: 0.1885
+  Epoch 95 | Batch 1500 | Total: 0.6425 | MSE: 0.2627 | VarLoss: 0.3799 | TargetStd: 0.1871
+  Epoch 95 | Batch 1550 | Total: 0.6358 | MSE: 0.2689 | VarLoss: 0.3669 | TargetStd: 0.1864
+  Epoch 95 | Batch 1600 | Total: 0.6584 | MSE: 0.2465 | VarLoss: 0.4119 | TargetStd: 0.1886
+  Epoch 95 | Batch 1650 | Total: 0.6408 | MSE: 0.2694 | VarLoss: 0.3713 | TargetStd: 0.1728
+  Epoch 95 | Batch 1700 | Total: 0.6422 | MSE: 0.2572 | VarLoss: 0.3850 | TargetStd: 0.1828
+  Epoch 95 | Batch 1750 | Total: 0.6387 | MSE: 0.2542 | VarLoss: 0.3845 | TargetStd: 0.1799
+  Epoch 95 | Batch 1800 | Total: 0.6359 | MSE: 0.2711 | VarLoss: 0.3647 | TargetStd: 0.1860
+  Epoch 95 | Batch 1850 | Total: 0.6392 | MSE: 0.2444 | VarLoss: 0.3948 | TargetStd: 0.1818
+  Epoch 95 | Batch 1900 | Total: 0.6482 | MSE: 0.2571 | VarLoss: 0.3911 | TargetStd: 0.1953
+  Epoch 95 | Batch 1950 | Total: 0.6481 | MSE: 0.2648 | VarLoss: 0.3833 | TargetStd: 0.1871
+  Epoch 95 | Batch 2000 | Total: 0.6478 | MSE: 0.2511 | VarLoss: 0.3967 | TargetStd: 0.1887
+  Epoch 95 | Batch 2050 | Total: 0.6440 | MSE: 0.2612 | VarLoss: 0.3828 | TargetStd: 0.1795
+  Epoch 95 | Batch 2100 | Total: 0.6474 | MSE: 0.2629 | VarLoss: 0.3845 | TargetStd: 0.1884
+  Epoch 95 | Batch 2150 | Total: 0.6363 | MSE: 0.2689 | VarLoss: 0.3674 | TargetStd: 0.1876
+Epoch 95 | Train Loss: 0.6475 | Val Loss: 0.7407
+  -> New best val loss: 0.7407
+  Epoch 96 | Batch 0 | Total: 0.6560 | MSE: 0.2580 | VarLoss: 0.3979 | TargetStd: 0.1843
+  Epoch 96 | Batch 50 | Total: 0.6296 | MSE: 0.2665 | VarLoss: 0.3630 | TargetStd: 0.1819
+  Epoch 96 | Batch 100 | Total: 0.6415 | MSE: 0.2506 | VarLoss: 0.3909 | TargetStd: 0.1882
+  Epoch 96 | Batch 150 | Total: 0.6464 | MSE: 0.2555 | VarLoss: 0.3909 | TargetStd: 0.1845
+  Epoch 96 | Batch 200 | Total: 0.6471 | MSE: 0.2628 | VarLoss: 0.3843 | TargetStd: 0.1850
+  Epoch 96 | Batch 250 | Total: 0.6456 | MSE: 0.2608 | VarLoss: 0.3848 | TargetStd: 0.1950
+  Epoch 96 | Batch 300 | Total: 0.6450 | MSE: 0.2585 | VarLoss: 0.3865 | TargetStd: 0.1885
+  Epoch 96 | Batch 350 | Total: 0.6360 | MSE: 0.2595 | VarLoss: 0.3765 | TargetStd: 0.1868
+  Epoch 96 | Batch 400 | Total: 0.6501 | MSE: 0.2592 | VarLoss: 0.3909 | TargetStd: 0.1832
+  Epoch 96 | Batch 450 | Total: 0.6527 | MSE: 0.2393 | VarLoss: 0.4133 | TargetStd: 0.1826
+  Epoch 96 | Batch 500 | Total: 0.6405 | MSE: 0.2643 | VarLoss: 0.3762 | TargetStd: 0.1941
+  Epoch 96 | Batch 550 | Total: 0.6430 | MSE: 0.2602 | VarLoss: 0.3828 | TargetStd: 0.1870
+  Epoch 96 | Batch 600 | Total: 0.6393 | MSE: 0.2663 | VarLoss: 0.3730 | TargetStd: 0.1784
+  Epoch 96 | Batch 650 | Total: 0.6467 | MSE: 0.2724 | VarLoss: 0.3743 | TargetStd: 0.1964
+  Epoch 96 | Batch 700 | Total: 0.6673 | MSE: 0.2428 | VarLoss: 0.4246 | TargetStd: 0.1867
+  Epoch 96 | Batch 750 | Total: 0.6458 | MSE: 0.2598 | VarLoss: 0.3860 | TargetStd: 0.1924
+  Epoch 96 | Batch 800 | Total: 0.6502 | MSE: 0.2557 | VarLoss: 0.3945 | TargetStd: 0.1874
+  Epoch 96 | Batch 850 | Total: 0.6296 | MSE: 0.2659 | VarLoss: 0.3638 | TargetStd: 0.1703
+  Epoch 96 | Batch 900 | Total: 0.6415 | MSE: 0.2518 | VarLoss: 0.3896 | TargetStd: 0.1886
+  Epoch 96 | Batch 950 | Total: 0.6515 | MSE: 0.2697 | VarLoss: 0.3818 | TargetStd: 0.1832
+  Epoch 96 | Batch 1000 | Total: 0.6471 | MSE: 0.2674 | VarLoss: 0.3796 | TargetStd: 0.1962
+  Epoch 96 | Batch 1050 | Total: 0.6361 | MSE: 0.2562 | VarLoss: 0.3799 | TargetStd: 0.1895
+  Epoch 96 | Batch 1100 | Total: 0.6492 | MSE: 0.2478 | VarLoss: 0.4014 | TargetStd: 0.1884
+  Epoch 96 | Batch 1150 | Total: 0.6432 | MSE: 0.2619 | VarLoss: 0.3813 | TargetStd: 0.1777
+  Epoch 96 | Batch 1200 | Total: 0.6446 | MSE: 0.2657 | VarLoss: 0.3789 | TargetStd: 0.1906
+  Epoch 96 | Batch 1250 | Total: 0.6375 | MSE: 0.2530 | VarLoss: 0.3845 | TargetStd: 0.1762
+  Epoch 96 | Batch 1300 | Total: 0.6588 | MSE: 0.2577 | VarLoss: 0.4011 | TargetStd: 0.1937
+  Epoch 96 | Batch 1350 | Total: 0.6459 | MSE: 0.2687 | VarLoss: 0.3772 | TargetStd: 0.1780
+  Epoch 96 | Batch 1400 | Total: 0.6456 | MSE: 0.2496 | VarLoss: 0.3960 | TargetStd: 0.1951
+  Epoch 96 | Batch 1450 | Total: 0.6586 | MSE: 0.2609 | VarLoss: 0.3977 | TargetStd: 0.1838
+  Epoch 96 | Batch 1500 | Total: 0.6343 | MSE: 0.2634 | VarLoss: 0.3708 | TargetStd: 0.1757
+  Epoch 96 | Batch 1550 | Total: 0.6691 | MSE: 0.2501 | VarLoss: 0.4189 | TargetStd: 0.1912
+  Epoch 96 | Batch 1600 | Total: 0.6364 | MSE: 0.2495 | VarLoss: 0.3870 | TargetStd: 0.1778
+  Epoch 96 | Batch 1650 | Total: 0.6594 | MSE: 0.2725 | VarLoss: 0.3870 | TargetStd: 0.1966
+  Epoch 96 | Batch 1700 | Total: 0.6564 | MSE: 0.2560 | VarLoss: 0.4004 | TargetStd: 0.1900
+  Epoch 96 | Batch 1750 | Total: 0.6409 | MSE: 0.2617 | VarLoss: 0.3792 | TargetStd: 0.1825
+  Epoch 96 | Batch 1800 | Total: 0.6397 | MSE: 0.2759 | VarLoss: 0.3638 | TargetStd: 0.1877
+  Epoch 96 | Batch 1850 | Total: 0.6562 | MSE: 0.2524 | VarLoss: 0.4038 | TargetStd: 0.1884
+  Epoch 96 | Batch 1900 | Total: 0.6437 | MSE: 0.2555 | VarLoss: 0.3882 | TargetStd: 0.1888
+  Epoch 96 | Batch 1950 | Total: 0.6505 | MSE: 0.2589 | VarLoss: 0.3916 | TargetStd: 0.1989
+  Epoch 96 | Batch 2000 | Total: 0.6608 | MSE: 0.2475 | VarLoss: 0.4133 | TargetStd: 0.1794
+  Epoch 96 | Batch 2050 | Total: 0.6508 | MSE: 0.2480 | VarLoss: 0.4028 | TargetStd: 0.1907
+  Epoch 96 | Batch 2100 | Total: 0.6548 | MSE: 0.2683 | VarLoss: 0.3865 | TargetStd: 0.1940
+  Epoch 96 | Batch 2150 | Total: 0.6527 | MSE: 0.2677 | VarLoss: 0.3850 | TargetStd: 0.1887
+Epoch 96 | Train Loss: 0.6476 | Val Loss: 0.7398
+  -> New best val loss: 0.7398
+  Epoch 97 | Batch 0 | Total: 0.6553 | MSE: 0.2679 | VarLoss: 0.3875 | TargetStd: 0.1946
+  Epoch 97 | Batch 50 | Total: 0.6389 | MSE: 0.2671 | VarLoss: 0.3718 | TargetStd: 0.1589
+  Epoch 97 | Batch 100 | Total: 0.6492 | MSE: 0.2630 | VarLoss: 0.3862 | TargetStd: 0.1791
+  Epoch 97 | Batch 150 | Total: 0.6615 | MSE: 0.2619 | VarLoss: 0.3997 | TargetStd: 0.1958
+  Epoch 97 | Batch 200 | Total: 0.6400 | MSE: 0.2636 | VarLoss: 0.3765 | TargetStd: 0.1771
+  Epoch 97 | Batch 250 | Total: 0.6436 | MSE: 0.2535 | VarLoss: 0.3901 | TargetStd: 0.1876
+  Epoch 97 | Batch 300 | Total: 0.6381 | MSE: 0.2651 | VarLoss: 0.3730 | TargetStd: 0.1873
+  Epoch 97 | Batch 350 | Total: 0.6460 | MSE: 0.2634 | VarLoss: 0.3826 | TargetStd: 0.1853
+  Epoch 97 | Batch 400 | Total: 0.6471 | MSE: 0.2579 | VarLoss: 0.3892 | TargetStd: 0.1864
+  Epoch 97 | Batch 450 | Total: 0.6468 | MSE: 0.2567 | VarLoss: 0.3901 | TargetStd: 0.1898
+  Epoch 97 | Batch 500 | Total: 0.6510 | MSE: 0.2587 | VarLoss: 0.3923 | TargetStd: 0.1868
+  Epoch 97 | Batch 550 | Total: 0.6583 | MSE: 0.2452 | VarLoss: 0.4131 | TargetStd: 0.1908
+  Epoch 97 | Batch 600 | Total: 0.6628 | MSE: 0.2565 | VarLoss: 0.4062 | TargetStd: 0.1844
+  Epoch 97 | Batch 650 | Total: 0.6483 | MSE: 0.2631 | VarLoss: 0.3853 | TargetStd: 0.1820
+  Epoch 97 | Batch 700 | Total: 0.6376 | MSE: 0.2555 | VarLoss: 0.3821 | TargetStd: 0.1758
+  Epoch 97 | Batch 750 | Total: 0.6405 | MSE: 0.2584 | VarLoss: 0.3821 | TargetStd: 0.1877
+  Epoch 97 | Batch 800 | Total: 0.6408 | MSE: 0.2597 | VarLoss: 0.3811 | TargetStd: 0.1722
+  Epoch 97 | Batch 850 | Total: 0.6381 | MSE: 0.2660 | VarLoss: 0.3721 | TargetStd: 0.1819
+  Epoch 97 | Batch 900 | Total: 0.6553 | MSE: 0.2529 | VarLoss: 0.4023 | TargetStd: 0.1879
+  Epoch 97 | Batch 950 | Total: 0.6674 | MSE: 0.2544 | VarLoss: 0.4131 | TargetStd: 0.1845
+  Epoch 97 | Batch 1000 | Total: 0.6459 | MSE: 0.2541 | VarLoss: 0.3918 | TargetStd: 0.1835
+  Epoch 97 | Batch 1050 | Total: 0.6455 | MSE: 0.2459 | VarLoss: 0.3997 | TargetStd: 0.1870
+  Epoch 97 | Batch 1100 | Total: 0.6422 | MSE: 0.2537 | VarLoss: 0.3884 | TargetStd: 0.1815
+  Epoch 97 | Batch 1150 | Total: 0.6371 | MSE: 0.2701 | VarLoss: 0.3669 | TargetStd: 0.1742
+  Epoch 97 | Batch 1200 | Total: 0.6390 | MSE: 0.2647 | VarLoss: 0.3743 | TargetStd: 0.1906
+  Epoch 97 | Batch 1250 | Total: 0.6532 | MSE: 0.2621 | VarLoss: 0.3911 | TargetStd: 0.1885
+  Epoch 97 | Batch 1300 | Total: 0.6626 | MSE: 0.2552 | VarLoss: 0.4075 | TargetStd: 0.1838
+  Epoch 97 | Batch 1350 | Total: 0.6368 | MSE: 0.2686 | VarLoss: 0.3682 | TargetStd: 0.1808
+  Epoch 97 | Batch 1400 | Total: 0.6360 | MSE: 0.2571 | VarLoss: 0.3789 | TargetStd: 0.1781
+  Epoch 97 | Batch 1450 | Total: 0.6425 | MSE: 0.2565 | VarLoss: 0.3860 | TargetStd: 0.1844
+  Epoch 97 | Batch 1500 | Total: 0.6468 | MSE: 0.2540 | VarLoss: 0.3928 | TargetStd: 0.1849
+  Epoch 97 | Batch 1550 | Total: 0.6297 | MSE: 0.2708 | VarLoss: 0.3589 | TargetStd: 0.1820
+  Epoch 97 | Batch 1600 | Total: 0.6514 | MSE: 0.2650 | VarLoss: 0.3865 | TargetStd: 0.1858
+  Epoch 97 | Batch 1650 | Total: 0.6539 | MSE: 0.2628 | VarLoss: 0.3911 | TargetStd: 0.1943
+  Epoch 97 | Batch 1700 | Total: 0.6623 | MSE: 0.2595 | VarLoss: 0.4028 | TargetStd: 0.1801
+  Epoch 97 | Batch 1750 | Total: 0.6418 | MSE: 0.2524 | VarLoss: 0.3894 | TargetStd: 0.1826
+  Epoch 97 | Batch 1800 | Total: 0.6482 | MSE: 0.2598 | VarLoss: 0.3884 | TargetStd: 0.1854
+  Epoch 97 | Batch 1850 | Total: 0.6406 | MSE: 0.2507 | VarLoss: 0.3899 | TargetStd: 0.1850
+  Epoch 97 | Batch 1900 | Total: 0.6420 | MSE: 0.2601 | VarLoss: 0.3818 | TargetStd: 0.1831
+  Epoch 97 | Batch 1950 | Total: 0.6484 | MSE: 0.2612 | VarLoss: 0.3872 | TargetStd: 0.1852
+  Epoch 97 | Batch 2000 | Total: 0.6596 | MSE: 0.2465 | VarLoss: 0.4131 | TargetStd: 0.1940
+  Epoch 97 | Batch 2050 | Total: 0.6495 | MSE: 0.2530 | VarLoss: 0.3965 | TargetStd: 0.1856
+  Epoch 97 | Batch 2100 | Total: 0.6478 | MSE: 0.2515 | VarLoss: 0.3962 | TargetStd: 0.1868
+  Epoch 97 | Batch 2150 | Total: 0.6416 | MSE: 0.2625 | VarLoss: 0.3792 | TargetStd: 0.1812
+Epoch 97 | Train Loss: 0.6473 | Val Loss: 0.7389
+  -> New best val loss: 0.7389
+  Epoch 98 | Batch 0 | Total: 0.6447 | MSE: 0.2680 | VarLoss: 0.3767 | TargetStd: 0.1801
+  Epoch 98 | Batch 50 | Total: 0.6479 | MSE: 0.2629 | VarLoss: 0.3850 | TargetStd: 0.1863
+  Epoch 98 | Batch 100 | Total: 0.6405 | MSE: 0.2614 | VarLoss: 0.3792 | TargetStd: 0.1713
+  Epoch 98 | Batch 150 | Total: 0.6467 | MSE: 0.2526 | VarLoss: 0.3940 | TargetStd: 0.1910
+  Epoch 98 | Batch 200 | Total: 0.6435 | MSE: 0.2446 | VarLoss: 0.3989 | TargetStd: 0.1787
+  Epoch 98 | Batch 250 | Total: 0.6455 | MSE: 0.2544 | VarLoss: 0.3911 | TargetStd: 0.1878
+  Epoch 98 | Batch 300 | Total: 0.6662 | MSE: 0.2426 | VarLoss: 0.4236 | TargetStd: 0.1889
+  Epoch 98 | Batch 350 | Total: 0.6659 | MSE: 0.2533 | VarLoss: 0.4126 | TargetStd: 0.1902
+  Epoch 98 | Batch 400 | Total: 0.6560 | MSE: 0.2497 | VarLoss: 0.4062 | TargetStd: 0.1871
+  Epoch 98 | Batch 450 | Total: 0.6373 | MSE: 0.2599 | VarLoss: 0.3774 | TargetStd: 0.1787
+  Epoch 98 | Batch 500 | Total: 0.6571 | MSE: 0.2567 | VarLoss: 0.4004 | TargetStd: 0.1904
+  Epoch 98 | Batch 550 | Total: 0.6351 | MSE: 0.2648 | VarLoss: 0.3704 | TargetStd: 0.1741
+  Epoch 98 | Batch 600 | Total: 0.6505 | MSE: 0.2491 | VarLoss: 0.4014 | TargetStd: 0.1868
+  Epoch 98 | Batch 650 | Total: 0.6536 | MSE: 0.2441 | VarLoss: 0.4094 | TargetStd: 0.1930
+  Epoch 98 | Batch 700 | Total: 0.6392 | MSE: 0.2720 | VarLoss: 0.3672 | TargetStd: 0.1911
+  Epoch 98 | Batch 750 | Total: 0.6554 | MSE: 0.2558 | VarLoss: 0.3997 | TargetStd: 0.1791
+  Epoch 98 | Batch 800 | Total: 0.6613 | MSE: 0.2414 | VarLoss: 0.4199 | TargetStd: 0.1871
+  Epoch 98 | Batch 850 | Total: 0.6533 | MSE: 0.2698 | VarLoss: 0.3835 | TargetStd: 0.1911
+  Epoch 98 | Batch 900 | Total: 0.6466 | MSE: 0.2577 | VarLoss: 0.3889 | TargetStd: 0.1900
+  Epoch 98 | Batch 950 | Total: 0.6604 | MSE: 0.2485 | VarLoss: 0.4119 | TargetStd: 0.1888
+  Epoch 98 | Batch 1000 | Total: 0.6475 | MSE: 0.2610 | VarLoss: 0.3865 | TargetStd: 0.1942
+  Epoch 98 | Batch 1050 | Total: 0.6304 | MSE: 0.2654 | VarLoss: 0.3650 | TargetStd: 0.1800
+  Epoch 98 | Batch 1100 | Total: 0.6405 | MSE: 0.2586 | VarLoss: 0.3818 | TargetStd: 0.1834
+  Epoch 98 | Batch 1150 | Total: 0.6473 | MSE: 0.2547 | VarLoss: 0.3926 | TargetStd: 0.1865
+  Epoch 98 | Batch 1200 | Total: 0.6540 | MSE: 0.2532 | VarLoss: 0.4009 | TargetStd: 0.1869
+  Epoch 98 | Batch 1250 | Total: 0.6367 | MSE: 0.2648 | VarLoss: 0.3718 | TargetStd: 0.1880
+  Epoch 98 | Batch 1300 | Total: 0.6390 | MSE: 0.2594 | VarLoss: 0.3796 | TargetStd: 0.1744
+  Epoch 98 | Batch 1350 | Total: 0.6453 | MSE: 0.2578 | VarLoss: 0.3875 | TargetStd: 0.1816
+  Epoch 98 | Batch 1400 | Total: 0.6400 | MSE: 0.2682 | VarLoss: 0.3718 | TargetStd: 0.1792
+  Epoch 98 | Batch 1450 | Total: 0.6484 | MSE: 0.2426 | VarLoss: 0.4058 | TargetStd: 0.1886
+  Epoch 98 | Batch 1500 | Total: 0.6514 | MSE: 0.2627 | VarLoss: 0.3887 | TargetStd: 0.1842
+  Epoch 98 | Batch 1550 | Total: 0.6429 | MSE: 0.2674 | VarLoss: 0.3755 | TargetStd: 0.1852
+  Epoch 98 | Batch 1600 | Total: 0.6412 | MSE: 0.2596 | VarLoss: 0.3816 | TargetStd: 0.1842
+  Epoch 98 | Batch 1650 | Total: 0.6420 | MSE: 0.2545 | VarLoss: 0.3875 | TargetStd: 0.1795
+  Epoch 98 | Batch 1700 | Total: 0.6392 | MSE: 0.2508 | VarLoss: 0.3884 | TargetStd: 0.1860
+  Epoch 98 | Batch 1750 | Total: 0.6500 | MSE: 0.2594 | VarLoss: 0.3906 | TargetStd: 0.1894
+  Epoch 98 | Batch 1800 | Total: 0.6345 | MSE: 0.2631 | VarLoss: 0.3713 | TargetStd: 0.1921
+  Epoch 98 | Batch 1850 | Total: 0.6359 | MSE: 0.2634 | VarLoss: 0.3726 | TargetStd: 0.1831
+  Epoch 98 | Batch 1900 | Total: 0.6407 | MSE: 0.2652 | VarLoss: 0.3755 | TargetStd: 0.1892
+  Epoch 98 | Batch 1950 | Total: 0.6407 | MSE: 0.2725 | VarLoss: 0.3682 | TargetStd: 0.1852
+  Epoch 98 | Batch 2000 | Total: 0.6421 | MSE: 0.2605 | VarLoss: 0.3816 | TargetStd: 0.1878
+  Epoch 98 | Batch 2050 | Total: 0.6681 | MSE: 0.2397 | VarLoss: 0.4285 | TargetStd: 0.1909
+  Epoch 98 | Batch 2100 | Total: 0.6715 | MSE: 0.2449 | VarLoss: 0.4265 | TargetStd: 0.1873
+  Epoch 98 | Batch 2150 | Total: 0.6429 | MSE: 0.2664 | VarLoss: 0.3765 | TargetStd: 0.1875
+Epoch 98 | Train Loss: 0.6472 | Val Loss: 0.7413
+  Epoch 99 | Batch 0 | Total: 0.6260 | MSE: 0.2706 | VarLoss: 0.3555 | TargetStd: 0.1822
+  Epoch 99 | Batch 50 | Total: 0.6478 | MSE: 0.2557 | VarLoss: 0.3921 | TargetStd: 0.1856
+  Epoch 99 | Batch 100 | Total: 0.6417 | MSE: 0.2565 | VarLoss: 0.3853 | TargetStd: 0.1771
+  Epoch 99 | Batch 150 | Total: 0.6679 | MSE: 0.2372 | VarLoss: 0.4307 | TargetStd: 0.1901
+  Epoch 99 | Batch 200 | Total: 0.6437 | MSE: 0.2514 | VarLoss: 0.3923 | TargetStd: 0.1851
+  Epoch 99 | Batch 250 | Total: 0.6686 | MSE: 0.2424 | VarLoss: 0.4263 | TargetStd: 0.1876
+  Epoch 99 | Batch 300 | Total: 0.6367 | MSE: 0.2591 | VarLoss: 0.3777 | TargetStd: 0.1690
+  Epoch 99 | Batch 350 | Total: 0.6380 | MSE: 0.2681 | VarLoss: 0.3699 | TargetStd: 0.1855
+  Epoch 99 | Batch 400 | Total: 0.6616 | MSE: 0.2517 | VarLoss: 0.4099 | TargetStd: 0.1851
+  Epoch 99 | Batch 450 | Total: 0.6349 | MSE: 0.2601 | VarLoss: 0.3748 | TargetStd: 0.1820
+  Epoch 99 | Batch 500 | Total: 0.6496 | MSE: 0.2598 | VarLoss: 0.3899 | TargetStd: 0.1828
+  Epoch 99 | Batch 550 | Total: 0.6552 | MSE: 0.2597 | VarLoss: 0.3955 | TargetStd: 0.1820
+  Epoch 99 | Batch 600 | Total: 0.6452 | MSE: 0.2546 | VarLoss: 0.3906 | TargetStd: 0.1864
+  Epoch 99 | Batch 650 | Total: 0.6470 | MSE: 0.2561 | VarLoss: 0.3909 | TargetStd: 0.1892
+  Epoch 99 | Batch 700 | Total: 0.6433 | MSE: 0.2508 | VarLoss: 0.3926 | TargetStd: 0.1786
+  Epoch 99 | Batch 750 | Total: 0.6355 | MSE: 0.2664 | VarLoss: 0.3691 | TargetStd: 0.1741
+  Epoch 99 | Batch 800 | Total: 0.6380 | MSE: 0.2698 | VarLoss: 0.3682 | TargetStd: 0.1858
+  Epoch 99 | Batch 850 | Total: 0.6588 | MSE: 0.2474 | VarLoss: 0.4114 | TargetStd: 0.1842
+  Epoch 99 | Batch 900 | Total: 0.6530 | MSE: 0.2570 | VarLoss: 0.3960 | TargetStd: 0.1818
+  Epoch 99 | Batch 950 | Total: 0.6494 | MSE: 0.2429 | VarLoss: 0.4065 | TargetStd: 0.1862
+  Epoch 99 | Batch 1000 | Total: 0.6621 | MSE: 0.2561 | VarLoss: 0.4060 | TargetStd: 0.1813
+  Epoch 99 | Batch 1050 | Total: 0.6429 | MSE: 0.2532 | VarLoss: 0.3896 | TargetStd: 0.1706
+  Epoch 99 | Batch 1100 | Total: 0.6366 | MSE: 0.2521 | VarLoss: 0.3845 | TargetStd: 0.1713
+  Epoch 99 | Batch 1150 | Total: 0.6512 | MSE: 0.2545 | VarLoss: 0.3967 | TargetStd: 0.1780
+  Epoch 99 | Batch 1200 | Total: 0.6348 | MSE: 0.2649 | VarLoss: 0.3699 | TargetStd: 0.1832
+  Epoch 99 | Batch 1250 | Total: 0.6447 | MSE: 0.2565 | VarLoss: 0.3882 | TargetStd: 0.1807
+  Epoch 99 | Batch 1300 | Total: 0.6445 | MSE: 0.2588 | VarLoss: 0.3857 | TargetStd: 0.1756
+  Epoch 99 | Batch 1350 | Total: 0.6709 | MSE: 0.2493 | VarLoss: 0.4216 | TargetStd: 0.1860
+  Epoch 99 | Batch 1400 | Total: 0.6492 | MSE: 0.2519 | VarLoss: 0.3972 | TargetStd: 0.1813
+  Epoch 99 | Batch 1450 | Total: 0.6454 | MSE: 0.2606 | VarLoss: 0.3848 | TargetStd: 0.1808
+  Epoch 99 | Batch 1500 | Total: 0.6546 | MSE: 0.2542 | VarLoss: 0.4004 | TargetStd: 0.1896
+  Epoch 99 | Batch 1550 | Total: 0.6454 | MSE: 0.2565 | VarLoss: 0.3889 | TargetStd: 0.1870
+  Epoch 99 | Batch 1600 | Total: 0.6439 | MSE: 0.2631 | VarLoss: 0.3809 | TargetStd: 0.1859
+  Epoch 99 | Batch 1650 | Total: 0.6552 | MSE: 0.2553 | VarLoss: 0.3999 | TargetStd: 0.1876
+  Epoch 99 | Batch 1700 | Total: 0.6532 | MSE: 0.2682 | VarLoss: 0.3850 | TargetStd: 0.1917
+  Epoch 99 | Batch 1750 | Total: 0.6305 | MSE: 0.2601 | VarLoss: 0.3704 | TargetStd: 0.1757
+  Epoch 99 | Batch 1800 | Total: 0.6599 | MSE: 0.2578 | VarLoss: 0.4021 | TargetStd: 0.1929
+  Epoch 99 | Batch 1850 | Total: 0.6452 | MSE: 0.2651 | VarLoss: 0.3801 | TargetStd: 0.1899
+  Epoch 99 | Batch 1900 | Total: 0.6706 | MSE: 0.2485 | VarLoss: 0.4221 | TargetStd: 0.1869
+  Epoch 99 | Batch 1950 | Total: 0.6424 | MSE: 0.2665 | VarLoss: 0.3760 | TargetStd: 0.1814
+  Epoch 99 | Batch 2000 | Total: 0.6463 | MSE: 0.2545 | VarLoss: 0.3918 | TargetStd: 0.1815
+  Epoch 99 | Batch 2050 | Total: 0.6425 | MSE: 0.2636 | VarLoss: 0.3789 | TargetStd: 0.1750
+  Epoch 99 | Batch 2100 | Total: 0.6379 | MSE: 0.2754 | VarLoss: 0.3625 | TargetStd: 0.1870
+  Epoch 99 | Batch 2150 | Total: 0.6463 | MSE: 0.2606 | VarLoss: 0.3857 | TargetStd: 0.1861
+Epoch 99 | Train Loss: 0.6476 | Val Loss: 0.7389
+wandb: updating run metadata
+wandb: uploading output.log; uploading wandb-summary.json; uploading config.yaml
+wandb: 
+wandb: Run history:
+wandb:                  batch ▃▅█▂▄▄▁▂▁▃█▄▅▇▁▅▆▂▃▃▆▇▇▄▇▃▃▁▇▆█▅▇▇█▃▇▁▅▇
+wandb:                  epoch ▁▁▁▂▂▂▃▃▄▄▄▄▄▄▄▄▄▄▄▄▅▅▅▅▅▅▆▆▆▆▆▆▇▇▇▇▇███
+wandb:            param_count ▁
+wandb:   train/batch_mse_loss █▂▇▅█▃▅▃█▇▄█▇█▇▇▂▃▅▃▄▂▄▅▅▅▄▆▅▅▆▁▅▆▆▆▃▆▄▄
+wandb: train/batch_total_loss █▁▄▁▂▃▃▁▄▄▃▄▆▅▆▃▄▄▂▃▁▄▁▃▃▁▃▂▁▁▅▂▂▂▃▁▂▆▂▁
+wandb:   train/batch_var_loss ▂▁▃▃▆▄▅▄▂▆▂▅▄▂▇▄▅▄▄▃▄▃█▂▃▂▄▄▂▅▇▄▄▂▃▅▄▇▂▂
+wandb:             train/loss █▇▆▆▆▅▅▅▄▄▄▃▃▃▂▂▂▂▂▁▁▂
+wandb:       train/target_std ▅█▅█▆▅▄▆▅▆▅▆▄▅▆▅▄▃▅▅▃▃▄▄▃▃▄▄▃▃▃▃▁▄▄▄▃▂▃▃
+wandb:               val/loss ██▇▆▆▆▆▅▄▅▄▃▄▃▃▂▂▁▁▁▂▁
+wandb: 
+wandb: Run summary:
+wandb:                  batch 2150
+wandb:                  epoch 99
+wandb:            param_count 15979776
+wandb:   train/batch_mse_loss 0.26058
+wandb: train/batch_total_loss 0.64633
+wandb:   train/batch_var_loss 0.38574
+wandb:             train/loss 0.64758
+wandb:       train/target_std 0.18605
+wandb:               val/loss 0.73891
+wandb: 
+wandb: 🚀 View run restful-monkey-12 at: https://wandb.ai/psp8502-new-york-university/dl-active-matter/runs/vz6hiqph
+wandb: ⭐️ View project at: https://wandb.ai/psp8502-new-york-university/dl-active-matter
+wandb: Synced 5 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20260418_121833-vz6hiqph/logs
+  -> New best val loss: 0.7389
+  -> Saved periodic checkpoint: epoch_100.pt
+Training complete. Checkpoints in: /scratch/psp8502/checkpoints/jepa_small
+=== Job finished at $(date) ===

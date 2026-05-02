@@ -1,0 +1,99 @@
+=== Job started at Wed Apr 29 11:53:43 EDT 2026 ===
+Node: b-19-16 | GPU: 0
+Config: configs/supervised_small.yaml
+Wed Apr 29 11:53:43 2026       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 580.126.09             Driver Version: 580.126.09     CUDA Version: 13.0     |
++-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA A100-SXM4-40GB          On  |   00000000:00:04.0 Off |                    0 |
+| N/A   32C    P0             45W /  400W |       0MiB /  40960MiB |      0%      Default |
+|                                         |                        |             Disabled |
++-----------------------------------------+------------------------+----------------------+
+
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+wandb: [wandb.login()] Loaded credentials for https://api.wandb.ai from WANDB_API_KEY.
+wandb: Currently logged in as: psp8502 (psp8502-new-york-university) to https://api.wandb.ai. Use `wandb login --relogin` to force relogin
+wandb: setting up run blj8zgi6
+wandb: Tracking run with wandb version 0.25.1
+wandb: Run data is saved locally in /scratch/psp8502/dl-active-matter/wandb/run-20260429_115425-blj8zgi6
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run supervised_small
+wandb: ⭐️ View project at https://wandb.ai/psp8502-new-york-university/dl-active-matter
+wandb: 🚀 View run at https://wandb.ai/psp8502-new-york-university/dl-active-matter/runs/blj8zgi6
+============================================================
+EXPERIMENT: supervised_small (supervised baseline)
+Checkpoints → /scratch/psp8502/checkpoints/supervised_small
+============================================================
+[train] 45 HDF5 files → 11550 samples (16 frames, 224×224 crop, stride=1)
+[val] 16 HDF5 files → 1584 samples (16 frames, 224×224 crop, stride=1)
+Total parameters: 13,413,506 (13.41M)
+torch.compile() enabled
+Auto-resumed from epoch 48
+  Epoch 48 | Batch 0/360 | Loss: 0.0076
+  Epoch 48 | Batch 50/360 | Loss: 0.0211
+  Epoch 48 | Batch 100/360 | Loss: 0.0174
+  Epoch 48 | Batch 150/360 | Loss: 0.0163
+  Epoch 48 | Batch 200/360 | Loss: 0.0066
+  Epoch 48 | Batch 250/360 | Loss: 0.0163
+  Epoch 48 | Batch 300/360 | Loss: 0.0214
+  Epoch 48 | Batch 350/360 | Loss: 0.0122
+Epoch 48 | Train: 0.0169 | Val: 0.5172 (α=0.0049, ζ=1.0179) | LR: 2.52e-04
+  -> New best val loss: 0.5172
+  Epoch 49 | Batch 0/360 | Loss: 0.0073
+  Epoch 49 | Batch 50/360 | Loss: 0.0120
+  Epoch 49 | Batch 100/360 | Loss: 0.0108
+  Epoch 49 | Batch 150/360 | Loss: 0.0343
+  Epoch 49 | Batch 200/360 | Loss: 0.0166
+  Epoch 49 | Batch 250/360 | Loss: 0.0218
+  Epoch 49 | Batch 300/360 | Loss: 0.0282
+  Epoch 49 | Batch 350/360 | Loss: 0.0235
+Epoch 49 | Train: 0.0196 | Val: 0.6482 (α=0.0093, ζ=1.2541) | LR: 2.52e-04
+  -> Saved checkpoint: epoch_50.pt
+  Epoch 50 | Batch 0/360 | Loss: 0.0142
+  Epoch 50 | Batch 50/360 | Loss: 0.0146
+  Epoch 50 | Batch 100/360 | Loss: 0.0154
+  Epoch 50 | Batch 150/360 | Loss: 0.0368
+  Epoch 50 | Batch 200/360 | Loss: 0.0111
+  Epoch 50 | Batch 250/360 | Loss: 0.0509
+  Epoch 50 | Batch 300/360 | Loss: 0.0113
+  Epoch 50 | Batch 350/360 | Loss: 0.0125
+Epoch 50 | Train: 0.0185 | Val: 0.5600 (α=0.0070, ζ=1.0942) | LR: 2.52e-04
+  Epoch 51 | Batch 0/360 | Loss: 0.0116
+  Epoch 51 | Batch 50/360 | Loss: 0.0521
+  Epoch 51 | Batch 100/360 | Loss: 0.0131
+  Epoch 51 | Batch 150/360 | Loss: 0.0136
+  Epoch 51 | Batch 200/360 | Loss: 0.0110
+  Epoch 51 | Batch 250/360 | Loss: 0.0169
+  Epoch 51 | Batch 300/360 | Loss: 0.0154
+  Epoch 51 | Batch 350/360 | Loss: 0.0212
+Epoch 51 | Train: 0.0155 | Val: 0.4827 (α=0.0052, ζ=0.9525) | LR: 2.52e-04
+  -> New best val loss: 0.4827
+  Epoch 52 | Batch 0/360 | Loss: 0.0145
+  Epoch 52 | Batch 50/360 | Loss: 0.0161
+  Epoch 52 | Batch 100/360 | Loss: 0.0128
+  Epoch 52 | Batch 150/360 | Loss: 0.0050
+  Epoch 52 | Batch 200/360 | Loss: 0.0167
+  Epoch 52 | Batch 250/360 | Loss: 0.0172
+  Epoch 52 | Batch 300/360 | Loss: 0.0119
+  Epoch 52 | Batch 350/360 | Loss: 0.0216
+Epoch 52 | Train: 0.0171 | Val: 0.4492 (α=0.0048, ζ=0.8770) | LR: 2.51e-04
+  -> New best val loss: 0.4492
+  Epoch 53 | Batch 0/360 | Loss: 0.0324
+  Epoch 53 | Batch 50/360 | Loss: 0.0256
+  Epoch 53 | Batch 100/360 | Loss: 0.0148
+  Epoch 53 | Batch 150/360 | Loss: 0.0090
+  Epoch 53 | Batch 200/360 | Loss: 0.0182
+  Epoch 53 | Batch 250/360 | Loss: 0.0151
+  Epoch 53 | Batch 300/360 | Loss: 0.0102
+  Epoch 53 | Batch 350/360 | Loss: 0.0659
+slurmstepd: error: *** JOB 177823 ON b-19-16 CANCELLED AT 2026-04-29T13:41:02 ***

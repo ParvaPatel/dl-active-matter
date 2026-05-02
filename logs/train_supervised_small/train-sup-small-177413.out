@@ -1,0 +1,54 @@
+=== Job started at Wed Apr 29 00:19:00 EDT 2026 ===
+Node: b-19-17 | GPU: 0
+Config: configs/supervised_small.yaml
+Wed Apr 29 00:19:00 2026       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 580.126.09             Driver Version: 580.126.09     CUDA Version: 13.0     |
++-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA A100-SXM4-40GB          On  |   00000000:00:04.0 Off |                    0 |
+| N/A   30C    P0             40W /  400W |       0MiB /  40960MiB |      0%      Default |
+|                                         |                        |             Disabled |
++-----------------------------------------+------------------------+----------------------+
+
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+wandb: [wandb.login()] Loaded credentials for https://api.wandb.ai from WANDB_API_KEY.
+wandb: Currently logged in as: psp8502 (psp8502-new-york-university) to https://api.wandb.ai. Use `wandb login --relogin` to force relogin
+wandb: setting up run k8grpswa
+wandb: Tracking run with wandb version 0.25.1
+wandb: Run data is saved locally in /scratch/psp8502/dl-active-matter/wandb/run-20260429_002018-k8grpswa
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run supervised_small
+wandb: ⭐️ View project at https://wandb.ai/psp8502-new-york-university/dl-active-matter
+wandb: 🚀 View run at https://wandb.ai/psp8502-new-york-university/dl-active-matter/runs/k8grpswa
+============================================================
+EXPERIMENT: supervised_small (supervised baseline)
+Checkpoints → /scratch/psp8502/checkpoints/supervised_small
+============================================================
+[train] 45 HDF5 files → 11550 samples (16 frames, 224×224 crop, stride=1)
+[val] 16 HDF5 files → 1584 samples (16 frames, 224×224 crop, stride=1)
+Total parameters: 13,413,506 (13.41M)
+torch.compile() enabled
+Auto-resumed from epoch 42
+  Epoch 42 | Batch 0/360 | Loss: 0.0115
+  Epoch 42 | Batch 50/360 | Loss: 0.0326
+  Epoch 42 | Batch 100/360 | Loss: 0.0115
+  Epoch 42 | Batch 150/360 | Loss: 0.0425
+  Epoch 42 | Batch 200/360 | Loss: 0.0248
+  Epoch 42 | Batch 250/360 | Loss: 0.0591
+  Epoch 42 | Batch 300/360 | Loss: 0.0140
+  Epoch 42 | Batch 350/360 | Loss: 0.0362
+Epoch 42 | Train: 0.0234 | Val: 0.4942 (α=0.0153, ζ=0.9793) | LR: 2.54e-04
+  -> New best val loss: 0.4942
+  Epoch 43 | Batch 0/360 | Loss: 0.0200
+  Epoch 43 | Batch 50/360 | Loss: 0.0229
+slurmstepd: error: *** JOB 177413 ON b-19-17 CANCELLED AT 2026-04-29T00:51:01 ***

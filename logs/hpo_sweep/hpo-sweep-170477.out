@@ -1,0 +1,395 @@
+=== HPO Sweep started at Tue Apr 21 22:07:39 EDT 2026 ===
+Node: b-19-24 | GPU: 0
+Trials: 20 | Epochs/trial: 15
+Tue Apr 21 22:07:39 2026       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 580.126.09             Driver Version: 580.126.09     CUDA Version: 13.0     |
++-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA A100-SXM4-40GB          On  |   00000000:00:04.0 Off |                    0 |
+| N/A   29C    P0             40W /  400W |       0MiB /  40960MiB |      0%      Default |
+|                                         |                        |             Disabled |
++-----------------------------------------+------------------------+----------------------+
+
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+[I 2026-04-21 22:08:10,284] Using an existing study with name 'jepa_v3_hpo' instead of creating a new one.
+============================================================
+HPO SWEEP: jepa_v3_hpo
+  Trials: 20 | Epochs/trial: 15
+  Train subsample: 20% × ~8750 = ~1750 samples
+  Batch size (HPO): 16 → ~109 batches/epoch
+  Estimated time: ~5.5 min/epoch, ~27.2 GPU-hours total (before pruning)
+  Search space:
+    var_weight:   [0.25, 3.0]  (log-uniform)
+    cov_weight:   [0.001, 0.05] (log-uniform)
+    lr:           [5e-5, 5e-4]  (log-uniform)
+    weight_decay: [0.01, 0.1]   (log-uniform)
+============================================================
+[train] 45 HDF5 files → 8750 samples (32 frames, 224×224 crop, stride=1)
+[val] 16 HDF5 files → 1200 samples (32 frames, 224×224 crop, stride=1)
+Train subsample: 1750/8750 samples (20%) for HPO speed
+Study storage: sqlite:////scratch/psp8502/checkpoints/hpo/jepa_v3_hpo.db
+
+============================================================
+Trial 1: var_weight=0.6341, cov_weight=0.0412, lr=2.70e-04, wd=0.0397
+============================================================
+  Trial 1 | Epoch  0 | Train: 1.0067 | Val: 0.8546 | Best: 0.8546
+  Trial 1 | Epoch  1 | Train: 0.7213 | Val: 0.6634 | Best: 0.6634
+  Trial 1 | Epoch  2 | Train: 0.6126 | Val: 0.6211 | Best: 0.6211
+  Trial 1 | Epoch  3 | Train: 0.5925 | Val: 0.6202 | Best: 0.6202
+  Trial 1 | Epoch  4 | Train: 0.5913 | Val: 0.6354 | Best: 0.6202
+  Trial 1 | Epoch  5 | Train: 0.6040 | Val: 0.6611 | Best: 0.6202
+  Trial 1 | Epoch  6 | Train: 0.6298 | Val: 0.6993 | Best: 0.6202
+  Trial 1 | Epoch  7 | Train: 0.6529 | Val: 0.7149 | Best: 0.6202
+  Trial 1 | Epoch  8 | Train: 0.6768 | Val: 0.7420 | Best: 0.6202
+  Trial 1 | Epoch  9 | Train: 0.6958 | Val: 0.7605 | Best: 0.6202
+  Trial 1 | Epoch 10 | Train: 0.7066 | Val: 0.7805 | Best: 0.6202
+  Trial 1 | Epoch 11 | Train: 0.7183 | Val: 0.7918 | Best: 0.6202
+  Trial 1 | Epoch 12 | Train: 0.7202 | Val: 0.8019 | Best: 0.6202
+  Trial 1 | Epoch 13 | Train: 0.7219 | Val: 0.8100 | Best: 0.6202
+  Trial 1 | Epoch 14 | Train: 0.7211 | Val: 0.8079 | Best: 0.6202
+[I 2026-04-21 23:21:24,942] Trial 1 finished with value: 0.6202493476867675 and parameters: {'var_weight': 0.6340692336389405, 'cov_weight': 0.04123206532618727, 'lr': 0.00026975154833351167, 'weight_decay': 0.03968793330444373}. Best is trial 1 with value: 0.6202493476867675.
+  Trial 1 COMPLETE — best val_loss: 0.6202
+
+============================================================
+Trial 2: var_weight=0.3684, cov_weight=0.0018, lr=5.72e-05, wd=0.0735
+============================================================
+  Trial 2 | Epoch  0 | Train: 0.9753 | Val: 0.7847 | Best: 0.7847
+  Trial 2 | Epoch  1 | Train: 0.7098 | Val: 0.6544 | Best: 0.6544
+  Trial 2 | Epoch  2 | Train: 0.5866 | Val: 0.5352 | Best: 0.5352
+  Trial 2 | Epoch  3 | Train: 0.4782 | Val: 0.4422 | Best: 0.4422
+  Trial 2 | Epoch  4 | Train: 0.4028 | Val: 0.3892 | Best: 0.3892
+  Trial 2 | Epoch  5 | Train: 0.3666 | Val: 0.3736 | Best: 0.3736
+  Trial 2 | Epoch  6 | Train: 0.3531 | Val: 0.3736 | Best: 0.3736
+  Trial 2 | Epoch  7 | Train: 0.3436 | Val: 0.3689 | Best: 0.3689
+  Trial 2 | Epoch  8 | Train: 0.3348 | Val: 0.3697 | Best: 0.3689
+  Trial 2 | Epoch  9 | Train: 0.3284 | Val: 0.3689 | Best: 0.3689
+  Trial 2 | Epoch 10 | Train: 0.3205 | Val: 0.3651 | Best: 0.3651
+  Trial 2 | Epoch 11 | Train: 0.3133 | Val: 0.3664 | Best: 0.3651
+  Trial 2 | Epoch 12 | Train: 0.3082 | Val: 0.3653 | Best: 0.3651
+  Trial 2 | Epoch 13 | Train: 0.3042 | Val: 0.3653 | Best: 0.3651
+  Trial 2 | Epoch 14 | Train: 0.3005 | Val: 0.3638 | Best: 0.3638
+[I 2026-04-22 00:37:02,372] Trial 2 finished with value: 0.36376960555712384 and parameters: {'var_weight': 0.3683938737826996, 'cov_weight': 0.0018408992080552514, 'lr': 5.715491938156613e-05, 'weight_decay': 0.07348118405270448}. Best is trial 2 with value: 0.36376960555712384.
+  Trial 2 COMPLETE — best val_loss: 0.3638
+
+============================================================
+Trial 3: var_weight=1.1134, cov_weight=0.0160, lr=5.24e-05, wd=0.0933
+============================================================
+  Trial 3 | Epoch  0 | Train: 1.5556 | Val: 1.4124 | Best: 1.4124
+  Trial 3 | Epoch  1 | Train: 1.3056 | Val: 1.2937 | Best: 1.2937
+  Trial 3 | Epoch  2 | Train: 1.1933 | Val: 1.1849 | Best: 1.1849
+  Trial 3 | Epoch  3 | Train: 1.0918 | Val: 1.0945 | Best: 1.0945
+  Trial 3 | Epoch  4 | Train: 1.0092 | Val: 1.0345 | Best: 1.0345
+  Trial 3 | Epoch  5 | Train: 0.9585 | Val: 1.0095 | Best: 1.0095
+  Trial 3 | Epoch  6 | Train: 0.9344 | Val: 0.9975 | Best: 0.9975
+  Trial 3 | Epoch  7 | Train: 0.9197 | Val: 1.0005 | Best: 0.9975
+  Trial 3 | Epoch  8 | Train: 0.9077 | Val: 1.0037 | Best: 0.9975
+  Trial 3 | Epoch  9 | Train: 0.8986 | Val: 1.0085 | Best: 0.9975
+  Trial 3 | Epoch 10 | Train: 0.8900 | Val: 1.0078 | Best: 0.9975
+  Trial 3 | Epoch 11 | Train: 0.8845 | Val: 1.0181 | Best: 0.9975
+  Trial 3 | Epoch 12 | Train: 0.8785 | Val: 1.0175 | Best: 0.9975
+  Trial 3 | Epoch 13 | Train: 0.8753 | Val: 1.0183 | Best: 0.9975
+  Trial 3 | Epoch 14 | Train: 0.8724 | Val: 1.0215 | Best: 0.9975
+[I 2026-04-22 01:51:13,447] Trial 3 finished with value: 0.9974522137641907 and parameters: {'var_weight': 1.1134021511809862, 'cov_weight': 0.01595857358814127, 'lr': 5.242693862597316e-05, 'weight_decay': 0.09330606024425668}. Best is trial 2 with value: 0.36376960555712384.
+  Trial 3 COMPLETE — best val_loss: 0.9975
+
+============================================================
+Trial 4: var_weight=1.9783, cov_weight=0.0023, lr=7.60e-05, wd=0.0153
+============================================================
+  Trial 4 | Epoch  0 | Train: 2.0424 | Val: 1.9411 | Best: 1.9411
+  Trial 4 | Epoch  1 | Train: 1.7831 | Val: 1.8127 | Best: 1.8127
+  Trial 4 | Epoch  2 | Train: 1.6497 | Val: 1.7266 | Best: 1.7266
+  Trial 4 | Epoch  3 | Train: 1.5467 | Val: 1.6497 | Best: 1.6497
+  Trial 4 | Epoch  4 | Train: 1.4766 | Val: 1.6206 | Best: 1.6206
+  Trial 4 | Epoch  5 | Train: 1.4223 | Val: 1.6217 | Best: 1.6206
+[I 2026-04-22 02:21:16,900] Trial 4 pruned. 
+  ** Trial 4 PRUNED at epoch 5 **
+
+============================================================
+Trial 5: var_weight=0.5324, cov_weight=0.0078, lr=1.35e-04, wd=0.0196
+============================================================
+  Trial 5 | Epoch  0 | Train: 1.0249 | Val: 0.8719 | Best: 0.8719
+  Trial 5 | Epoch  1 | Train: 0.7639 | Val: 0.6869 | Best: 0.6869
+  Trial 5 | Epoch  2 | Train: 0.6000 | Val: 0.5575 | Best: 0.5575
+  Trial 5 | Epoch  3 | Train: 0.5166 | Val: 0.5289 | Best: 0.5289
+  Trial 5 | Epoch  4 | Train: 0.4907 | Val: 0.5343 | Best: 0.5289
+  Trial 5 | Epoch  5 | Train: 0.4737 | Val: 0.5194 | Best: 0.5194
+  Trial 5 | Epoch  6 | Train: 0.4607 | Val: 0.5169 | Best: 0.5169
+  Trial 5 | Epoch  7 | Train: 0.4512 | Val: 0.5206 | Best: 0.5169
+  Trial 5 | Epoch  8 | Train: 0.4477 | Val: 0.5261 | Best: 0.5169
+  Trial 5 | Epoch  9 | Train: 0.4473 | Val: 0.5289 | Best: 0.5169
+  Trial 5 | Epoch 10 | Train: 0.4486 | Val: 0.5344 | Best: 0.5169
+  Trial 5 | Epoch 11 | Train: 0.4528 | Val: 0.5364 | Best: 0.5169
+  Trial 5 | Epoch 12 | Train: 0.4537 | Val: 0.5406 | Best: 0.5169
+  Trial 5 | Epoch 13 | Train: 0.4548 | Val: 0.5500 | Best: 0.5169
+  Trial 5 | Epoch 14 | Train: 0.4550 | Val: 0.5493 | Best: 0.5169
+[I 2026-04-22 03:35:23,025] Trial 5 finished with value: 0.5169139480590821 and parameters: {'var_weight': 0.5324422763775445, 'cov_weight': 0.0077901431262762414, 'lr': 0.00013518080333310014, 'weight_decay': 0.019553708662745254}. Best is trial 2 with value: 0.36376960555712384.
+  Trial 5 COMPLETE — best val_loss: 0.5169
+
+============================================================
+Trial 6: var_weight=1.1435, cov_weight=0.0017, lr=9.80e-05, wd=0.0232
+============================================================
+  Trial 6 | Epoch  0 | Train: 1.4477 | Val: 1.3427 | Best: 1.3427
+  Trial 6 | Epoch  1 | Train: 1.2287 | Val: 1.2247 | Best: 1.2247
+  Trial 6 | Epoch  2 | Train: 1.0999 | Val: 1.1170 | Best: 1.1170
+  Trial 6 | Epoch  3 | Train: 0.9912 | Val: 1.0753 | Best: 1.0753
+  Trial 6 | Epoch  4 | Train: 0.9244 | Val: 1.0539 | Best: 1.0539
+  Trial 6 | Epoch  5 | Train: 0.8719 | Val: 1.0595 | Best: 1.0539
+[I 2026-04-22 04:05:16,145] Trial 6 pruned. 
+  ** Trial 6 PRUNED at epoch 5 **
+
+============================================================
+Trial 7: var_weight=0.7765, cov_weight=0.0216, lr=7.92e-05, wd=0.0327
+============================================================
+  Trial 7 | Epoch  0 | Train: 1.2782 | Val: 1.1410 | Best: 1.1410
+  Trial 7 | Epoch  1 | Train: 1.0498 | Val: 0.9999 | Best: 0.9999
+  Trial 7 | Epoch  2 | Train: 0.9019 | Val: 0.8532 | Best: 0.8532
+  Trial 7 | Epoch  3 | Train: 0.7778 | Val: 0.7614 | Best: 0.7614
+  Trial 7 | Epoch  4 | Train: 0.7144 | Val: 0.7346 | Best: 0.7346
+  Trial 7 | Epoch  5 | Train: 0.6923 | Val: 0.7300 | Best: 0.7300
+[I 2026-04-22 04:35:04,984] Trial 7 pruned. 
+  ** Trial 7 PRUNED at epoch 5 **
+
+============================================================
+Trial 8: var_weight=1.0896, cov_weight=0.0012, lr=2.03e-04, wd=0.0148
+============================================================
+  Trial 8 | Epoch  0 | Train: 1.3522 | Val: 1.2246 | Best: 1.2246
+  Trial 8 | Epoch  1 | Train: 1.0785 | Val: 1.0501 | Best: 1.0501
+  Trial 8 | Epoch  2 | Train: 0.9506 | Val: 1.0072 | Best: 1.0072
+  Trial 8 | Epoch  3 | Train: 0.8925 | Val: 1.0230 | Best: 1.0072
+  Trial 8 | Epoch  4 | Train: 0.8470 | Val: 1.0181 | Best: 1.0072
+  Trial 8 | Epoch  5 | Train: 0.7885 | Val: 0.9956 | Best: 0.9956
+[I 2026-04-22 05:05:41,447] Trial 8 pruned. 
+  ** Trial 8 PRUNED at epoch 5 **
+
+============================================================
+Trial 9: var_weight=0.2939, cov_weight=0.0409, lr=4.62e-04, wd=0.0643
+============================================================
+  Trial 9 | Epoch  0 | Train: 0.6933 | Val: 0.4869 | Best: 0.4869
+  Trial 9 | Epoch  1 | Train: 0.3633 | Val: 0.3169 | Best: 0.3169
+  Trial 9 | Epoch  2 | Train: 0.3050 | Val: 0.3104 | Best: 0.3104
+  Trial 9 | Epoch  3 | Train: 0.2999 | Val: 0.3135 | Best: 0.3104
+  Trial 9 | Epoch  4 | Train: 0.3081 | Val: 0.3356 | Best: 0.3104
+  Trial 9 | Epoch  5 | Train: 0.3287 | Val: 0.3535 | Best: 0.3104
+  Trial 9 | Epoch  6 | Train: 0.3593 | Val: 0.3871 | Best: 0.3104
+  Trial 9 | Epoch  7 | Train: 0.3864 | Val: 0.4062 | Best: 0.3104
+  Trial 9 | Epoch  8 | Train: 0.4124 | Val: 0.4364 | Best: 0.3104
+  Trial 9 | Epoch  9 | Train: 0.4383 | Val: 0.4534 | Best: 0.3104
+  Trial 9 | Epoch 10 | Train: 0.4568 | Val: 0.4675 | Best: 0.3104
+  Trial 9 | Epoch 11 | Train: 0.4737 | Val: 0.4903 | Best: 0.3104
+  Trial 9 | Epoch 12 | Train: 0.4838 | Val: 0.5023 | Best: 0.3104
+  Trial 9 | Epoch 13 | Train: 0.4923 | Val: 0.5057 | Best: 0.3104
+  Trial 9 | Epoch 14 | Train: 0.4981 | Val: 0.5148 | Best: 0.3104
+[I 2026-04-22 06:23:26,147] Trial 9 finished with value: 0.31036719083786013 and parameters: {'var_weight': 0.2938613489388834, 'cov_weight': 0.04093813608598782, 'lr': 0.0004619575159813622, 'weight_decay': 0.06432759992849894}. Best is trial 9 with value: 0.31036719083786013.
+  Trial 9 COMPLETE — best val_loss: 0.3104
+
+============================================================
+Trial 10: var_weight=0.5329, cov_weight=0.0015, lr=2.42e-04, wd=0.0276
+============================================================
+  Trial 10 | Epoch  0 | Train: 0.9422 | Val: 0.7908 | Best: 0.7908
+  Trial 10 | Epoch  1 | Train: 0.6595 | Val: 0.5838 | Best: 0.5838
+  Trial 10 | Epoch  2 | Train: 0.5278 | Val: 0.5347 | Best: 0.5347
+  Trial 10 | Epoch  3 | Train: 0.4898 | Val: 0.5322 | Best: 0.5322
+  Trial 10 | Epoch  4 | Train: 0.4604 | Val: 0.5300 | Best: 0.5300
+  Trial 10 | Epoch  5 | Train: 0.4315 | Val: 0.5221 | Best: 0.5221
+[I 2026-04-22 06:53:24,611] Trial 10 pruned. 
+  ** Trial 10 PRUNED at epoch 5 **
+
+============================================================
+Trial 11: var_weight=0.2631, cov_weight=0.0064, lr=4.66e-04, wd=0.0512
+============================================================
+  Trial 11 | Epoch  0 | Train: 0.6274 | Val: 0.4360 | Best: 0.4360
+  Trial 11 | Epoch  1 | Train: 0.3275 | Val: 0.2893 | Best: 0.2893
+  Trial 11 | Epoch  2 | Train: 0.2735 | Val: 0.2822 | Best: 0.2822
+  Trial 11 | Epoch  3 | Train: 0.2588 | Val: 0.2782 | Best: 0.2782
+  Trial 11 | Epoch  4 | Train: 0.2562 | Val: 0.2881 | Best: 0.2782
+  Trial 11 | Epoch  5 | Train: 0.2646 | Val: 0.2979 | Best: 0.2782
+  Trial 11 | Epoch  6 | Train: 0.2837 | Val: 0.3163 | Best: 0.2782
+  Trial 11 | Epoch  7 | Train: 0.3061 | Val: 0.3291 | Best: 0.2782
+  Trial 11 | Epoch  8 | Train: 0.3209 | Val: 0.3715 | Best: 0.2782
+  Trial 11 | Epoch  9 | Train: 0.3419 | Val: 0.3718 | Best: 0.2782
+  Trial 11 | Epoch 10 | Train: 0.3514 | Val: 0.3669 | Best: 0.2782
+  Trial 11 | Epoch 11 | Train: 0.3627 | Val: 0.3890 | Best: 0.2782
+  Trial 11 | Epoch 12 | Train: 0.3705 | Val: 0.3927 | Best: 0.2782
+  Trial 11 | Epoch 13 | Train: 0.3756 | Val: 0.3891 | Best: 0.2782
+  Trial 11 | Epoch 14 | Train: 0.3778 | Val: 0.4002 | Best: 0.2782
+[I 2026-04-22 08:08:28,225] Trial 11 finished with value: 0.2781804613272349 and parameters: {'var_weight': 0.26309569418807843, 'cov_weight': 0.006370432544336971, 'lr': 0.00046613006463124056, 'weight_decay': 0.051243625237178035}. Best is trial 11 with value: 0.2781804613272349.
+  Trial 11 COMPLETE — best val_loss: 0.2782
+
+============================================================
+Trial 12: var_weight=0.2592, cov_weight=0.0048, lr=4.85e-04, wd=0.0577
+============================================================
+  Trial 12 | Epoch  0 | Train: 0.6365 | Val: 0.4370 | Best: 0.4370
+  Trial 12 | Epoch  1 | Train: 0.3260 | Val: 0.2847 | Best: 0.2847
+  Trial 12 | Epoch  2 | Train: 0.2743 | Val: 0.2772 | Best: 0.2772
+  Trial 12 | Epoch  3 | Train: 0.2611 | Val: 0.2761 | Best: 0.2761
+  Trial 12 | Epoch  4 | Train: 0.2541 | Val: 0.2785 | Best: 0.2761
+  Trial 12 | Epoch  5 | Train: 0.2562 | Val: 0.2912 | Best: 0.2761
+  Trial 12 | Epoch  6 | Train: 0.2671 | Val: 0.3007 | Best: 0.2761
+  Trial 12 | Epoch  7 | Train: 0.2836 | Val: 0.3338 | Best: 0.2761
+  Trial 12 | Epoch  8 | Train: 0.3041 | Val: 0.3364 | Best: 0.2761
+  Trial 12 | Epoch  9 | Train: 0.3210 | Val: 0.3467 | Best: 0.2761
+  Trial 12 | Epoch 10 | Train: 0.3342 | Val: 0.3686 | Best: 0.2761
+  Trial 12 | Epoch 11 | Train: 0.3447 | Val: 0.3702 | Best: 0.2761
+  Trial 12 | Epoch 12 | Train: 0.3536 | Val: 0.3747 | Best: 0.2761
+  Trial 12 | Epoch 13 | Train: 0.3608 | Val: 0.3791 | Best: 0.2761
+  Trial 12 | Epoch 14 | Train: 0.3647 | Val: 0.3867 | Best: 0.2761
+[I 2026-04-22 09:24:17,599] Trial 12 finished with value: 0.27614392697811124 and parameters: {'var_weight': 0.25919835946847064, 'cov_weight': 0.004813006376702701, 'lr': 0.00048536908930494563, 'weight_decay': 0.05768572096202885}. Best is trial 12 with value: 0.27614392697811124.
+  Trial 12 COMPLETE — best val_loss: 0.2761
+
+============================================================
+Trial 13: var_weight=0.2723, cov_weight=0.0044, lr=4.95e-04, wd=0.0478
+============================================================
+  Trial 13 | Epoch  0 | Train: 0.6530 | Val: 0.4508 | Best: 0.4508
+  Trial 13 | Epoch  1 | Train: 0.3382 | Val: 0.2989 | Best: 0.2989
+  Trial 13 | Epoch  2 | Train: 0.2842 | Val: 0.2890 | Best: 0.2890
+  Trial 13 | Epoch  3 | Train: 0.2693 | Val: 0.2860 | Best: 0.2860
+  Trial 13 | Epoch  4 | Train: 0.2634 | Val: 0.2914 | Best: 0.2860
+  Trial 13 | Epoch  5 | Train: 0.2658 | Val: 0.3052 | Best: 0.2860
+  Trial 13 | Epoch  6 | Train: 0.2769 | Val: 0.3121 | Best: 0.2860
+  Trial 13 | Epoch  7 | Train: 0.2932 | Val: 0.3391 | Best: 0.2860
+  Trial 13 | Epoch  8 | Train: 0.3085 | Val: 0.3535 | Best: 0.2860
+  Trial 13 | Epoch  9 | Train: 0.3222 | Val: 0.3481 | Best: 0.2860
+  Trial 13 | Epoch 10 | Train: 0.3313 | Val: 0.3694 | Best: 0.2860
+  Trial 13 | Epoch 11 | Train: 0.3438 | Val: 0.3724 | Best: 0.2860
+  Trial 13 | Epoch 12 | Train: 0.3523 | Val: 0.3790 | Best: 0.2860
+  Trial 13 | Epoch 13 | Train: 0.3561 | Val: 0.3842 | Best: 0.2860
+  Trial 13 | Epoch 14 | Train: 0.3628 | Val: 0.3894 | Best: 0.2860
+[I 2026-04-22 10:39:55,956] Trial 13 finished with value: 0.28596526821454366 and parameters: {'var_weight': 0.2722813774745442, 'cov_weight': 0.004415056067156838, 'lr': 0.000495239858289116, 'weight_decay': 0.047807107884144266}. Best is trial 12 with value: 0.27614392697811124.
+  Trial 13 COMPLETE — best val_loss: 0.2860
+
+============================================================
+Trial 14: var_weight=0.3867, cov_weight=0.0051, lr=3.60e-04, wd=0.0532
+============================================================
+  Trial 14 | Epoch  0 | Train: 0.7671 | Val: 0.5901 | Best: 0.5901
+  Trial 14 | Epoch  1 | Train: 0.4651 | Val: 0.4086 | Best: 0.4086
+  Trial 14 | Epoch  2 | Train: 0.3835 | Val: 0.4014 | Best: 0.4014
+  Trial 14 | Epoch  3 | Train: 0.3621 | Val: 0.3878 | Best: 0.3878
+  Trial 14 | Epoch  4 | Train: 0.3449 | Val: 0.3910 | Best: 0.3878
+  Trial 14 | Epoch  5 | Train: 0.3420 | Val: 0.3967 | Best: 0.3878
+[I 2026-04-22 11:10:38,738] Trial 14 pruned. 
+  ** Trial 14 PRUNED at epoch 5 **
+
+============================================================
+Trial 15: var_weight=0.2568, cov_weight=0.0095, lr=3.40e-04, wd=0.0865
+============================================================
+  Trial 15 | Epoch  0 | Train: 0.7028 | Val: 0.5176 | Best: 0.5176
+  Trial 15 | Epoch  1 | Train: 0.3781 | Val: 0.2992 | Best: 0.2992
+  Trial 15 | Epoch  2 | Train: 0.2795 | Val: 0.2771 | Best: 0.2771
+  Trial 15 | Epoch  3 | Train: 0.2626 | Val: 0.2779 | Best: 0.2771
+  Trial 15 | Epoch  4 | Train: 0.2538 | Val: 0.2752 | Best: 0.2752
+  Trial 15 | Epoch  5 | Train: 0.2566 | Val: 0.2847 | Best: 0.2752
+  Trial 15 | Epoch  6 | Train: 0.2696 | Val: 0.2961 | Best: 0.2752
+  Trial 15 | Epoch  7 | Train: 0.2876 | Val: 0.3117 | Best: 0.2752
+  Trial 15 | Epoch  8 | Train: 0.3075 | Val: 0.3408 | Best: 0.2752
+  Trial 15 | Epoch  9 | Train: 0.3284 | Val: 0.3682 | Best: 0.2752
+  Trial 15 | Epoch 10 | Train: 0.3392 | Val: 0.3732 | Best: 0.2752
+  Trial 15 | Epoch 11 | Train: 0.3515 | Val: 0.3799 | Best: 0.2752
+  Trial 15 | Epoch 12 | Train: 0.3607 | Val: 0.3825 | Best: 0.2752
+  Trial 15 | Epoch 13 | Train: 0.3668 | Val: 0.3915 | Best: 0.2752
+  Trial 15 | Epoch 14 | Train: 0.3724 | Val: 0.3863 | Best: 0.2752
+[I 2026-04-22 12:26:30,665] Trial 15 finished with value: 0.2752295356988907 and parameters: {'var_weight': 0.2568085163497538, 'cov_weight': 0.009519722802567151, 'lr': 0.00034001503379750065, 'weight_decay': 0.08651765293154047}. Best is trial 15 with value: 0.2752295356988907.
+  Trial 15 COMPLETE — best val_loss: 0.2752
+
+============================================================
+Trial 16: var_weight=2.4103, cov_weight=0.0148, lr=3.39e-04, wd=0.0890
+============================================================
+  Trial 16 | Epoch  0 | Train: 2.1045 | Val: 2.0603 | Best: 2.0603
+  Trial 16 | Epoch  1 | Train: 1.7818 | Val: 1.8825 | Best: 1.8825
+  Trial 16 | Epoch  2 | Train: 1.6614 | Val: 1.8382 | Best: 1.8382
+  Trial 16 | Epoch  3 | Train: 1.6093 | Val: 1.8067 | Best: 1.8067
+  Trial 16 | Epoch  4 | Train: 1.5759 | Val: 1.8037 | Best: 1.8037
+  Trial 16 | Epoch  5 | Train: 1.5741 | Val: 1.8319 | Best: 1.8037
+[I 2026-04-22 12:56:46,913] Trial 16 pruned. 
+  ** Trial 16 PRUNED at epoch 5 **
+
+============================================================
+Trial 17: var_weight=0.3940, cov_weight=0.0032, lr=1.64e-04, wd=0.0668
+============================================================
+  Trial 17 | Epoch  0 | Train: 0.9484 | Val: 0.7892 | Best: 0.7892
+  Trial 17 | Epoch  1 | Train: 0.6512 | Val: 0.5437 | Best: 0.5437
+  Trial 17 | Epoch  2 | Train: 0.4572 | Val: 0.4177 | Best: 0.4177
+  Trial 17 | Epoch  3 | Train: 0.3895 | Val: 0.4009 | Best: 0.4009
+  Trial 17 | Epoch  4 | Train: 0.3722 | Val: 0.3959 | Best: 0.3959
+  Trial 17 | Epoch  5 | Train: 0.3562 | Val: 0.3929 | Best: 0.3929
+[I 2026-04-22 13:27:16,528] Trial 17 pruned. 
+  ** Trial 17 PRUNED at epoch 5 **
+
+============================================================
+Trial 18: var_weight=0.4583, cov_weight=0.0089, lr=3.30e-04, wd=0.0961
+============================================================
+  Trial 18 | Epoch  0 | Train: 0.8842 | Val: 0.7123 | Best: 0.7123
+  Trial 18 | Epoch  1 | Train: 0.5616 | Val: 0.4884 | Best: 0.4884
+  Trial 18 | Epoch  2 | Train: 0.4508 | Val: 0.4691 | Best: 0.4691
+  Trial 18 | Epoch  3 | Train: 0.4282 | Val: 0.4578 | Best: 0.4578
+  Trial 18 | Epoch  4 | Train: 0.4152 | Val: 0.4585 | Best: 0.4578
+  Trial 18 | Epoch  5 | Train: 0.4114 | Val: 0.4700 | Best: 0.4578
+[I 2026-04-22 13:57:39,404] Trial 18 pruned. 
+  ** Trial 18 PRUNED at epoch 5 **
+
+============================================================
+Trial 19: var_weight=0.3130, cov_weight=0.0099, lr=2.73e-04, wd=0.0355
+============================================================
+  Trial 19 | Epoch  0 | Train: 0.8026 | Val: 0.6221 | Best: 0.6221
+  Trial 19 | Epoch  1 | Train: 0.4745 | Val: 0.3778 | Best: 0.3778
+  Trial 19 | Epoch  2 | Train: 0.3392 | Val: 0.3327 | Best: 0.3327
+  Trial 19 | Epoch  3 | Train: 0.3157 | Val: 0.3250 | Best: 0.3250
+  Trial 19 | Epoch  4 | Train: 0.3043 | Val: 0.3222 | Best: 0.3222
+  Trial 19 | Epoch  5 | Train: 0.2983 | Val: 0.3282 | Best: 0.3222
+  Trial 19 | Epoch  6 | Train: 0.2991 | Val: 0.3378 | Best: 0.3222
+  Trial 19 | Epoch  7 | Train: 0.3068 | Val: 0.3405 | Best: 0.3222
+  Trial 19 | Epoch  8 | Train: 0.3192 | Val: 0.3584 | Best: 0.3222
+  Trial 19 | Epoch  9 | Train: 0.3300 | Val: 0.3661 | Best: 0.3222
+  Trial 19 | Epoch 10 | Train: 0.3437 | Val: 0.3759 | Best: 0.3222
+  Trial 19 | Epoch 11 | Train: 0.3517 | Val: 0.3907 | Best: 0.3222
+  Trial 19 | Epoch 12 | Train: 0.3605 | Val: 0.3921 | Best: 0.3222
+  Trial 19 | Epoch 13 | Train: 0.3689 | Val: 0.3982 | Best: 0.3222
+  Trial 19 | Epoch 14 | Train: 0.3737 | Val: 0.4051 | Best: 0.3222
+[I 2026-04-22 15:13:49,027] Trial 19 finished with value: 0.32224467317263283 and parameters: {'var_weight': 0.3129634143283826, 'cov_weight': 0.009916908951796767, 'lr': 0.000272570045889488, 'weight_decay': 0.03546057850479005}. Best is trial 15 with value: 0.2752295356988907.
+  Trial 19 COMPLETE — best val_loss: 0.3222
+
+============================================================
+Trial 20: var_weight=1.5331, cov_weight=0.0033, lr=4.06e-04, wd=0.0758
+============================================================
+  Trial 20 | Epoch  0 | Train: 1.5577 | Val: 1.4640 | Best: 1.4640
+  Trial 20 | Epoch  1 | Train: 1.2730 | Val: 1.3281 | Best: 1.3281
+  Trial 20 | Epoch  2 | Train: 1.1894 | Val: 1.3430 | Best: 1.3281
+  Trial 20 | Epoch  3 | Train: 1.1381 | Val: 1.3363 | Best: 1.3281
+  Trial 20 | Epoch  4 | Train: 1.1012 | Val: 1.3494 | Best: 1.3281
+  Trial 20 | Epoch  5 | Train: 1.0636 | Val: 1.3295 | Best: 1.3281
+[I 2026-04-22 15:45:07,701] Trial 20 pruned. 
+  ** Trial 20 PRUNED at epoch 5 **
+
+============================================================
+HPO SWEEP COMPLETE
+============================================================
+
+Best trial: #15
+  val_loss: 0.2752
+  Params:
+    var_weight: 0.256809
+    cov_weight: 0.009520
+    lr: 0.000340
+    weight_decay: 0.086518
+
+Top 5 trials:
+ Trial |   val_loss |   var_wt |   cov_wt |         lr |       wd |     Status
+--------------------------------------------------------------------------------
+    15 |     0.2752 |   0.2568 |  0.00952 |   3.40e-04 |   0.0865 |   COMPLETE
+    12 |     0.2761 |   0.2592 |  0.00481 |   4.85e-04 |   0.0577 |   COMPLETE
+    11 |     0.2782 |   0.2631 |  0.00637 |   4.66e-04 |   0.0512 |   COMPLETE
+    13 |     0.2860 |   0.2723 |  0.00442 |   4.95e-04 |   0.0478 |   COMPLETE
+     9 |     0.3104 |   0.2939 |  0.04094 |   4.62e-04 |   0.0643 |   COMPLETE
+
+Best config saved to: configs/jepa_v3_tuned.yaml
+Run full training with: sbatch --job-name=jepa-v3t scripts/train.sh configs/jepa_v3_tuned.yaml
+=== HPO Sweep finished at $(date) ===

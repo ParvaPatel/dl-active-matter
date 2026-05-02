@@ -173,30 +173,35 @@ Rank & val\_loss & $\lambda_v$ & $\lambda_c$ & lr & wd \\
 
 \subsection{Main Results}
 
-\cref{tab:main} presents test-set performance across all models. VideoMAE ViT-Small achieves the best overall performance (LP MSE = 0.035, kNN MSE = 0.050), substantially outperforming all JEPA variants.
+\cref{tab:main} presents test-set performance across all models, evaluated at each model's best LP epoch. The end-to-end supervised baseline achieves the best results (LP MSE = 0.017), confirming that direct label access provides a substantial advantage. Among self-supervised methods, VideoMAE ViT-Small closes to within 2$\times$ of the supervised upper bound (LP MSE = 0.036). All JEPA variants underperform VideoMAE, and scaling to ViT-Base degrades performance for both architectures. Notably, $\zeta$ (steric alignment) is consistently harder to predict than $\alpha$ (dipole strength) across all models.
 
 \begin{table}[t]
-\caption{Test-set performance for physical parameter estimation ($\alpha$, $\zeta$). MSE on z-score normalized targets; lower is better. Standard evaluation: LP lr=1e-3, 200 epochs; kNN k=10.}
+\caption{Test-set performance for physical parameter estimation. MSE on z-score normalized targets; lower is better. All results from a single checkpoint (best LP epoch) per model. Standard evaluation: LP lr=1e-3, 200 epochs; kNN k=10.}
 \label{tab:main}
 \vskip 0.1in
 \centering
 \small
-\begin{tabular}{@{}lcrcc@{}}
+\begin{tabular}{@{}lcrccccc@{}}
 \toprule
-Model & Encoder & Params & LP MSE & kNN MSE \\
+& & & \multicolumn{3}{c}{Linear Probe} & \multicolumn{2}{c}{kNN} \\
+\cmidrule(lr){4-6} \cmidrule(lr){7-8}
+Model & Enc. & Ep. & MSE & $\alpha$ & $\zeta$ & MSE & $\alpha$ \\
 \midrule
-\multicolumn{5}{l}{\textit{Self-supervised}} \\
-\textbf{VideoMAE} & ViT-S & 13.4M & \textbf{0.035} & \textbf{0.050} \\
-JEPA v1 & ViT-S & 13.4M & 0.058 & 0.088 \\
-JEPA v3 ($\lambda_v$\!=\!0.26) & ViT-S & 13.4M & 0.084 & 0.089 \\
-JEPA v3 ($\lambda_v$\!=\!0.80) & ViT-S & 13.4M & 0.087 & 0.067 \\
-VideoMAE & ViT-B & 90.6M & 0.078 & 0.128 \\
-JEPA v1 & ViT-B & 90.6M & 0.081 & 0.159 \\
+\multicolumn{8}{l}{\textit{End-to-end supervised (upper bound)}} \\
+Supervised & ViT-S & 65 & \textbf{.017} & \textbf{.009} & \textbf{.025} & \textbf{.015} & \textbf{.005} \\
 \midrule
-\multicolumn{5}{l}{\textit{End-to-end supervised (upper bound)}} \\
-Supervised & ViT-S & 13.4M & \multicolumn{2}{c}{\textit{pending}} \\
+\multicolumn{8}{l}{\textit{Self-supervised}} \\
+\textbf{VideoMAE} & ViT-S & 90 & \underline{.036} & \underline{.021} & \underline{.052} & \underline{.050} & .021 \\
+JEPA v1 & ViT-S & 80 & .060 & .023 & .098 & .089 & .038 \\
+JEPA v3$^\dagger$ ($\lambda_v$\!=\!0.26) & ViT-S & 90 & .076 & .035 & .117 & .189 & .196 \\
+JEPA v3$^\ddagger$ ($\lambda_v$\!=\!0.80) & ViT-S & 10 & .079 & .043 & .115 & .075 & \underline{.006} \\
+\midrule
+\multicolumn{8}{l}{\textit{Scaling study (ViT-Base)}} \\
+VideoMAE & ViT-B & 75 & .081 & .036 & .125 & .149 & .078 \\
+JEPA v1 & ViT-B & 95 & .084 & .052 & .116 & .149 & .065 \\
 \bottomrule
 \end{tabular}
+{\raggedright \footnotesize Bold = best overall; underline = best self-supervised. $^\dagger$Online encoder. $^\ddagger$Target (EMA) encoder. kNN $\zeta$ column omitted for space; follows same trend. \par}
 \vskip -0.1in
 \end{table}
 

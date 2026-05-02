@@ -1,0 +1,602 @@
+=== Job started at Sat Apr 18 12:17:29 EDT 2026 ===
+Node: b-19-58 | GPU: 0
+Config: configs/videomae_small.yaml
+Sat Apr 18 12:17:29 2026       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 580.126.09             Driver Version: 580.126.09     CUDA Version: 13.0     |
++-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA A100-SXM4-40GB          On  |   00000000:00:04.0 Off |                    0 |
+| N/A   32C    P0             41W /  400W |       0MiB /  40960MiB |      0%      Default |
+|                                         |                        |             Disabled |
++-----------------------------------------+------------------------+----------------------+
+
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+wandb: [wandb.login()] Loaded credentials for https://api.wandb.ai from WANDB_API_KEY.
+wandb: Currently logged in as: psp8502 (psp8502-new-york-university) to https://api.wandb.ai. Use `wandb login --relogin` to force relogin
+wandb: setting up run qnr5t3ni
+wandb: Tracking run with wandb version 0.25.1
+wandb: Run data is saved locally in /scratch/psp8502/dl-active-matter/wandb/run-20260418_121806-qnr5t3ni
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run scarlet-blaze-11
+wandb: ⭐️ View project at https://wandb.ai/psp8502-new-york-university/dl-active-matter
+wandb: 🚀 View run at https://wandb.ai/psp8502-new-york-university/dl-active-matter/runs/qnr5t3ni
+============================================================
+EXPERIMENT: videomae_small
+Checkpoints → /scratch/psp8502/checkpoints/videomae_small
+============================================================
+[train] 45 HDF5 files → 11550 samples (16 frames, 224×224 crop, stride=1)
+[val] 16 HDF5 files → 1584 samples (16 frames, 224×224 crop, stride=1)
+Total parameters: 15,764,992 (15.76M)
+Auto-resumed from epoch 91
+  Epoch 91 | Batch 0 | Loss: 0.0123
+  Epoch 91 | Batch 50 | Loss: 0.0015
+  Epoch 91 | Batch 100 | Loss: 0.0044
+  Epoch 91 | Batch 150 | Loss: 0.0049
+  Epoch 91 | Batch 200 | Loss: 0.0038
+  Epoch 91 | Batch 250 | Loss: 0.0072
+  Epoch 91 | Batch 300 | Loss: 0.0042
+  Epoch 91 | Batch 350 | Loss: 0.0050
+  Epoch 91 | Batch 400 | Loss: 0.0111
+  Epoch 91 | Batch 450 | Loss: 0.0070
+  Epoch 91 | Batch 500 | Loss: 0.0079
+  Epoch 91 | Batch 550 | Loss: 0.0079
+  Epoch 91 | Batch 600 | Loss: 0.0045
+  Epoch 91 | Batch 650 | Loss: 0.0046
+  Epoch 91 | Batch 700 | Loss: 0.0033
+  Epoch 91 | Batch 750 | Loss: 0.0034
+  Epoch 91 | Batch 800 | Loss: 0.0104
+  Epoch 91 | Batch 850 | Loss: 0.0135
+  Epoch 91 | Batch 900 | Loss: 0.0089
+  Epoch 91 | Batch 950 | Loss: 0.0069
+  Epoch 91 | Batch 1000 | Loss: 0.0126
+  Epoch 91 | Batch 1050 | Loss: 0.0045
+  Epoch 91 | Batch 1100 | Loss: 0.0080
+  Epoch 91 | Batch 1150 | Loss: 0.0081
+  Epoch 91 | Batch 1200 | Loss: 0.0150
+  Epoch 91 | Batch 1250 | Loss: 0.0038
+  Epoch 91 | Batch 1300 | Loss: 0.0132
+  Epoch 91 | Batch 1350 | Loss: 0.0048
+  Epoch 91 | Batch 1400 | Loss: 0.0080
+  Epoch 91 | Batch 1450 | Loss: 0.0060
+  Epoch 91 | Batch 1500 | Loss: 0.0036
+  Epoch 91 | Batch 1550 | Loss: 0.0067
+  Epoch 91 | Batch 1600 | Loss: 0.0030
+  Epoch 91 | Batch 1650 | Loss: 0.0084
+  Epoch 91 | Batch 1700 | Loss: 0.0015
+  Epoch 91 | Batch 1750 | Loss: 0.0075
+  Epoch 91 | Batch 1800 | Loss: 0.0035
+  Epoch 91 | Batch 1850 | Loss: 0.0032
+  Epoch 91 | Batch 1900 | Loss: 0.0039
+  Epoch 91 | Batch 1950 | Loss: 0.0097
+  Epoch 91 | Batch 2000 | Loss: 0.0034
+  Epoch 91 | Batch 2050 | Loss: 0.0083
+  Epoch 91 | Batch 2100 | Loss: 0.0054
+  Epoch 91 | Batch 2150 | Loss: 0.0153
+  Epoch 91 | Batch 2200 | Loss: 0.0034
+  Epoch 91 | Batch 2250 | Loss: 0.0146
+  Epoch 91 | Batch 2300 | Loss: 0.0087
+  Epoch 91 | Batch 2350 | Loss: 0.0035
+  Epoch 91 | Batch 2400 | Loss: 0.0020
+  Epoch 91 | Batch 2450 | Loss: 0.0079
+  Epoch 91 | Batch 2500 | Loss: 0.0040
+  Epoch 91 | Batch 2550 | Loss: 0.0033
+  Epoch 91 | Batch 2600 | Loss: 0.0052
+  Epoch 91 | Batch 2650 | Loss: 0.0015
+  Epoch 91 | Batch 2700 | Loss: 0.0033
+  Epoch 91 | Batch 2750 | Loss: 0.0038
+  Epoch 91 | Batch 2800 | Loss: 0.0048
+  Epoch 91 | Batch 2850 | Loss: 0.0117
+Epoch 91 | Train Loss: 0.0070 | Val Loss: 0.0068
+  -> New best val loss: 0.0068
+  Epoch 92 | Batch 0 | Loss: 0.0080
+  Epoch 92 | Batch 50 | Loss: 0.0013
+  Epoch 92 | Batch 100 | Loss: 0.0015
+  Epoch 92 | Batch 150 | Loss: 0.0069
+  Epoch 92 | Batch 200 | Loss: 0.0014
+  Epoch 92 | Batch 250 | Loss: 0.0046
+  Epoch 92 | Batch 300 | Loss: 0.0039
+  Epoch 92 | Batch 350 | Loss: 0.0026
+  Epoch 92 | Batch 400 | Loss: 0.0068
+  Epoch 92 | Batch 450 | Loss: 0.0095
+  Epoch 92 | Batch 500 | Loss: 0.0030
+  Epoch 92 | Batch 550 | Loss: 0.0025
+  Epoch 92 | Batch 600 | Loss: 0.0084
+  Epoch 92 | Batch 650 | Loss: 0.0030
+  Epoch 92 | Batch 700 | Loss: 0.0064
+  Epoch 92 | Batch 750 | Loss: 0.0069
+  Epoch 92 | Batch 800 | Loss: 0.0036
+  Epoch 92 | Batch 850 | Loss: 0.0176
+  Epoch 92 | Batch 900 | Loss: 0.0014
+  Epoch 92 | Batch 950 | Loss: 0.0063
+  Epoch 92 | Batch 1000 | Loss: 0.0059
+  Epoch 92 | Batch 1050 | Loss: 0.0067
+  Epoch 92 | Batch 1100 | Loss: 0.0044
+  Epoch 92 | Batch 1150 | Loss: 0.0121
+  Epoch 92 | Batch 1200 | Loss: 0.0020
+  Epoch 92 | Batch 1250 | Loss: 0.0182
+  Epoch 92 | Batch 1300 | Loss: 0.0130
+  Epoch 92 | Batch 1350 | Loss: 0.0094
+  Epoch 92 | Batch 1400 | Loss: 0.0055
+  Epoch 92 | Batch 1450 | Loss: 0.0018
+  Epoch 92 | Batch 1500 | Loss: 0.0057
+  Epoch 92 | Batch 1550 | Loss: 0.0060
+  Epoch 92 | Batch 1600 | Loss: 0.0109
+  Epoch 92 | Batch 1650 | Loss: 0.0083
+  Epoch 92 | Batch 1700 | Loss: 0.0075
+  Epoch 92 | Batch 1750 | Loss: 0.0044
+  Epoch 92 | Batch 1800 | Loss: 0.0089
+  Epoch 92 | Batch 1850 | Loss: 0.0027
+  Epoch 92 | Batch 1900 | Loss: 0.0120
+  Epoch 92 | Batch 1950 | Loss: 0.0079
+  Epoch 92 | Batch 2000 | Loss: 0.0069
+  Epoch 92 | Batch 2050 | Loss: 0.0102
+  Epoch 92 | Batch 2100 | Loss: 0.0036
+  Epoch 92 | Batch 2150 | Loss: 0.0008
+  Epoch 92 | Batch 2200 | Loss: 0.0071
+  Epoch 92 | Batch 2250 | Loss: 0.0053
+  Epoch 92 | Batch 2300 | Loss: 0.0031
+  Epoch 92 | Batch 2350 | Loss: 0.0048
+  Epoch 92 | Batch 2400 | Loss: 0.0097
+  Epoch 92 | Batch 2450 | Loss: 0.0090
+  Epoch 92 | Batch 2500 | Loss: 0.0009
+  Epoch 92 | Batch 2550 | Loss: 0.0046
+  Epoch 92 | Batch 2600 | Loss: 0.0088
+  Epoch 92 | Batch 2650 | Loss: 0.0052
+  Epoch 92 | Batch 2700 | Loss: 0.0106
+  Epoch 92 | Batch 2750 | Loss: 0.0112
+  Epoch 92 | Batch 2800 | Loss: 0.0026
+  Epoch 92 | Batch 2850 | Loss: 0.0096
+Epoch 92 | Train Loss: 0.0070 | Val Loss: 0.0068
+  Epoch 93 | Batch 0 | Loss: 0.0076
+  Epoch 93 | Batch 50 | Loss: 0.0113
+  Epoch 93 | Batch 100 | Loss: 0.0023
+  Epoch 93 | Batch 150 | Loss: 0.0122
+  Epoch 93 | Batch 200 | Loss: 0.0050
+  Epoch 93 | Batch 250 | Loss: 0.0037
+  Epoch 93 | Batch 300 | Loss: 0.0058
+  Epoch 93 | Batch 350 | Loss: 0.0098
+  Epoch 93 | Batch 400 | Loss: 0.0052
+  Epoch 93 | Batch 450 | Loss: 0.0096
+  Epoch 93 | Batch 500 | Loss: 0.0026
+  Epoch 93 | Batch 550 | Loss: 0.0164
+  Epoch 93 | Batch 600 | Loss: 0.0123
+  Epoch 93 | Batch 650 | Loss: 0.0054
+  Epoch 93 | Batch 700 | Loss: 0.0106
+  Epoch 93 | Batch 750 | Loss: 0.0052
+  Epoch 93 | Batch 800 | Loss: 0.0073
+  Epoch 93 | Batch 850 | Loss: 0.0100
+  Epoch 93 | Batch 900 | Loss: 0.0142
+  Epoch 93 | Batch 950 | Loss: 0.0025
+  Epoch 93 | Batch 1000 | Loss: 0.0096
+  Epoch 93 | Batch 1050 | Loss: 0.0094
+  Epoch 93 | Batch 1100 | Loss: 0.0060
+  Epoch 93 | Batch 1150 | Loss: 0.0051
+  Epoch 93 | Batch 1200 | Loss: 0.0088
+  Epoch 93 | Batch 1250 | Loss: 0.0079
+  Epoch 93 | Batch 1300 | Loss: 0.0075
+  Epoch 93 | Batch 1350 | Loss: 0.0058
+  Epoch 93 | Batch 1400 | Loss: 0.0009
+  Epoch 93 | Batch 1450 | Loss: 0.0082
+  Epoch 93 | Batch 1500 | Loss: 0.0060
+  Epoch 93 | Batch 1550 | Loss: 0.0059
+  Epoch 93 | Batch 1600 | Loss: 0.0064
+  Epoch 93 | Batch 1650 | Loss: 0.0069
+  Epoch 93 | Batch 1700 | Loss: 0.0066
+  Epoch 93 | Batch 1750 | Loss: 0.0064
+  Epoch 93 | Batch 1800 | Loss: 0.0105
+  Epoch 93 | Batch 1850 | Loss: 0.0126
+  Epoch 93 | Batch 1900 | Loss: 0.0133
+  Epoch 93 | Batch 1950 | Loss: 0.0065
+  Epoch 93 | Batch 2000 | Loss: 0.0067
+  Epoch 93 | Batch 2050 | Loss: 0.0028
+  Epoch 93 | Batch 2100 | Loss: 0.0058
+  Epoch 93 | Batch 2150 | Loss: 0.0079
+  Epoch 93 | Batch 2200 | Loss: 0.0035
+  Epoch 93 | Batch 2250 | Loss: 0.0120
+  Epoch 93 | Batch 2300 | Loss: 0.0023
+  Epoch 93 | Batch 2350 | Loss: 0.0088
+  Epoch 93 | Batch 2400 | Loss: 0.0056
+  Epoch 93 | Batch 2450 | Loss: 0.0068
+  Epoch 93 | Batch 2500 | Loss: 0.0066
+  Epoch 93 | Batch 2550 | Loss: 0.0093
+  Epoch 93 | Batch 2600 | Loss: 0.0086
+  Epoch 93 | Batch 2650 | Loss: 0.0133
+  Epoch 93 | Batch 2700 | Loss: 0.0018
+  Epoch 93 | Batch 2750 | Loss: 0.0054
+  Epoch 93 | Batch 2800 | Loss: 0.0069
+  Epoch 93 | Batch 2850 | Loss: 0.0073
+Epoch 93 | Train Loss: 0.0069 | Val Loss: 0.0067
+  -> New best val loss: 0.0067
+  Epoch 94 | Batch 0 | Loss: 0.0056
+  Epoch 94 | Batch 50 | Loss: 0.0054
+  Epoch 94 | Batch 100 | Loss: 0.0055
+  Epoch 94 | Batch 150 | Loss: 0.0055
+  Epoch 94 | Batch 200 | Loss: 0.0060
+  Epoch 94 | Batch 250 | Loss: 0.0051
+  Epoch 94 | Batch 300 | Loss: 0.0087
+  Epoch 94 | Batch 350 | Loss: 0.0030
+  Epoch 94 | Batch 400 | Loss: 0.0065
+  Epoch 94 | Batch 450 | Loss: 0.0140
+  Epoch 94 | Batch 500 | Loss: 0.0081
+  Epoch 94 | Batch 550 | Loss: 0.0118
+  Epoch 94 | Batch 600 | Loss: 0.0035
+  Epoch 94 | Batch 650 | Loss: 0.0044
+  Epoch 94 | Batch 700 | Loss: 0.0019
+  Epoch 94 | Batch 750 | Loss: 0.0092
+  Epoch 94 | Batch 800 | Loss: 0.0068
+  Epoch 94 | Batch 850 | Loss: 0.0035
+  Epoch 94 | Batch 900 | Loss: 0.0035
+  Epoch 94 | Batch 950 | Loss: 0.0022
+  Epoch 94 | Batch 1000 | Loss: 0.0045
+  Epoch 94 | Batch 1050 | Loss: 0.0050
+  Epoch 94 | Batch 1100 | Loss: 0.0115
+  Epoch 94 | Batch 1150 | Loss: 0.0118
+  Epoch 94 | Batch 1200 | Loss: 0.0046
+  Epoch 94 | Batch 1250 | Loss: 0.0077
+  Epoch 94 | Batch 1300 | Loss: 0.0037
+  Epoch 94 | Batch 1350 | Loss: 0.0059
+  Epoch 94 | Batch 1400 | Loss: 0.0086
+  Epoch 94 | Batch 1450 | Loss: 0.0151
+  Epoch 94 | Batch 1500 | Loss: 0.0116
+  Epoch 94 | Batch 1550 | Loss: 0.0177
+  Epoch 94 | Batch 1600 | Loss: 0.0055
+  Epoch 94 | Batch 1650 | Loss: 0.0035
+  Epoch 94 | Batch 1700 | Loss: 0.0040
+  Epoch 94 | Batch 1750 | Loss: 0.0062
+  Epoch 94 | Batch 1800 | Loss: 0.0063
+  Epoch 94 | Batch 1850 | Loss: 0.0081
+  Epoch 94 | Batch 1900 | Loss: 0.0072
+  Epoch 94 | Batch 1950 | Loss: 0.0088
+  Epoch 94 | Batch 2000 | Loss: 0.0073
+  Epoch 94 | Batch 2050 | Loss: 0.0020
+  Epoch 94 | Batch 2100 | Loss: 0.0066
+  Epoch 94 | Batch 2150 | Loss: 0.0069
+  Epoch 94 | Batch 2200 | Loss: 0.0052
+  Epoch 94 | Batch 2250 | Loss: 0.0026
+  Epoch 94 | Batch 2300 | Loss: 0.0080
+  Epoch 94 | Batch 2350 | Loss: 0.0070
+  Epoch 94 | Batch 2400 | Loss: 0.0074
+  Epoch 94 | Batch 2450 | Loss: 0.0015
+  Epoch 94 | Batch 2500 | Loss: 0.0034
+  Epoch 94 | Batch 2550 | Loss: 0.0069
+  Epoch 94 | Batch 2600 | Loss: 0.0073
+  Epoch 94 | Batch 2650 | Loss: 0.0149
+  Epoch 94 | Batch 2700 | Loss: 0.0040
+  Epoch 94 | Batch 2750 | Loss: 0.0080
+  Epoch 94 | Batch 2800 | Loss: 0.0038
+  Epoch 94 | Batch 2850 | Loss: 0.0061
+Epoch 94 | Train Loss: 0.0069 | Val Loss: 0.0068
+  Epoch 95 | Batch 0 | Loss: 0.0079
+  Epoch 95 | Batch 50 | Loss: 0.0075
+  Epoch 95 | Batch 100 | Loss: 0.0038
+  Epoch 95 | Batch 150 | Loss: 0.0047
+  Epoch 95 | Batch 200 | Loss: 0.0037
+  Epoch 95 | Batch 250 | Loss: 0.0032
+  Epoch 95 | Batch 300 | Loss: 0.0101
+  Epoch 95 | Batch 350 | Loss: 0.0061
+  Epoch 95 | Batch 400 | Loss: 0.0037
+  Epoch 95 | Batch 450 | Loss: 0.0069
+  Epoch 95 | Batch 500 | Loss: 0.0077
+  Epoch 95 | Batch 550 | Loss: 0.0039
+  Epoch 95 | Batch 600 | Loss: 0.0069
+  Epoch 95 | Batch 650 | Loss: 0.0012
+  Epoch 95 | Batch 700 | Loss: 0.0064
+  Epoch 95 | Batch 750 | Loss: 0.0055
+  Epoch 95 | Batch 800 | Loss: 0.0047
+  Epoch 95 | Batch 850 | Loss: 0.0015
+  Epoch 95 | Batch 900 | Loss: 0.0127
+  Epoch 95 | Batch 950 | Loss: 0.0037
+  Epoch 95 | Batch 1000 | Loss: 0.0070
+  Epoch 95 | Batch 1050 | Loss: 0.0058
+  Epoch 95 | Batch 1100 | Loss: 0.0039
+  Epoch 95 | Batch 1150 | Loss: 0.0032
+  Epoch 95 | Batch 1200 | Loss: 0.0064
+  Epoch 95 | Batch 1250 | Loss: 0.0054
+  Epoch 95 | Batch 1300 | Loss: 0.0072
+  Epoch 95 | Batch 1350 | Loss: 0.0075
+  Epoch 95 | Batch 1400 | Loss: 0.0073
+  Epoch 95 | Batch 1450 | Loss: 0.0038
+  Epoch 95 | Batch 1500 | Loss: 0.0070
+  Epoch 95 | Batch 1550 | Loss: 0.0129
+  Epoch 95 | Batch 1600 | Loss: 0.0098
+  Epoch 95 | Batch 1650 | Loss: 0.0119
+  Epoch 95 | Batch 1700 | Loss: 0.0097
+  Epoch 95 | Batch 1750 | Loss: 0.0050
+  Epoch 95 | Batch 1800 | Loss: 0.0135
+  Epoch 95 | Batch 1850 | Loss: 0.0049
+  Epoch 95 | Batch 1900 | Loss: 0.0171
+  Epoch 95 | Batch 1950 | Loss: 0.0084
+  Epoch 95 | Batch 2000 | Loss: 0.0051
+  Epoch 95 | Batch 2050 | Loss: 0.0071
+  Epoch 95 | Batch 2100 | Loss: 0.0074
+  Epoch 95 | Batch 2150 | Loss: 0.0035
+  Epoch 95 | Batch 2200 | Loss: 0.0057
+  Epoch 95 | Batch 2250 | Loss: 0.0078
+  Epoch 95 | Batch 2300 | Loss: 0.0026
+  Epoch 95 | Batch 2350 | Loss: 0.0102
+  Epoch 95 | Batch 2400 | Loss: 0.0088
+  Epoch 95 | Batch 2450 | Loss: 0.0102
+  Epoch 95 | Batch 2500 | Loss: 0.0044
+  Epoch 95 | Batch 2550 | Loss: 0.0096
+  Epoch 95 | Batch 2600 | Loss: 0.0056
+  Epoch 95 | Batch 2650 | Loss: 0.0049
+  Epoch 95 | Batch 2700 | Loss: 0.0039
+  Epoch 95 | Batch 2750 | Loss: 0.0108
+  Epoch 95 | Batch 2800 | Loss: 0.0094
+  Epoch 95 | Batch 2850 | Loss: 0.0030
+Epoch 95 | Train Loss: 0.0068 | Val Loss: 0.0068
+  Epoch 96 | Batch 0 | Loss: 0.0043
+  Epoch 96 | Batch 50 | Loss: 0.0100
+  Epoch 96 | Batch 100 | Loss: 0.0039
+  Epoch 96 | Batch 150 | Loss: 0.0025
+  Epoch 96 | Batch 200 | Loss: 0.0040
+  Epoch 96 | Batch 250 | Loss: 0.0053
+  Epoch 96 | Batch 300 | Loss: 0.0111
+  Epoch 96 | Batch 350 | Loss: 0.0035
+  Epoch 96 | Batch 400 | Loss: 0.0050
+  Epoch 96 | Batch 450 | Loss: 0.0089
+  Epoch 96 | Batch 500 | Loss: 0.0041
+  Epoch 96 | Batch 550 | Loss: 0.0063
+  Epoch 96 | Batch 600 | Loss: 0.0078
+  Epoch 96 | Batch 650 | Loss: 0.0054
+  Epoch 96 | Batch 700 | Loss: 0.0018
+  Epoch 96 | Batch 750 | Loss: 0.0179
+  Epoch 96 | Batch 800 | Loss: 0.0058
+  Epoch 96 | Batch 850 | Loss: 0.0064
+  Epoch 96 | Batch 900 | Loss: 0.0054
+  Epoch 96 | Batch 950 | Loss: 0.0053
+  Epoch 96 | Batch 1000 | Loss: 0.0030
+  Epoch 96 | Batch 1050 | Loss: 0.0047
+  Epoch 96 | Batch 1100 | Loss: 0.0156
+  Epoch 96 | Batch 1150 | Loss: 0.0062
+  Epoch 96 | Batch 1200 | Loss: 0.0039
+  Epoch 96 | Batch 1250 | Loss: 0.0037
+  Epoch 96 | Batch 1300 | Loss: 0.0075
+  Epoch 96 | Batch 1350 | Loss: 0.0066
+  Epoch 96 | Batch 1400 | Loss: 0.0066
+  Epoch 96 | Batch 1450 | Loss: 0.0049
+  Epoch 96 | Batch 1500 | Loss: 0.0088
+  Epoch 96 | Batch 1550 | Loss: 0.0052
+  Epoch 96 | Batch 1600 | Loss: 0.0076
+  Epoch 96 | Batch 1650 | Loss: 0.0109
+  Epoch 96 | Batch 1700 | Loss: 0.0104
+  Epoch 96 | Batch 1750 | Loss: 0.0028
+  Epoch 96 | Batch 1800 | Loss: 0.0092
+  Epoch 96 | Batch 1850 | Loss: 0.0069
+  Epoch 96 | Batch 1900 | Loss: 0.0021
+  Epoch 96 | Batch 1950 | Loss: 0.0034
+  Epoch 96 | Batch 2000 | Loss: 0.0045
+  Epoch 96 | Batch 2050 | Loss: 0.0029
+  Epoch 96 | Batch 2100 | Loss: 0.0054
+  Epoch 96 | Batch 2150 | Loss: 0.0045
+  Epoch 96 | Batch 2200 | Loss: 0.0030
+  Epoch 96 | Batch 2250 | Loss: 0.0046
+  Epoch 96 | Batch 2300 | Loss: 0.0053
+  Epoch 96 | Batch 2350 | Loss: 0.0086
+  Epoch 96 | Batch 2400 | Loss: 0.0096
+  Epoch 96 | Batch 2450 | Loss: 0.0087
+  Epoch 96 | Batch 2500 | Loss: 0.0092
+  Epoch 96 | Batch 2550 | Loss: 0.0075
+  Epoch 96 | Batch 2600 | Loss: 0.0015
+  Epoch 96 | Batch 2650 | Loss: 0.0030
+  Epoch 96 | Batch 2700 | Loss: 0.0071
+  Epoch 96 | Batch 2750 | Loss: 0.0078
+  Epoch 96 | Batch 2800 | Loss: 0.0027
+  Epoch 96 | Batch 2850 | Loss: 0.0018
+Epoch 96 | Train Loss: 0.0067 | Val Loss: 0.0066
+  -> New best val loss: 0.0066
+  Epoch 97 | Batch 0 | Loss: 0.0059
+  Epoch 97 | Batch 50 | Loss: 0.0112
+  Epoch 97 | Batch 100 | Loss: 0.0031
+  Epoch 97 | Batch 150 | Loss: 0.0061
+  Epoch 97 | Batch 200 | Loss: 0.0082
+  Epoch 97 | Batch 250 | Loss: 0.0163
+  Epoch 97 | Batch 300 | Loss: 0.0098
+  Epoch 97 | Batch 350 | Loss: 0.0124
+  Epoch 97 | Batch 400 | Loss: 0.0029
+  Epoch 97 | Batch 450 | Loss: 0.0047
+  Epoch 97 | Batch 500 | Loss: 0.0094
+  Epoch 97 | Batch 550 | Loss: 0.0109
+  Epoch 97 | Batch 600 | Loss: 0.0079
+  Epoch 97 | Batch 650 | Loss: 0.0033
+  Epoch 97 | Batch 700 | Loss: 0.0036
+  Epoch 97 | Batch 750 | Loss: 0.0053
+  Epoch 97 | Batch 800 | Loss: 0.0024
+  Epoch 97 | Batch 850 | Loss: 0.0040
+  Epoch 97 | Batch 900 | Loss: 0.0093
+  Epoch 97 | Batch 950 | Loss: 0.0069
+  Epoch 97 | Batch 1000 | Loss: 0.0052
+  Epoch 97 | Batch 1050 | Loss: 0.0040
+  Epoch 97 | Batch 1100 | Loss: 0.0079
+  Epoch 97 | Batch 1150 | Loss: 0.0046
+  Epoch 97 | Batch 1200 | Loss: 0.0049
+  Epoch 97 | Batch 1250 | Loss: 0.0070
+  Epoch 97 | Batch 1300 | Loss: 0.0031
+  Epoch 97 | Batch 1350 | Loss: 0.0093
+  Epoch 97 | Batch 1400 | Loss: 0.0103
+  Epoch 97 | Batch 1450 | Loss: 0.0026
+  Epoch 97 | Batch 1500 | Loss: 0.0043
+  Epoch 97 | Batch 1550 | Loss: 0.0026
+  Epoch 97 | Batch 1600 | Loss: 0.0063
+  Epoch 97 | Batch 1650 | Loss: 0.0054
+  Epoch 97 | Batch 1700 | Loss: 0.0072
+  Epoch 97 | Batch 1750 | Loss: 0.0044
+  Epoch 97 | Batch 1800 | Loss: 0.0033
+  Epoch 97 | Batch 1850 | Loss: 0.0066
+  Epoch 97 | Batch 1900 | Loss: 0.0118
+  Epoch 97 | Batch 1950 | Loss: 0.0062
+  Epoch 97 | Batch 2000 | Loss: 0.0037
+  Epoch 97 | Batch 2050 | Loss: 0.0136
+  Epoch 97 | Batch 2100 | Loss: 0.0043
+  Epoch 97 | Batch 2150 | Loss: 0.0071
+  Epoch 97 | Batch 2200 | Loss: 0.0125
+  Epoch 97 | Batch 2250 | Loss: 0.0067
+  Epoch 97 | Batch 2300 | Loss: 0.0040
+  Epoch 97 | Batch 2350 | Loss: 0.0049
+  Epoch 97 | Batch 2400 | Loss: 0.0056
+  Epoch 97 | Batch 2450 | Loss: 0.0054
+  Epoch 97 | Batch 2500 | Loss: 0.0008
+  Epoch 97 | Batch 2550 | Loss: 0.0074
+  Epoch 97 | Batch 2600 | Loss: 0.0036
+  Epoch 97 | Batch 2650 | Loss: 0.0080
+  Epoch 97 | Batch 2700 | Loss: 0.0125
+  Epoch 97 | Batch 2750 | Loss: 0.0108
+  Epoch 97 | Batch 2800 | Loss: 0.0032
+  Epoch 97 | Batch 2850 | Loss: 0.0130
+Epoch 97 | Train Loss: 0.0067 | Val Loss: 0.0065
+  -> New best val loss: 0.0065
+  Epoch 98 | Batch 0 | Loss: 0.0021
+  Epoch 98 | Batch 50 | Loss: 0.0029
+  Epoch 98 | Batch 100 | Loss: 0.0064
+  Epoch 98 | Batch 150 | Loss: 0.0053
+  Epoch 98 | Batch 200 | Loss: 0.0072
+  Epoch 98 | Batch 250 | Loss: 0.0025
+  Epoch 98 | Batch 300 | Loss: 0.0015
+  Epoch 98 | Batch 350 | Loss: 0.0048
+  Epoch 98 | Batch 400 | Loss: 0.0053
+  Epoch 98 | Batch 450 | Loss: 0.0079
+  Epoch 98 | Batch 500 | Loss: 0.0063
+  Epoch 98 | Batch 550 | Loss: 0.0076
+  Epoch 98 | Batch 600 | Loss: 0.0088
+  Epoch 98 | Batch 650 | Loss: 0.0061
+  Epoch 98 | Batch 700 | Loss: 0.0085
+  Epoch 98 | Batch 750 | Loss: 0.0027
+  Epoch 98 | Batch 800 | Loss: 0.0051
+  Epoch 98 | Batch 850 | Loss: 0.0067
+  Epoch 98 | Batch 900 | Loss: 0.0121
+  Epoch 98 | Batch 950 | Loss: 0.0034
+  Epoch 98 | Batch 1000 | Loss: 0.0021
+  Epoch 98 | Batch 1050 | Loss: 0.0079
+  Epoch 98 | Batch 1100 | Loss: 0.0113
+  Epoch 98 | Batch 1150 | Loss: 0.0089
+  Epoch 98 | Batch 1200 | Loss: 0.0029
+  Epoch 98 | Batch 1250 | Loss: 0.0050
+  Epoch 98 | Batch 1300 | Loss: 0.0099
+  Epoch 98 | Batch 1350 | Loss: 0.0025
+  Epoch 98 | Batch 1400 | Loss: 0.0042
+  Epoch 98 | Batch 1450 | Loss: 0.0116
+  Epoch 98 | Batch 1500 | Loss: 0.0114
+  Epoch 98 | Batch 1550 | Loss: 0.0060
+  Epoch 98 | Batch 1600 | Loss: 0.0082
+  Epoch 98 | Batch 1650 | Loss: 0.0083
+  Epoch 98 | Batch 1700 | Loss: 0.0062
+  Epoch 98 | Batch 1750 | Loss: 0.0015
+  Epoch 98 | Batch 1800 | Loss: 0.0051
+  Epoch 98 | Batch 1850 | Loss: 0.0025
+  Epoch 98 | Batch 1900 | Loss: 0.0038
+  Epoch 98 | Batch 1950 | Loss: 0.0060
+  Epoch 98 | Batch 2000 | Loss: 0.0062
+  Epoch 98 | Batch 2050 | Loss: 0.0070
+  Epoch 98 | Batch 2100 | Loss: 0.0076
+  Epoch 98 | Batch 2150 | Loss: 0.0096
+  Epoch 98 | Batch 2200 | Loss: 0.0076
+  Epoch 98 | Batch 2250 | Loss: 0.0058
+  Epoch 98 | Batch 2300 | Loss: 0.0049
+  Epoch 98 | Batch 2350 | Loss: 0.0009
+  Epoch 98 | Batch 2400 | Loss: 0.0043
+  Epoch 98 | Batch 2450 | Loss: 0.0086
+  Epoch 98 | Batch 2500 | Loss: 0.0085
+  Epoch 98 | Batch 2550 | Loss: 0.0058
+  Epoch 98 | Batch 2600 | Loss: 0.0117
+  Epoch 98 | Batch 2650 | Loss: 0.0100
+  Epoch 98 | Batch 2700 | Loss: 0.0017
+  Epoch 98 | Batch 2750 | Loss: 0.0183
+  Epoch 98 | Batch 2800 | Loss: 0.0075
+  Epoch 98 | Batch 2850 | Loss: 0.0033
+Epoch 98 | Train Loss: 0.0067 | Val Loss: 0.0065
+  -> New best val loss: 0.0065
+  Epoch 99 | Batch 0 | Loss: 0.0033
+  Epoch 99 | Batch 50 | Loss: 0.0082
+  Epoch 99 | Batch 100 | Loss: 0.0011
+  Epoch 99 | Batch 150 | Loss: 0.0054
+  Epoch 99 | Batch 200 | Loss: 0.0105
+  Epoch 99 | Batch 250 | Loss: 0.0053
+  Epoch 99 | Batch 300 | Loss: 0.0024
+  Epoch 99 | Batch 350 | Loss: 0.0044
+  Epoch 99 | Batch 400 | Loss: 0.0095
+  Epoch 99 | Batch 450 | Loss: 0.0104
+  Epoch 99 | Batch 500 | Loss: 0.0067
+  Epoch 99 | Batch 550 | Loss: 0.0106
+  Epoch 99 | Batch 600 | Loss: 0.0035
+  Epoch 99 | Batch 650 | Loss: 0.0124
+  Epoch 99 | Batch 700 | Loss: 0.0046
+  Epoch 99 | Batch 750 | Loss: 0.0083
+  Epoch 99 | Batch 800 | Loss: 0.0013
+  Epoch 99 | Batch 850 | Loss: 0.0086
+  Epoch 99 | Batch 900 | Loss: 0.0073
+  Epoch 99 | Batch 950 | Loss: 0.0080
+  Epoch 99 | Batch 1000 | Loss: 0.0028
+  Epoch 99 | Batch 1050 | Loss: 0.0085
+  Epoch 99 | Batch 1100 | Loss: 0.0039
+  Epoch 99 | Batch 1150 | Loss: 0.0062
+  Epoch 99 | Batch 1200 | Loss: 0.0056
+  Epoch 99 | Batch 1250 | Loss: 0.0024
+  Epoch 99 | Batch 1300 | Loss: 0.0049
+  Epoch 99 | Batch 1350 | Loss: 0.0078
+  Epoch 99 | Batch 1400 | Loss: 0.0062
+  Epoch 99 | Batch 1450 | Loss: 0.0127
+  Epoch 99 | Batch 1500 | Loss: 0.0059
+  Epoch 99 | Batch 1550 | Loss: 0.0075
+  Epoch 99 | Batch 1600 | Loss: 0.0053
+  Epoch 99 | Batch 1650 | Loss: 0.0060
+  Epoch 99 | Batch 1700 | Loss: 0.0108
+  Epoch 99 | Batch 1750 | Loss: 0.0050
+  Epoch 99 | Batch 1800 | Loss: 0.0018
+  Epoch 99 | Batch 1850 | Loss: 0.0133
+  Epoch 99 | Batch 1900 | Loss: 0.0107
+  Epoch 99 | Batch 1950 | Loss: 0.0023
+  Epoch 99 | Batch 2000 | Loss: 0.0124
+  Epoch 99 | Batch 2050 | Loss: 0.0083
+  Epoch 99 | Batch 2100 | Loss: 0.0055
+  Epoch 99 | Batch 2150 | Loss: 0.0070
+  Epoch 99 | Batch 2200 | Loss: 0.0036
+  Epoch 99 | Batch 2250 | Loss: 0.0032
+  Epoch 99 | Batch 2300 | Loss: 0.0094
+  Epoch 99 | Batch 2350 | Loss: 0.0098
+  Epoch 99 | Batch 2400 | Loss: 0.0043
+  Epoch 99 | Batch 2450 | Loss: 0.0086
+  Epoch 99 | Batch 2500 | Loss: 0.0094
+  Epoch 99 | Batch 2550 | Loss: 0.0038
+  Epoch 99 | Batch 2600 | Loss: 0.0026
+  Epoch 99 | Batch 2650 | Loss: 0.0040
+  Epoch 99 | Batch 2700 | Loss: 0.0079
+  Epoch 99 | Batch 2750 | Loss: 0.0074
+  Epoch 99 | Batch 2800 | Loss: 0.0044
+  Epoch 99 | Batch 2850 | Loss: 0.0049
+Epoch 99 | Train Loss: 0.0066 | Val Loss: 0.0067
+wandb: updating run metadata
+wandb: uploading output.log
+wandb: 
+wandb: Run history:
+wandb:            batch ▁▃▃▃▄▆▆▃▄▄▆▆▇█▅▅▆█▂▃▇▂▄▄▆▁▃██▁▁▃▆█▁▅▆▇▇▃
+wandb:            epoch ▁▁▁▂▂▂▂▂▂▂▃▃▄▄▄▄▅▅▅▅▅▆▆▆▆▆▆▇▇▇▇▇▇▇██████
+wandb:      param_count ▁
+wandb: train/batch_loss ▄▂▄█▂▃▅▃▃▂▃▂▄▄▂▄▂▂▅▃▅▅▄▆▄▃▅█▃▃▃▄▂▄▅▃▁▅▂▄
+wandb:       train/loss █▇▆▅▄▃▂▂▁
+wandb:         val/loss ▇█▆▇▆▃▂▁▄
+wandb: 
+wandb: Run summary:
+wandb:            batch 2850
+wandb:            epoch 99
+wandb:      param_count 15764992
+wandb: train/batch_loss 0.00494
+wandb:       train/loss 0.00663
+wandb:         val/loss 0.00665
+wandb: 
+wandb: 🚀 View run scarlet-blaze-11 at: https://wandb.ai/psp8502-new-york-university/dl-active-matter/runs/qnr5t3ni
+wandb: ⭐️ View project at: https://wandb.ai/psp8502-new-york-university/dl-active-matter
+wandb: Synced 5 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20260418_121806-qnr5t3ni/logs
+  -> Saved periodic checkpoint: epoch_100.pt
+Training complete. Checkpoints in: /scratch/psp8502/checkpoints/videomae_small
+=== Job finished at $(date) ===

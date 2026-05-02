@@ -1,0 +1,268 @@
+=== Job started at Sat Apr 25 10:55:12 EDT 2026 ===
+Node: b-19-44 | GPU: 0
+Config: configs/jepa_v3_tuned.yaml
+Sat Apr 25 10:55:12 2026       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 580.126.09             Driver Version: 580.126.09     CUDA Version: 13.0     |
++-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA A100-SXM4-40GB          On  |   00000000:00:04.0 Off |                    0 |
+| N/A   32C    P0             47W /  400W |       0MiB /  40960MiB |      0%      Default |
+|                                         |                        |             Disabled |
++-----------------------------------------+------------------------+----------------------+
+
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+wandb: [wandb.login()] Loaded credentials for https://api.wandb.ai from WANDB_API_KEY.
+wandb: Currently logged in as: psp8502 (psp8502-new-york-university) to https://api.wandb.ai. Use `wandb login --relogin` to force relogin
+wandb: setting up run eitzmdzx
+wandb: Tracking run with wandb version 0.25.1
+wandb: Run data is saved locally in /scratch/psp8502/dl-active-matter/wandb/run-20260425_105549-eitzmdzx
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run jepa_v3_tuned
+wandb: ⭐️ View project at https://wandb.ai/psp8502-new-york-university/dl-active-matter
+wandb: 🚀 View run at https://wandb.ai/psp8502-new-york-university/dl-active-matter/runs/eitzmdzx
+============================================================
+EXPERIMENT: jepa_v3_tuned
+Checkpoints → /scratch/psp8502/checkpoints/jepa_v3_tuned
+============================================================
+[train] 45 HDF5 files → 8750 samples (32 frames, 224×224 crop, stride=1)
+[val] 16 HDF5 files → 1200 samples (32 frames, 224×224 crop, stride=1)
+Total parameters: 15,979,776 (15.98M)
+Compiling model with torch.compile()...
+  ✓ Model compiled
+Batch size: 4 × 2 accum = 8 effective
+Early stopping: patience=20 epochs (active from epoch 20)
+Auto-resumed from epoch 96
+  Epoch 96 | Batch 0 | Total: 0.2071 | Pred: 0.0165 | Var: 0.7367 | Cov: 0.1506 | TargetStd: 0.2510 | LR: 1.82e-06 | EMA_m: 0.9990
+  Epoch 96 | Batch 50 | Total: 0.2007 | Pred: 0.0170 | Var: 0.7091 | Cov: 0.1684 | TargetStd: 0.2769 | LR: 1.82e-06 | EMA_m: 0.9990
+  Epoch 96 | Batch 100 | Total: 0.2105 | Pred: 0.0139 | Var: 0.7608 | Cov: 0.1351 | TargetStd: 0.2296 | LR: 1.82e-06 | EMA_m: 0.9990
+  Epoch 96 | Batch 150 | Total: 0.2202 | Pred: 0.0137 | Var: 0.8025 | Cov: 0.0403 | TargetStd: 0.1918 | LR: 1.82e-06 | EMA_m: 0.9990
+  Epoch 96 | Batch 200 | Total: 0.2132 | Pred: 0.0156 | Var: 0.7664 | Cov: 0.0762 | TargetStd: 0.2238 | LR: 1.82e-06 | EMA_m: 0.9990
+  Epoch 96 | Batch 250 | Total: 0.2163 | Pred: 0.0151 | Var: 0.7802 | Cov: 0.0947 | TargetStd: 0.2138 | LR: 1.82e-06 | EMA_m: 0.9990
+  Epoch 96 | Batch 300 | Total: 0.2136 | Pred: 0.0159 | Var: 0.7673 | Cov: 0.0723 | TargetStd: 0.2234 | LR: 1.82e-06 | EMA_m: 0.9990
+  Epoch 96 | Batch 350 | Total: 0.2123 | Pred: 0.0156 | Var: 0.7618 | Cov: 0.1080 | TargetStd: 0.2278 | LR: 1.82e-06 | EMA_m: 0.9990
+  Epoch 96 | Batch 400 | Total: 0.2073 | Pred: 0.0172 | Var: 0.7356 | Cov: 0.1231 | TargetStd: 0.2523 | LR: 1.82e-06 | EMA_m: 0.9990
+  Epoch 96 | Batch 450 | Total: 0.2113 | Pred: 0.0148 | Var: 0.7614 | Cov: 0.1001 | TargetStd: 0.2281 | LR: 1.82e-06 | EMA_m: 0.9990
+  Epoch 96 | Batch 500 | Total: 0.2058 | Pred: 0.0164 | Var: 0.7315 | Cov: 0.1644 | TargetStd: 0.2563 | LR: 1.82e-06 | EMA_m: 0.9990
+  Epoch 96 | Batch 550 | Total: 0.2057 | Pred: 0.0183 | Var: 0.7240 | Cov: 0.1598 | TargetStd: 0.2649 | LR: 1.82e-06 | EMA_m: 0.9990
+  Epoch 96 | Batch 600 | Total: 0.2096 | Pred: 0.0164 | Var: 0.7467 | Cov: 0.1467 | TargetStd: 0.2433 | LR: 1.82e-06 | EMA_m: 0.9990
+  Epoch 96 | Batch 650 | Total: 0.2117 | Pred: 0.0160 | Var: 0.7586 | Cov: 0.1002 | TargetStd: 0.2319 | LR: 1.82e-06 | EMA_m: 0.9990
+  Epoch 96 | Batch 700 | Total: 0.2048 | Pred: 0.0174 | Var: 0.7240 | Cov: 0.1544 | TargetStd: 0.2628 | LR: 1.82e-06 | EMA_m: 0.9990
+  Epoch 96 | Batch 750 | Total: 0.2079 | Pred: 0.0143 | Var: 0.7484 | Cov: 0.1473 | TargetStd: 0.2406 | LR: 1.82e-06 | EMA_m: 0.9990
+  Epoch 96 | Batch 800 | Total: 0.2135 | Pred: 0.0157 | Var: 0.7680 | Cov: 0.0604 | TargetStd: 0.2212 | LR: 1.82e-06 | EMA_m: 0.9990
+  Epoch 96 | Batch 850 | Total: 0.2104 | Pred: 0.0165 | Var: 0.7507 | Cov: 0.1205 | TargetStd: 0.2389 | LR: 1.82e-06 | EMA_m: 0.9990
+  Epoch 96 | Batch 900 | Total: 0.2066 | Pred: 0.0150 | Var: 0.7407 | Cov: 0.1392 | TargetStd: 0.2471 | LR: 1.82e-06 | EMA_m: 0.9990
+  Epoch 96 | Batch 950 | Total: 0.2068 | Pred: 0.0171 | Var: 0.7320 | Cov: 0.1722 | TargetStd: 0.2577 | LR: 1.82e-06 | EMA_m: 0.9990
+  Epoch 96 | Batch 1000 | Total: 0.2138 | Pred: 0.0143 | Var: 0.7732 | Cov: 0.0953 | TargetStd: 0.2174 | LR: 1.82e-06 | EMA_m: 0.9990
+  Epoch 96 | Batch 1050 | Total: 0.2069 | Pred: 0.0154 | Var: 0.7397 | Cov: 0.1620 | TargetStd: 0.2485 | LR: 1.82e-06 | EMA_m: 0.9990
+  Epoch 96 | Batch 1100 | Total: 0.2152 | Pred: 0.0139 | Var: 0.7816 | Cov: 0.0610 | TargetStd: 0.2079 | LR: 1.82e-06 | EMA_m: 0.9990
+  Epoch 96 | Batch 1150 | Total: 0.2048 | Pred: 0.0159 | Var: 0.7287 | Cov: 0.1881 | TargetStd: 0.2591 | LR: 1.82e-06 | EMA_m: 0.9990
+  Epoch 96 | Batch 1200 | Total: 0.2033 | Pred: 0.0170 | Var: 0.7193 | Cov: 0.1657 | TargetStd: 0.2675 | LR: 1.82e-06 | EMA_m: 0.9990
+  Epoch 96 | Batch 1250 | Total: 0.2056 | Pred: 0.0162 | Var: 0.7320 | Cov: 0.1539 | TargetStd: 0.2567 | LR: 1.82e-06 | EMA_m: 0.9990
+  Epoch 96 | Batch 1300 | Total: 0.1993 | Pred: 0.0159 | Var: 0.7074 | Cov: 0.1837 | TargetStd: 0.2773 | LR: 1.82e-06 | EMA_m: 0.9990
+  Epoch 96 | Batch 1350 | Total: 0.2024 | Pred: 0.0182 | Var: 0.7098 | Cov: 0.2045 | TargetStd: 0.2767 | LR: 1.82e-06 | EMA_m: 0.9990
+  Epoch 96 | Batch 1400 | Total: 0.2203 | Pred: 0.0141 | Var: 0.8018 | Cov: 0.0370 | TargetStd: 0.1913 | LR: 1.82e-06 | EMA_m: 0.9990
+  Epoch 96 | Batch 1450 | Total: 0.2015 | Pred: 0.0167 | Var: 0.7139 | Cov: 0.1634 | TargetStd: 0.2708 | LR: 1.82e-06 | EMA_m: 0.9990
+  Epoch 96 | Batch 1500 | Total: 0.2049 | Pred: 0.0173 | Var: 0.7245 | Cov: 0.1589 | TargetStd: 0.2627 | LR: 1.82e-06 | EMA_m: 0.9990
+  Epoch 96 | Batch 1550 | Total: 0.2014 | Pred: 0.0171 | Var: 0.7102 | Cov: 0.1962 | TargetStd: 0.2765 | LR: 1.82e-06 | EMA_m: 0.9990
+  Epoch 96 | Batch 1600 | Total: 0.2074 | Pred: 0.0169 | Var: 0.7378 | Cov: 0.1171 | TargetStd: 0.2502 | LR: 1.82e-06 | EMA_m: 0.9990
+  Epoch 96 | Batch 1650 | Total: 0.2119 | Pred: 0.0140 | Var: 0.7668 | Cov: 0.1061 | TargetStd: 0.2222 | LR: 1.82e-06 | EMA_m: 0.9990
+  Epoch 96 | Batch 1700 | Total: 0.2051 | Pred: 0.0165 | Var: 0.7289 | Cov: 0.1472 | TargetStd: 0.2571 | LR: 1.82e-06 | EMA_m: 0.9990
+  Epoch 96 | Batch 1750 | Total: 0.2145 | Pred: 0.0153 | Var: 0.7728 | Cov: 0.0759 | TargetStd: 0.2185 | LR: 1.82e-06 | EMA_m: 0.9990
+  Epoch 96 | Batch 1800 | Total: 0.2105 | Pred: 0.0183 | Var: 0.7452 | Cov: 0.0785 | TargetStd: 0.2430 | LR: 1.82e-06 | EMA_m: 0.9990
+  Epoch 96 | Batch 1850 | Total: 0.2042 | Pred: 0.0165 | Var: 0.7227 | Cov: 0.2188 | TargetStd: 0.2657 | LR: 1.82e-06 | EMA_m: 0.9990
+  Epoch 96 | Batch 1900 | Total: 0.2193 | Pred: 0.0137 | Var: 0.7992 | Cov: 0.0417 | TargetStd: 0.1933 | LR: 1.82e-06 | EMA_m: 0.9990
+  Epoch 96 | Batch 1950 | Total: 0.2161 | Pred: 0.0160 | Var: 0.7761 | Cov: 0.0896 | TargetStd: 0.2171 | LR: 1.82e-06 | EMA_m: 0.9990
+  Epoch 96 | Batch 2000 | Total: 0.2025 | Pred: 0.0172 | Var: 0.7158 | Cov: 0.1500 | TargetStd: 0.2701 | LR: 1.82e-06 | EMA_m: 0.9990
+  Epoch 96 | Batch 2050 | Total: 0.2066 | Pred: 0.0167 | Var: 0.7330 | Cov: 0.1753 | TargetStd: 0.2558 | LR: 1.82e-06 | EMA_m: 0.9990
+  Epoch 96 | Batch 2100 | Total: 0.2120 | Pred: 0.0159 | Var: 0.7597 | Cov: 0.1048 | TargetStd: 0.2311 | LR: 1.82e-06 | EMA_m: 0.9990
+  Epoch 96 | Batch 2150 | Total: 0.2149 | Pred: 0.0148 | Var: 0.7769 | Cov: 0.0639 | TargetStd: 0.2137 | LR: 1.82e-06 | EMA_m: 0.9990
+Epoch 96 | Train: 0.2084 (pred=0.0159, var=0.7450, cov=0.1316) | Val: 0.2515 | LR: 1.82e-06 | EMA: 0.9990
+  -> New global best val loss: 0.2515 (saved best.pt)
+  -> New post-warmup best: 0.2515 (early stopping counter reset)
+  Epoch 97 | Batch 0 | Total: 0.2069 | Pred: 0.0168 | Var: 0.7352 | Cov: 0.1387 | TargetStd: 0.2521 | LR: 1.46e-06 | EMA_m: 0.9990
+  Epoch 97 | Batch 50 | Total: 0.2018 | Pred: 0.0149 | Var: 0.7213 | Cov: 0.1762 | TargetStd: 0.2649 | LR: 1.46e-06 | EMA_m: 0.9990
+  Epoch 97 | Batch 100 | Total: 0.2098 | Pred: 0.0157 | Var: 0.7506 | Cov: 0.1404 | TargetStd: 0.2384 | LR: 1.46e-06 | EMA_m: 0.9990
+  Epoch 97 | Batch 150 | Total: 0.2041 | Pred: 0.0154 | Var: 0.7294 | Cov: 0.1419 | TargetStd: 0.2563 | LR: 1.46e-06 | EMA_m: 0.9990
+  Epoch 97 | Batch 200 | Total: 0.2145 | Pred: 0.0159 | Var: 0.7713 | Cov: 0.0570 | TargetStd: 0.2189 | LR: 1.46e-06 | EMA_m: 0.9990
+  Epoch 97 | Batch 250 | Total: 0.2040 | Pred: 0.0160 | Var: 0.7259 | Cov: 0.1658 | TargetStd: 0.2597 | LR: 1.46e-06 | EMA_m: 0.9990
+  Epoch 97 | Batch 300 | Total: 0.2072 | Pred: 0.0167 | Var: 0.7363 | Cov: 0.1422 | TargetStd: 0.2521 | LR: 1.46e-06 | EMA_m: 0.9990
+  Epoch 97 | Batch 350 | Total: 0.2103 | Pred: 0.0167 | Var: 0.7500 | Cov: 0.1087 | TargetStd: 0.2395 | LR: 1.46e-06 | EMA_m: 0.9990
+  Epoch 97 | Batch 400 | Total: 0.2022 | Pred: 0.0163 | Var: 0.7176 | Cov: 0.1724 | TargetStd: 0.2690 | LR: 1.46e-06 | EMA_m: 0.9990
+  Epoch 97 | Batch 450 | Total: 0.2144 | Pred: 0.0151 | Var: 0.7726 | Cov: 0.0943 | TargetStd: 0.2196 | LR: 1.46e-06 | EMA_m: 0.9990
+  Epoch 97 | Batch 500 | Total: 0.2024 | Pred: 0.0181 | Var: 0.7110 | Cov: 0.1732 | TargetStd: 0.2751 | LR: 1.46e-06 | EMA_m: 0.9990
+  Epoch 97 | Batch 550 | Total: 0.2040 | Pred: 0.0166 | Var: 0.7237 | Cov: 0.1622 | TargetStd: 0.2628 | LR: 1.46e-06 | EMA_m: 0.9990
+  Epoch 97 | Batch 600 | Total: 0.2054 | Pred: 0.0176 | Var: 0.7253 | Cov: 0.1567 | TargetStd: 0.2627 | LR: 1.46e-06 | EMA_m: 0.9990
+  Epoch 97 | Batch 650 | Total: 0.2029 | Pred: 0.0160 | Var: 0.7213 | Cov: 0.1698 | TargetStd: 0.2651 | LR: 1.46e-06 | EMA_m: 0.9990
+  Epoch 97 | Batch 700 | Total: 0.2152 | Pred: 0.0144 | Var: 0.7787 | Cov: 0.0830 | TargetStd: 0.2131 | LR: 1.46e-06 | EMA_m: 0.9990
+  Epoch 97 | Batch 750 | Total: 0.2044 | Pred: 0.0166 | Var: 0.7243 | Cov: 0.1935 | TargetStd: 0.2637 | LR: 1.46e-06 | EMA_m: 0.9990
+  Epoch 97 | Batch 800 | Total: 0.2115 | Pred: 0.0140 | Var: 0.7655 | Cov: 0.1029 | TargetStd: 0.2243 | LR: 1.46e-06 | EMA_m: 0.9990
+  Epoch 97 | Batch 850 | Total: 0.2020 | Pred: 0.0184 | Var: 0.7078 | Cov: 0.1953 | TargetStd: 0.2785 | LR: 1.46e-06 | EMA_m: 0.9990
+  Epoch 97 | Batch 900 | Total: 0.1986 | Pred: 0.0177 | Var: 0.6981 | Cov: 0.1705 | TargetStd: 0.2848 | LR: 1.46e-06 | EMA_m: 0.9990
+  Epoch 97 | Batch 950 | Total: 0.2019 | Pred: 0.0161 | Var: 0.7165 | Cov: 0.1903 | TargetStd: 0.2703 | LR: 1.46e-06 | EMA_m: 0.9990
+  Epoch 97 | Batch 1000 | Total: 0.2071 | Pred: 0.0163 | Var: 0.7376 | Cov: 0.1458 | TargetStd: 0.2503 | LR: 1.46e-06 | EMA_m: 0.9990
+  Epoch 97 | Batch 1050 | Total: 0.2036 | Pred: 0.0144 | Var: 0.7317 | Cov: 0.1445 | TargetStd: 0.2539 | LR: 1.46e-06 | EMA_m: 0.9990
+  Epoch 97 | Batch 1100 | Total: 0.2107 | Pred: 0.0147 | Var: 0.7574 | Cov: 0.1558 | TargetStd: 0.2332 | LR: 1.46e-06 | EMA_m: 0.9990
+  Epoch 97 | Batch 1150 | Total: 0.2068 | Pred: 0.0169 | Var: 0.7355 | Cov: 0.1022 | TargetStd: 0.2519 | LR: 1.46e-06 | EMA_m: 0.9990
+  Epoch 97 | Batch 1200 | Total: 0.2041 | Pred: 0.0151 | Var: 0.7299 | Cov: 0.1597 | TargetStd: 0.2568 | LR: 1.46e-06 | EMA_m: 0.9990
+  Epoch 97 | Batch 1250 | Total: 0.2110 | Pred: 0.0150 | Var: 0.7589 | Cov: 0.1162 | TargetStd: 0.2308 | LR: 1.46e-06 | EMA_m: 0.9990
+  Epoch 97 | Batch 1300 | Total: 0.2085 | Pred: 0.0162 | Var: 0.7440 | Cov: 0.1215 | TargetStd: 0.2441 | LR: 1.46e-06 | EMA_m: 0.9990
+  Epoch 97 | Batch 1350 | Total: 0.2100 | Pred: 0.0152 | Var: 0.7545 | Cov: 0.1118 | TargetStd: 0.2334 | LR: 1.46e-06 | EMA_m: 0.9990
+  Epoch 97 | Batch 1400 | Total: 0.2056 | Pred: 0.0155 | Var: 0.7349 | Cov: 0.1458 | TargetStd: 0.2527 | LR: 1.46e-06 | EMA_m: 0.9990
+  Epoch 97 | Batch 1450 | Total: 0.2057 | Pred: 0.0154 | Var: 0.7354 | Cov: 0.1555 | TargetStd: 0.2512 | LR: 1.46e-06 | EMA_m: 0.9990
+  Epoch 97 | Batch 1500 | Total: 0.2057 | Pred: 0.0154 | Var: 0.7353 | Cov: 0.1516 | TargetStd: 0.2525 | LR: 1.46e-06 | EMA_m: 0.9990
+  Epoch 97 | Batch 1550 | Total: 0.2130 | Pred: 0.0152 | Var: 0.7638 | Cov: 0.1676 | TargetStd: 0.2283 | LR: 1.46e-06 | EMA_m: 0.9990
+  Epoch 97 | Batch 1600 | Total: 0.2089 | Pred: 0.0154 | Var: 0.7482 | Cov: 0.1400 | TargetStd: 0.2407 | LR: 1.46e-06 | EMA_m: 0.9990
+  Epoch 97 | Batch 1650 | Total: 0.2064 | Pred: 0.0163 | Var: 0.7354 | Cov: 0.1310 | TargetStd: 0.2527 | LR: 1.46e-06 | EMA_m: 0.9990
+  Epoch 97 | Batch 1700 | Total: 0.2083 | Pred: 0.0144 | Var: 0.7500 | Cov: 0.1356 | TargetStd: 0.2388 | LR: 1.46e-06 | EMA_m: 0.9990
+  Epoch 97 | Batch 1750 | Total: 0.2114 | Pred: 0.0161 | Var: 0.7574 | Cov: 0.0811 | TargetStd: 0.2315 | LR: 1.46e-06 | EMA_m: 0.9990
+  Epoch 97 | Batch 1800 | Total: 0.2063 | Pred: 0.0166 | Var: 0.7332 | Cov: 0.1454 | TargetStd: 0.2551 | LR: 1.46e-06 | EMA_m: 0.9990
+  Epoch 97 | Batch 1850 | Total: 0.2081 | Pred: 0.0163 | Var: 0.7406 | Cov: 0.1778 | TargetStd: 0.2491 | LR: 1.46e-06 | EMA_m: 0.9990
+  Epoch 97 | Batch 1900 | Total: 0.2042 | Pred: 0.0157 | Var: 0.7273 | Cov: 0.1853 | TargetStd: 0.2601 | LR: 1.46e-06 | EMA_m: 0.9990
+  Epoch 97 | Batch 1950 | Total: 0.2073 | Pred: 0.0157 | Var: 0.7422 | Cov: 0.1133 | TargetStd: 0.2454 | LR: 1.46e-06 | EMA_m: 0.9990
+  Epoch 97 | Batch 2000 | Total: 0.2018 | Pred: 0.0186 | Var: 0.7064 | Cov: 0.1843 | TargetStd: 0.2789 | LR: 1.46e-06 | EMA_m: 0.9990
+  Epoch 97 | Batch 2050 | Total: 0.2027 | Pred: 0.0188 | Var: 0.7077 | Cov: 0.2182 | TargetStd: 0.2813 | LR: 1.46e-06 | EMA_m: 0.9990
+  Epoch 97 | Batch 2100 | Total: 0.2006 | Pred: 0.0170 | Var: 0.7092 | Cov: 0.1601 | TargetStd: 0.2753 | LR: 1.46e-06 | EMA_m: 0.9990
+  Epoch 97 | Batch 2150 | Total: 0.2033 | Pred: 0.0157 | Var: 0.7224 | Cov: 0.2196 | TargetStd: 0.2648 | LR: 1.46e-06 | EMA_m: 0.9990
+Epoch 97 | Train: 0.2085 (pred=0.0158, var=0.7454, cov=0.1309) | Val: 0.2513 | LR: 1.46e-06 | EMA: 0.9990
+  -> New global best val loss: 0.2513 (saved best.pt)
+  -> New post-warmup best: 0.2513 (early stopping counter reset)
+  Epoch 98 | Batch 0 | Total: 0.2073 | Pred: 0.0176 | Var: 0.7328 | Cov: 0.1596 | TargetStd: 0.2573 | LR: 1.21e-06 | EMA_m: 0.9990
+  Epoch 98 | Batch 50 | Total: 0.2133 | Pred: 0.0147 | Var: 0.7695 | Cov: 0.0954 | TargetStd: 0.2210 | LR: 1.21e-06 | EMA_m: 0.9990
+  Epoch 98 | Batch 100 | Total: 0.2096 | Pred: 0.0158 | Var: 0.7509 | Cov: 0.0997 | TargetStd: 0.2384 | LR: 1.21e-06 | EMA_m: 0.9990
+  Epoch 98 | Batch 150 | Total: 0.1994 | Pred: 0.0166 | Var: 0.7038 | Cov: 0.2126 | TargetStd: 0.2809 | LR: 1.21e-06 | EMA_m: 0.9990
+  Epoch 98 | Batch 200 | Total: 0.2096 | Pred: 0.0149 | Var: 0.7540 | Cov: 0.1057 | TargetStd: 0.2346 | LR: 1.21e-06 | EMA_m: 0.9990
+  Epoch 98 | Batch 250 | Total: 0.2112 | Pred: 0.0166 | Var: 0.7548 | Cov: 0.0774 | TargetStd: 0.2344 | LR: 1.21e-06 | EMA_m: 0.9990
+  Epoch 98 | Batch 300 | Total: 0.2051 | Pred: 0.0163 | Var: 0.7308 | Cov: 0.1139 | TargetStd: 0.2548 | LR: 1.21e-06 | EMA_m: 0.9990
+  Epoch 98 | Batch 350 | Total: 0.2086 | Pred: 0.0144 | Var: 0.7516 | Cov: 0.1239 | TargetStd: 0.2367 | LR: 1.21e-06 | EMA_m: 0.9990
+  Epoch 98 | Batch 400 | Total: 0.2100 | Pred: 0.0145 | Var: 0.7574 | Cov: 0.0992 | TargetStd: 0.2313 | LR: 1.21e-06 | EMA_m: 0.9990
+  Epoch 98 | Batch 450 | Total: 0.2100 | Pred: 0.0159 | Var: 0.7513 | Cov: 0.1202 | TargetStd: 0.2375 | LR: 1.21e-06 | EMA_m: 0.9990
+  Epoch 98 | Batch 500 | Total: 0.2106 | Pred: 0.0147 | Var: 0.7586 | Cov: 0.1199 | TargetStd: 0.2313 | LR: 1.21e-06 | EMA_m: 0.9990
+  Epoch 98 | Batch 550 | Total: 0.2046 | Pred: 0.0162 | Var: 0.7283 | Cov: 0.1409 | TargetStd: 0.2573 | LR: 1.21e-06 | EMA_m: 0.9990
+  Epoch 98 | Batch 600 | Total: 0.2106 | Pred: 0.0147 | Var: 0.7588 | Cov: 0.1017 | TargetStd: 0.2300 | LR: 1.21e-06 | EMA_m: 0.9990
+  Epoch 98 | Batch 650 | Total: 0.2061 | Pred: 0.0157 | Var: 0.7351 | Cov: 0.1709 | TargetStd: 0.2544 | LR: 1.21e-06 | EMA_m: 0.9990
+  Epoch 98 | Batch 700 | Total: 0.2133 | Pred: 0.0144 | Var: 0.7714 | Cov: 0.0844 | TargetStd: 0.2184 | LR: 1.21e-06 | EMA_m: 0.9990
+  Epoch 98 | Batch 750 | Total: 0.2053 | Pred: 0.0149 | Var: 0.7345 | Cov: 0.1799 | TargetStd: 0.2529 | LR: 1.21e-06 | EMA_m: 0.9990
+  Epoch 98 | Batch 800 | Total: 0.2056 | Pred: 0.0149 | Var: 0.7360 | Cov: 0.1774 | TargetStd: 0.2521 | LR: 1.21e-06 | EMA_m: 0.9990
+  Epoch 98 | Batch 850 | Total: 0.2007 | Pred: 0.0174 | Var: 0.7057 | Cov: 0.2199 | TargetStd: 0.2805 | LR: 1.21e-06 | EMA_m: 0.9990
+  Epoch 98 | Batch 900 | Total: 0.2080 | Pred: 0.0151 | Var: 0.7468 | Cov: 0.1245 | TargetStd: 0.2413 | LR: 1.21e-06 | EMA_m: 0.9990
+  Epoch 98 | Batch 950 | Total: 0.2053 | Pred: 0.0151 | Var: 0.7342 | Cov: 0.1674 | TargetStd: 0.2531 | LR: 1.21e-06 | EMA_m: 0.9990
+  Epoch 98 | Batch 1000 | Total: 0.2077 | Pred: 0.0160 | Var: 0.7417 | Cov: 0.1336 | TargetStd: 0.2470 | LR: 1.21e-06 | EMA_m: 0.9990
+  Epoch 98 | Batch 1050 | Total: 0.2084 | Pred: 0.0151 | Var: 0.7484 | Cov: 0.1199 | TargetStd: 0.2393 | LR: 1.21e-06 | EMA_m: 0.9990
+  Epoch 98 | Batch 1100 | Total: 0.2051 | Pred: 0.0157 | Var: 0.7317 | Cov: 0.1563 | TargetStd: 0.2562 | LR: 1.21e-06 | EMA_m: 0.9990
+  Epoch 98 | Batch 1150 | Total: 0.2039 | Pred: 0.0160 | Var: 0.7250 | Cov: 0.1807 | TargetStd: 0.2625 | LR: 1.21e-06 | EMA_m: 0.9990
+  Epoch 98 | Batch 1200 | Total: 0.2151 | Pred: 0.0153 | Var: 0.7762 | Cov: 0.0493 | TargetStd: 0.2139 | LR: 1.21e-06 | EMA_m: 0.9990
+  Epoch 98 | Batch 1250 | Total: 0.2127 | Pred: 0.0144 | Var: 0.7677 | Cov: 0.1134 | TargetStd: 0.2236 | LR: 1.21e-06 | EMA_m: 0.9990
+  Epoch 98 | Batch 1300 | Total: 0.2038 | Pred: 0.0149 | Var: 0.7296 | Cov: 0.1608 | TargetStd: 0.2563 | LR: 1.21e-06 | EMA_m: 0.9990
+  Epoch 98 | Batch 1350 | Total: 0.2095 | Pred: 0.0159 | Var: 0.7497 | Cov: 0.1128 | TargetStd: 0.2381 | LR: 1.21e-06 | EMA_m: 0.9990
+  Epoch 98 | Batch 1400 | Total: 0.2113 | Pred: 0.0157 | Var: 0.7581 | Cov: 0.0880 | TargetStd: 0.2320 | LR: 1.21e-06 | EMA_m: 0.9990
+  Epoch 98 | Batch 1450 | Total: 0.2103 | Pred: 0.0158 | Var: 0.7540 | Cov: 0.0959 | TargetStd: 0.2343 | LR: 1.21e-06 | EMA_m: 0.9990
+  Epoch 98 | Batch 1500 | Total: 0.2037 | Pred: 0.0173 | Var: 0.7200 | Cov: 0.1634 | TargetStd: 0.2679 | LR: 1.21e-06 | EMA_m: 0.9990
+  Epoch 98 | Batch 1550 | Total: 0.2160 | Pred: 0.0144 | Var: 0.7829 | Cov: 0.0609 | TargetStd: 0.2077 | LR: 1.21e-06 | EMA_m: 0.9990
+  Epoch 98 | Batch 1600 | Total: 0.2020 | Pred: 0.0164 | Var: 0.7169 | Cov: 0.1633 | TargetStd: 0.2685 | LR: 1.21e-06 | EMA_m: 0.9990
+  Epoch 98 | Batch 1650 | Total: 0.2075 | Pred: 0.0153 | Var: 0.7433 | Cov: 0.1383 | TargetStd: 0.2457 | LR: 1.21e-06 | EMA_m: 0.9990
+  Epoch 98 | Batch 1700 | Total: 0.2099 | Pred: 0.0186 | Var: 0.7406 | Cov: 0.1099 | TargetStd: 0.2472 | LR: 1.21e-06 | EMA_m: 0.9990
+  Epoch 98 | Batch 1750 | Total: 0.2125 | Pred: 0.0146 | Var: 0.7674 | Cov: 0.0831 | TargetStd: 0.2220 | LR: 1.21e-06 | EMA_m: 0.9990
+  Epoch 98 | Batch 1800 | Total: 0.2007 | Pred: 0.0160 | Var: 0.7129 | Cov: 0.1757 | TargetStd: 0.2727 | LR: 1.21e-06 | EMA_m: 0.9990
+  Epoch 98 | Batch 1850 | Total: 0.2059 | Pred: 0.0167 | Var: 0.7301 | Cov: 0.1733 | TargetStd: 0.2586 | LR: 1.21e-06 | EMA_m: 0.9990
+  Epoch 98 | Batch 1900 | Total: 0.2050 | Pred: 0.0176 | Var: 0.7240 | Cov: 0.1517 | TargetStd: 0.2635 | LR: 1.21e-06 | EMA_m: 0.9990
+  Epoch 98 | Batch 1950 | Total: 0.2037 | Pred: 0.0189 | Var: 0.7130 | Cov: 0.1841 | TargetStd: 0.2746 | LR: 1.21e-06 | EMA_m: 0.9990
+  Epoch 98 | Batch 2000 | Total: 0.2039 | Pred: 0.0151 | Var: 0.7289 | Cov: 0.1691 | TargetStd: 0.2580 | LR: 1.21e-06 | EMA_m: 0.9990
+  Epoch 98 | Batch 2050 | Total: 0.2002 | Pred: 0.0167 | Var: 0.7080 | Cov: 0.1757 | TargetStd: 0.2766 | LR: 1.21e-06 | EMA_m: 0.9990
+  Epoch 98 | Batch 2100 | Total: 0.2208 | Pred: 0.0140 | Var: 0.8040 | Cov: 0.0361 | TargetStd: 0.1895 | LR: 1.21e-06 | EMA_m: 0.9990
+  Epoch 98 | Batch 2150 | Total: 0.2108 | Pred: 0.0165 | Var: 0.7520 | Cov: 0.1242 | TargetStd: 0.2390 | LR: 1.21e-06 | EMA_m: 0.9990
+Epoch 98 | Train: 0.2085 (pred=0.0158, var=0.7455, cov=0.1307) | Val: 0.2513 | LR: 1.21e-06 | EMA: 0.9990
+  -> New global best val loss: 0.2513 (saved best.pt)
+  -> New post-warmup best: 0.2513 (early stopping counter reset)
+  Epoch 99 | Batch 0 | Total: 0.2092 | Pred: 0.0161 | Var: 0.7485 | Cov: 0.0984 | TargetStd: 0.2393 | LR: 1.05e-06 | EMA_m: 0.9990
+  Epoch 99 | Batch 50 | Total: 0.2063 | Pred: 0.0169 | Var: 0.7327 | Cov: 0.1355 | TargetStd: 0.2547 | LR: 1.05e-06 | EMA_m: 0.9990
+  Epoch 99 | Batch 100 | Total: 0.2027 | Pred: 0.0147 | Var: 0.7259 | Cov: 0.1586 | TargetStd: 0.2592 | LR: 1.05e-06 | EMA_m: 0.9990
+  Epoch 99 | Batch 150 | Total: 0.2117 | Pred: 0.0144 | Var: 0.7633 | Cov: 0.1405 | TargetStd: 0.2273 | LR: 1.05e-06 | EMA_m: 0.9990
+  Epoch 99 | Batch 200 | Total: 0.2055 | Pred: 0.0149 | Var: 0.7359 | Cov: 0.1666 | TargetStd: 0.2514 | LR: 1.05e-06 | EMA_m: 0.9990
+  Epoch 99 | Batch 250 | Total: 0.1985 | Pred: 0.0166 | Var: 0.7006 | Cov: 0.2017 | TargetStd: 0.2830 | LR: 1.05e-06 | EMA_m: 0.9990
+  Epoch 99 | Batch 300 | Total: 0.2026 | Pred: 0.0174 | Var: 0.7151 | Cov: 0.1565 | TargetStd: 0.2704 | LR: 1.05e-06 | EMA_m: 0.9990
+  Epoch 99 | Batch 350 | Total: 0.2076 | Pred: 0.0154 | Var: 0.7426 | Cov: 0.1519 | TargetStd: 0.2468 | LR: 1.05e-06 | EMA_m: 0.9990
+  Epoch 99 | Batch 400 | Total: 0.2142 | Pred: 0.0153 | Var: 0.7713 | Cov: 0.0836 | TargetStd: 0.2191 | LR: 1.05e-06 | EMA_m: 0.9990
+  Epoch 99 | Batch 450 | Total: 0.2092 | Pred: 0.0168 | Var: 0.7456 | Cov: 0.0947 | TargetStd: 0.2425 | LR: 1.05e-06 | EMA_m: 0.9990
+  Epoch 99 | Batch 500 | Total: 0.2003 | Pred: 0.0169 | Var: 0.7066 | Cov: 0.2035 | TargetStd: 0.2802 | LR: 1.05e-06 | EMA_m: 0.9990
+  Epoch 99 | Batch 550 | Total: 0.2200 | Pred: 0.0149 | Var: 0.7973 | Cov: 0.0346 | TargetStd: 0.1960 | LR: 1.05e-06 | EMA_m: 0.9990
+  Epoch 99 | Batch 600 | Total: 0.2071 | Pred: 0.0149 | Var: 0.7436 | Cov: 0.1329 | TargetStd: 0.2442 | LR: 1.05e-06 | EMA_m: 0.9990
+  Epoch 99 | Batch 650 | Total: 0.2107 | Pred: 0.0150 | Var: 0.7581 | Cov: 0.1109 | TargetStd: 0.2314 | LR: 1.05e-06 | EMA_m: 0.9990
+  Epoch 99 | Batch 700 | Total: 0.2043 | Pred: 0.0158 | Var: 0.7277 | Cov: 0.1710 | TargetStd: 0.2589 | LR: 1.05e-06 | EMA_m: 0.9990
+  Epoch 99 | Batch 750 | Total: 0.2021 | Pred: 0.0150 | Var: 0.7213 | Cov: 0.1984 | TargetStd: 0.2651 | LR: 1.05e-06 | EMA_m: 0.9990
+  Epoch 99 | Batch 800 | Total: 0.2010 | Pred: 0.0164 | Var: 0.7117 | Cov: 0.1890 | TargetStd: 0.2733 | LR: 1.05e-06 | EMA_m: 0.9990
+  Epoch 99 | Batch 850 | Total: 0.2090 | Pred: 0.0171 | Var: 0.7438 | Cov: 0.0924 | TargetStd: 0.2445 | LR: 1.05e-06 | EMA_m: 0.9990
+  Epoch 99 | Batch 900 | Total: 0.2083 | Pred: 0.0169 | Var: 0.7411 | Cov: 0.1188 | TargetStd: 0.2456 | LR: 1.05e-06 | EMA_m: 0.9990
+  Epoch 99 | Batch 950 | Total: 0.2016 | Pred: 0.0154 | Var: 0.7188 | Cov: 0.1717 | TargetStd: 0.2661 | LR: 1.05e-06 | EMA_m: 0.9990
+  Epoch 99 | Batch 1000 | Total: 0.2082 | Pred: 0.0143 | Var: 0.7495 | Cov: 0.1504 | TargetStd: 0.2395 | LR: 1.05e-06 | EMA_m: 0.9990
+  Epoch 99 | Batch 1050 | Total: 0.2104 | Pred: 0.0150 | Var: 0.7557 | Cov: 0.1391 | TargetStd: 0.2342 | LR: 1.05e-06 | EMA_m: 0.9990
+  Epoch 99 | Batch 1100 | Total: 0.2042 | Pred: 0.0171 | Var: 0.7211 | Cov: 0.1958 | TargetStd: 0.2677 | LR: 1.05e-06 | EMA_m: 0.9990
+  Epoch 99 | Batch 1150 | Total: 0.2035 | Pred: 0.0156 | Var: 0.7250 | Cov: 0.1762 | TargetStd: 0.2624 | LR: 1.05e-06 | EMA_m: 0.9990
+  Epoch 99 | Batch 1200 | Total: 0.2108 | Pred: 0.0162 | Var: 0.7532 | Cov: 0.1284 | TargetStd: 0.2373 | LR: 1.05e-06 | EMA_m: 0.9990
+  Epoch 99 | Batch 1250 | Total: 0.2086 | Pred: 0.0143 | Var: 0.7501 | Cov: 0.1713 | TargetStd: 0.2384 | LR: 1.05e-06 | EMA_m: 0.9990
+  Epoch 99 | Batch 1300 | Total: 0.2067 | Pred: 0.0171 | Var: 0.7332 | Cov: 0.1372 | TargetStd: 0.2548 | LR: 1.05e-06 | EMA_m: 0.9990
+  Epoch 99 | Batch 1350 | Total: 0.2102 | Pred: 0.0150 | Var: 0.7548 | Cov: 0.1386 | TargetStd: 0.2351 | LR: 1.05e-06 | EMA_m: 0.9990
+  Epoch 99 | Batch 1400 | Total: 0.2130 | Pred: 0.0150 | Var: 0.7670 | Cov: 0.1133 | TargetStd: 0.2241 | LR: 1.05e-06 | EMA_m: 0.9990
+  Epoch 99 | Batch 1450 | Total: 0.2112 | Pred: 0.0158 | Var: 0.7574 | Cov: 0.0960 | TargetStd: 0.2321 | LR: 1.05e-06 | EMA_m: 0.9990
+  Epoch 99 | Batch 1500 | Total: 0.2076 | Pred: 0.0167 | Var: 0.7395 | Cov: 0.1046 | TargetStd: 0.2483 | LR: 1.05e-06 | EMA_m: 0.9990
+  Epoch 99 | Batch 1550 | Total: 0.2114 | Pred: 0.0165 | Var: 0.7532 | Cov: 0.1596 | TargetStd: 0.2389 | LR: 1.05e-06 | EMA_m: 0.9990
+  Epoch 99 | Batch 1600 | Total: 0.2183 | Pred: 0.0147 | Var: 0.7908 | Cov: 0.0537 | TargetStd: 0.2028 | LR: 1.05e-06 | EMA_m: 0.9990
+  Epoch 99 | Batch 1650 | Total: 0.2033 | Pred: 0.0158 | Var: 0.7242 | Cov: 0.1634 | TargetStd: 0.2618 | LR: 1.05e-06 | EMA_m: 0.9990
+  Epoch 99 | Batch 1700 | Total: 0.2084 | Pred: 0.0163 | Var: 0.7428 | Cov: 0.1454 | TargetStd: 0.2470 | LR: 1.05e-06 | EMA_m: 0.9990
+  Epoch 99 | Batch 1750 | Total: 0.2070 | Pred: 0.0166 | Var: 0.7347 | Cov: 0.1833 | TargetStd: 0.2553 | LR: 1.05e-06 | EMA_m: 0.9990
+  Epoch 99 | Batch 1800 | Total: 0.2090 | Pred: 0.0146 | Var: 0.7532 | Cov: 0.0962 | TargetStd: 0.2346 | LR: 1.05e-06 | EMA_m: 0.9990
+  Epoch 99 | Batch 1850 | Total: 0.2104 | Pred: 0.0158 | Var: 0.7533 | Cov: 0.1237 | TargetStd: 0.2362 | LR: 1.05e-06 | EMA_m: 0.9990
+  Epoch 99 | Batch 1900 | Total: 0.2071 | Pred: 0.0153 | Var: 0.7421 | Cov: 0.1276 | TargetStd: 0.2454 | LR: 1.05e-06 | EMA_m: 0.9990
+  Epoch 99 | Batch 1950 | Total: 0.2029 | Pred: 0.0159 | Var: 0.7203 | Cov: 0.2118 | TargetStd: 0.2672 | LR: 1.05e-06 | EMA_m: 0.9990
+  Epoch 99 | Batch 2000 | Total: 0.2049 | Pred: 0.0158 | Var: 0.7299 | Cov: 0.1766 | TargetStd: 0.2577 | LR: 1.05e-06 | EMA_m: 0.9990
+  Epoch 99 | Batch 2050 | Total: 0.2075 | Pred: 0.0170 | Var: 0.7363 | Cov: 0.1466 | TargetStd: 0.2526 | LR: 1.05e-06 | EMA_m: 0.9990
+  Epoch 99 | Batch 2100 | Total: 0.2132 | Pred: 0.0140 | Var: 0.7726 | Cov: 0.0874 | TargetStd: 0.2166 | LR: 1.05e-06 | EMA_m: 0.9990
+  Epoch 99 | Batch 2150 | Total: 0.2049 | Pred: 0.0142 | Var: 0.7362 | Cov: 0.1652 | TargetStd: 0.2509 | LR: 1.05e-06 | EMA_m: 0.9990
+Epoch 99 | Train: 0.2085 (pred=0.0158, var=0.7457, cov=0.1306) | Val: 0.2512 | LR: 1.05e-06 | EMA: 0.9990
+wandb: updating run metadata
+wandb: uploading output.log; uploading wandb-summary.json; uploading config.yaml
+wandb: 
+wandb: Run history:
+wandb:                  batch ▁▁▁▂▂▄▄▆▆▆▁▁▂▂▃▆▇███▂▂▂▄▄▅▅▅▇▁▂▃▃▄▄▅▆▆▆█
+wandb:                  epoch ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▃▃▃▃▃▃▃▆▆▆▆▆█████████████
+wandb:            param_count ▁
+wandb:   train/batch_cov_loss ▅▆▁▃▃▃▆▃▆▆▄▃▅▅▅▆▆▃▅▄▄▄▅▇▃▄▆█▃▆▅▃▃▇▁▆▇▅▆▅
+wandb:  train/batch_pred_loss ▁▃▅▆▂▅█▁▃▄▇▂█▇▄▅▄▄▆▄▅▅▅▅▃▄▃▃▃▂█▄▃▅▆▃▂▃▄▅
+wandb: train/batch_total_loss █▃▃▃▁▃▄▂▃▂▅▂▂▃▃▃▅▄▃▁▄▄▅▃▂▁▂▁█▅█▄▄▅▄▂▄▄▄▃
+wandb:   train/batch_var_loss ▆▇▅▅▆▃█▂▃▄▄▃▆▃▄▂▃▃▂▁▄▃▄▄▅▃▄▃▄▄▅▃▄▁▆▂▅▆▅▃
+wandb:         train/cov_loss █▄▂▁
+wandb:     train/ema_momentum ▁▁▁▁▁▁▁▁▁▁▄▄▄▄▄▄▄▄▄▄▄▇▇▇▇▇▇▇▇▇▇▇████████
+wandb:             train/loss ▁▇▆█
+wandb:                     +5 ...
+wandb: 
+wandb: Run summary:
+wandb:                  batch 2150
+wandb:                  epoch 99
+wandb:            param_count 15979776
+wandb:   train/batch_cov_loss 0.16521
+wandb:  train/batch_pred_loss 0.01423
+wandb: train/batch_total_loss 0.20487
+wandb:   train/batch_var_loss 0.73622
+wandb:         train/cov_loss 0.13055
+wandb:     train/ema_momentum 0.999
+wandb:             train/loss 0.20853
+wandb:                     +5 ...
+wandb: 
+wandb: 🚀 View run jepa_v3_tuned at: https://wandb.ai/psp8502-new-york-university/dl-active-matter/runs/eitzmdzx
+wandb: ⭐️ View project at: https://wandb.ai/psp8502-new-york-university/dl-active-matter
+wandb: Synced 5 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20260425_105549-eitzmdzx/logs
+  -> New global best val loss: 0.2512 (saved best.pt)
+  -> New post-warmup best: 0.2512 (early stopping counter reset)
+  -> Saved periodic checkpoint: epoch_100.pt
+Training complete. Checkpoints in: /scratch/psp8502/checkpoints/jepa_v3_tuned
+=== Job finished at $(date) ===

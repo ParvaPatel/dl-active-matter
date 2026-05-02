@@ -1,0 +1,78 @@
+=== Eval started at Tue Apr 21 17:22:31 EDT 2026 ===
+Checkpoint: /scratch/psp8502/checkpoints/jepa_v2/best.pt | Split: test
+Tue Apr 21 17:22:31 2026       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 580.126.09             Driver Version: 580.126.09     CUDA Version: 13.0     |
++-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA A100-SXM4-40GB          On  |   00000000:00:04.0 Off |                    0 |
+| N/A   32C    P0             43W /  400W |       0MiB /  40960MiB |      0%      Default |
+|                                         |                        |             Disabled |
++-----------------------------------------+------------------------+----------------------+
+
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+Encoder parameters: 13,412,736
+[train] 45 HDF5 files → 8750 samples (32 frames, 224×224 crop, stride=1)
+[test] 21 HDF5 files → 1300 samples (32 frames, 224×224 crop, stride=1)
+Extracting train features...
+    Processed batch 0/547
+    Processed batch 50/547
+    Processed batch 100/547
+    Processed batch 150/547
+    Processed batch 200/547
+    Processed batch 250/547
+    Processed batch 300/547
+    Processed batch 350/547
+    Processed batch 400/547
+    Processed batch 450/547
+    Processed batch 500/547
+Extracting eval features...
+    Processed batch 0/82
+    Processed batch 50/82
+
+Feature stats (raw):
+  Train — mean: -0.0000, std: 0.1101, min: -2.4510, max: 2.8864
+  Eval  — mean: -0.0000, std: 0.1278, min: -2.2399, max: 2.6104
+
+=== Linear Probe ===
+  Probe epoch 0 | Train MSE: 1.2352 | Val MSE: 0.8964
+  Probe epoch 10 | Train MSE: 0.5452 | Val MSE: 0.5173
+  Probe epoch 20 | Train MSE: 0.3646 | Val MSE: 0.4102
+  Probe epoch 30 | Train MSE: 0.2831 | Val MSE: 0.3399
+  Probe epoch 40 | Train MSE: 0.2498 | Val MSE: 0.2897
+  Probe epoch 50 | Train MSE: 0.2249 | Val MSE: 0.2543
+  Probe epoch 60 | Train MSE: 0.2102 | Val MSE: 0.2362
+  Probe epoch 70 | Train MSE: 0.1997 | Val MSE: 0.2240
+  Probe epoch 80 | Train MSE: 0.1924 | Val MSE: 0.2146
+  Probe epoch 90 | Train MSE: 0.1870 | Val MSE: 0.2081
+  Probe epoch 100 | Train MSE: 0.1829 | Val MSE: 0.2029
+  Probe epoch 110 | Train MSE: 0.1797 | Val MSE: 0.1991
+  Probe epoch 120 | Train MSE: 0.1772 | Val MSE: 0.1961
+  Probe epoch 130 | Train MSE: 0.1753 | Val MSE: 0.1938
+  Probe epoch 140 | Train MSE: 0.1739 | Val MSE: 0.1920
+  Probe epoch 150 | Train MSE: 0.1728 | Val MSE: 0.1906
+  Probe epoch 160 | Train MSE: 0.1721 | Val MSE: 0.1897
+  Probe epoch 170 | Train MSE: 0.1717 | Val MSE: 0.1892
+  Probe epoch 180 | Train MSE: 0.1714 | Val MSE: 0.1889
+  Probe epoch 190 | Train MSE: 0.1713 | Val MSE: 0.1888
+Linear Probe — Total MSE: 0.1887 | α MSE: 0.0440 | ζ MSE: 0.3335
+
+=== kNN (k=10) ===
+kNN — Total MSE: 0.2507 | α MSE: 0.0685 | ζ MSE: 0.4329
+
+==================================================
+RESULTS SUMMARY
+==================================================
+Method          Total MSE    α MSE        ζ MSE       
+Linear Probe    0.1887       0.0440       0.3335      
+kNN (k=10)      0.2507       0.0685       0.4329      
+=== Eval finished at $(date) ===

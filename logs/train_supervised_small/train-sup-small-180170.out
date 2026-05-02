@@ -1,0 +1,160 @@
+=== Job started at Fri May  1 22:15:28 EDT 2026 ===
+Node: b-19-22 | GPU: 0
+Config: configs/supervised_small.yaml
+Fri May  1 22:15:28 2026       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 580.159.03             Driver Version: 580.159.03     CUDA Version: 13.0     |
++-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA A100-SXM4-40GB          On  |   00000000:00:04.0 Off |                    0 |
+| N/A   31C    P0             44W /  400W |       0MiB /  40960MiB |      0%      Default |
+|                                         |                        |             Disabled |
++-----------------------------------------+------------------------+----------------------+
+
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+wandb: [wandb.login()] Loaded credentials for https://api.wandb.ai from WANDB_API_KEY.
+wandb: Currently logged in as: psp8502 (psp8502-new-york-university) to https://api.wandb.ai. Use `wandb login --relogin` to force relogin
+wandb: setting up run 5s5xh2bb
+wandb: Tracking run with wandb version 0.25.1
+wandb: Run data is saved locally in /scratch/psp8502/dl-active-matter/wandb/run-20260501_221616-5s5xh2bb
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run supervised_small
+wandb: ⭐️ View project at https://wandb.ai/psp8502-new-york-university/dl-active-matter
+wandb: 🚀 View run at https://wandb.ai/psp8502-new-york-university/dl-active-matter/runs/5s5xh2bb
+============================================================
+EXPERIMENT: supervised_small (supervised baseline)
+Checkpoints → /scratch/psp8502/checkpoints/supervised_small
+============================================================
+[train] 45 HDF5 files → 11550 samples (16 frames, 224×224 crop, stride=1)
+[val] 16 HDF5 files → 1584 samples (16 frames, 224×224 crop, stride=1)
+Total parameters: 13,413,506 (13.41M)
+torch.compile() enabled
+Auto-resumed from epoch 77
+  Epoch 77 | Batch 0/360 | Loss: 0.0054
+  Epoch 77 | Batch 50/360 | Loss: 0.0116
+  Epoch 77 | Batch 100/360 | Loss: 0.0097
+  Epoch 77 | Batch 150/360 | Loss: 0.0129
+  Epoch 77 | Batch 200/360 | Loss: 0.0077
+  Epoch 77 | Batch 250/360 | Loss: 0.0064
+  Epoch 77 | Batch 300/360 | Loss: 0.0083
+  Epoch 77 | Batch 350/360 | Loss: 0.0083
+Epoch 77 | Train: 0.0104 | Val: 0.4771 (α=0.0045, ζ=0.9379) | LR: 2.35e-04
+  -> New best val loss: 0.4771
+  Epoch 78 | Batch 0/360 | Loss: 0.0055
+  Epoch 78 | Batch 50/360 | Loss: 0.0139
+  Epoch 78 | Batch 100/360 | Loss: 0.0066
+  Epoch 78 | Batch 150/360 | Loss: 0.0166
+  Epoch 78 | Batch 200/360 | Loss: 0.0036
+  Epoch 78 | Batch 250/360 | Loss: 0.0131
+  Epoch 78 | Batch 300/360 | Loss: 0.0053
+  Epoch 78 | Batch 350/360 | Loss: 0.0099
+Epoch 78 | Train: 0.0100 | Val: 0.5234 (α=0.0046, ζ=1.0100) | LR: 2.35e-04
+  Epoch 79 | Batch 0/360 | Loss: 0.0062
+  Epoch 79 | Batch 50/360 | Loss: 0.0062
+  Epoch 79 | Batch 100/360 | Loss: 0.0049
+  Epoch 79 | Batch 150/360 | Loss: 0.0043
+  Epoch 79 | Batch 200/360 | Loss: 0.0050
+  Epoch 79 | Batch 250/360 | Loss: 0.0076
+  Epoch 79 | Batch 300/360 | Loss: 0.0062
+  Epoch 79 | Batch 350/360 | Loss: 0.0223
+Epoch 79 | Train: 0.0096 | Val: 0.5031 (α=0.0071, ζ=0.9856) | LR: 2.34e-04
+  -> Saved checkpoint: epoch_80.pt
+  Epoch 80 | Batch 0/360 | Loss: 0.0056
+  Epoch 80 | Batch 50/360 | Loss: 0.0031
+  Epoch 80 | Batch 100/360 | Loss: 0.0072
+  Epoch 80 | Batch 150/360 | Loss: 0.0074
+  Epoch 80 | Batch 200/360 | Loss: 0.0055
+  Epoch 80 | Batch 250/360 | Loss: 0.0090
+  Epoch 80 | Batch 300/360 | Loss: 0.0130
+  Epoch 80 | Batch 350/360 | Loss: 0.0045
+Epoch 80 | Train: 0.0114 | Val: 0.4483 (α=0.0050, ζ=0.8926) | LR: 2.34e-04
+  -> New best val loss: 0.4483
+  Epoch 81 | Batch 0/360 | Loss: 0.0136
+  Epoch 81 | Batch 50/360 | Loss: 0.0084
+  Epoch 81 | Batch 100/360 | Loss: 0.0054
+  Epoch 81 | Batch 150/360 | Loss: 0.0082
+  Epoch 81 | Batch 200/360 | Loss: 0.0129
+  Epoch 81 | Batch 250/360 | Loss: 0.0140
+  Epoch 81 | Batch 300/360 | Loss: 0.0204
+  Epoch 81 | Batch 350/360 | Loss: 0.0074
+Epoch 81 | Train: 0.0122 | Val: 0.4552 (α=0.0037, ζ=0.9050) | LR: 2.34e-04
+  Epoch 82 | Batch 0/360 | Loss: 0.0084
+  Epoch 82 | Batch 50/360 | Loss: 0.0149
+  Epoch 82 | Batch 100/360 | Loss: 0.0251
+  Epoch 82 | Batch 150/360 | Loss: 0.0114
+  Epoch 82 | Batch 200/360 | Loss: 0.0055
+  Epoch 82 | Batch 250/360 | Loss: 0.0081
+  Epoch 82 | Batch 300/360 | Loss: 0.0147
+  Epoch 82 | Batch 350/360 | Loss: 0.0027
+Epoch 82 | Train: 0.0107 | Val: 0.5603 (α=0.0043, ζ=1.0780) | LR: 2.33e-04
+  Epoch 83 | Batch 0/360 | Loss: 0.0045
+  Epoch 83 | Batch 50/360 | Loss: 0.0134
+  Epoch 83 | Batch 100/360 | Loss: 0.0089
+  Epoch 83 | Batch 150/360 | Loss: 0.0087
+  Epoch 83 | Batch 200/360 | Loss: 0.0064
+  Epoch 83 | Batch 250/360 | Loss: 0.0046
+  Epoch 83 | Batch 300/360 | Loss: 0.0081
+  Epoch 83 | Batch 350/360 | Loss: 0.0054
+Epoch 83 | Train: 0.0103 | Val: 0.4796 (α=0.0090, ζ=0.9382) | LR: 2.32e-04
+  Epoch 84 | Batch 0/360 | Loss: 0.0053
+  Epoch 84 | Batch 50/360 | Loss: 0.0081
+  Epoch 84 | Batch 100/360 | Loss: 0.0057
+  Epoch 84 | Batch 150/360 | Loss: 0.0064
+  Epoch 84 | Batch 200/360 | Loss: 0.0059
+  Epoch 84 | Batch 250/360 | Loss: 0.0146
+  Epoch 84 | Batch 300/360 | Loss: 0.0052
+  Epoch 84 | Batch 350/360 | Loss: 0.0087
+Epoch 84 | Train: 0.0074 | Val: 0.6088 (α=0.0056, ζ=1.2018) | LR: 2.31e-04
+  -> Saved checkpoint: epoch_85.pt
+  Epoch 85 | Batch 0/360 | Loss: 0.0069
+  Epoch 85 | Batch 50/360 | Loss: 0.0037
+  Epoch 85 | Batch 100/360 | Loss: 0.0076
+  Epoch 85 | Batch 150/360 | Loss: 0.0034
+  Epoch 85 | Batch 200/360 | Loss: 0.0039
+  Epoch 85 | Batch 250/360 | Loss: 0.0277
+  Epoch 85 | Batch 300/360 | Loss: 0.0077
+  Epoch 85 | Batch 350/360 | Loss: 0.0083
+Epoch 85 | Train: 0.0092 | Val: 0.5070 (α=0.0047, ζ=0.9875) | LR: 2.30e-04
+  Epoch 86 | Batch 0/360 | Loss: 0.0128
+  Epoch 86 | Batch 50/360 | Loss: 0.0067
+  Epoch 86 | Batch 100/360 | Loss: 0.0074
+  Epoch 86 | Batch 150/360 | Loss: 0.0068
+  Epoch 86 | Batch 200/360 | Loss: 0.0052
+  Epoch 86 | Batch 250/360 | Loss: 0.0056
+  Epoch 86 | Batch 300/360 | Loss: 0.0081
+  Epoch 86 | Batch 350/360 | Loss: 0.0125
+Epoch 86 | Train: 0.0118 | Val: 0.5167 (α=0.0044, ζ=1.0108) | LR: 2.29e-04
+  Epoch 87 | Batch 0/360 | Loss: 0.0038
+  Epoch 87 | Batch 50/360 | Loss: 0.0041
+  Epoch 87 | Batch 100/360 | Loss: 0.0053
+  Epoch 87 | Batch 150/360 | Loss: 0.0076
+  Epoch 87 | Batch 200/360 | Loss: 0.0069
+  Epoch 87 | Batch 250/360 | Loss: 0.0077
+  Epoch 87 | Batch 300/360 | Loss: 0.0024
+  Epoch 87 | Batch 350/360 | Loss: 0.0048
+Epoch 87 | Train: 0.0086 | Val: 0.4371 (α=0.0041, ζ=0.8699) | LR: 2.28e-04
+  -> New best val loss: 0.4371
+  Epoch 88 | Batch 0/360 | Loss: 0.0151
+  Epoch 88 | Batch 50/360 | Loss: 0.0036
+  Epoch 88 | Batch 100/360 | Loss: 0.0095
+  Epoch 88 | Batch 150/360 | Loss: 0.0129
+  Epoch 88 | Batch 200/360 | Loss: 0.0072
+  Epoch 88 | Batch 250/360 | Loss: 0.0056
+  Epoch 88 | Batch 300/360 | Loss: 0.0063
+  Epoch 88 | Batch 350/360 | Loss: 0.0033
+Epoch 88 | Train: 0.0074 | Val: 0.4672 (α=0.0058, ζ=0.9235) | LR: 2.27e-04
+  Epoch 89 | Batch 0/360 | Loss: 0.0070
+  Epoch 89 | Batch 50/360 | Loss: 0.0045
+  Epoch 89 | Batch 100/360 | Loss: 0.0042
+  Epoch 89 | Batch 150/360 | Loss: 0.0047
+  Epoch 89 | Batch 200/360 | Loss: 0.0051
+slurmstepd: error: *** JOB 180170 ON b-19-22 CANCELLED AT 2026-05-02T02:31:02 ***
