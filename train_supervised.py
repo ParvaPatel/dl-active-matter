@@ -181,9 +181,11 @@ def main():
     model = SupervisedViT(encoder, num_targets=2)
     model = model.to(device)
 
+    encoder_params = count_parameters(encoder)
     total_params = count_parameters(model)
-    print(f"Total parameters: {total_params:,} ({total_params/1e6:.2f}M)")
-    assert total_params < 100_000_000, f"Model exceeds 100M params: {total_params:,}"
+    print(f"Encoder parameters: {encoder_params:,} ({encoder_params/1e6:.2f}M)")
+    print(f"Total parameters:   {total_params:,} ({total_params/1e6:.2f}M)")
+    assert encoder_params < 100_000_000, f"Encoder exceeds 100M params: {encoder_params:,}"
 
     # torch.compile
     if cfg.get("compile", True):

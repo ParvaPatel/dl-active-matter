@@ -126,6 +126,10 @@ def main():
     args = parse_args()
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
+    # Reproducibility
+    from utils.training import set_seed
+    set_seed(42)
+
     # Load checkpoint
     ckpt = torch.load(args.checkpoint, map_location="cpu", weights_only=False)
     cfg = ckpt["config"]

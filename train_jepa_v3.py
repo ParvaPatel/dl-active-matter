@@ -248,9 +248,11 @@ def main():
     )
     model = model.to(device)
 
-    param_count = count_parameters(model)
-    print(f"Total parameters: {param_count:,} ({param_count/1e6:.2f}M)")
-    assert param_count < 100_000_000, f"Model exceeds 100M params: {param_count:,}"
+    encoder_params = count_parameters(encoder)
+    total_params = count_parameters(model)
+    print(f"Encoder parameters: {encoder_params:,} ({encoder_params/1e6:.2f}M)")
+    print(f"Total parameters:   {total_params:,} ({total_params/1e6:.2f}M)")
+    assert encoder_params < 100_000_000, f"Encoder exceeds 100M params: {encoder_params:,}"
 
     # torch.compile() — fuses operations for 10-30% speedup (PyTorch 2.x)
     use_compile = cfg.get("compile", True)

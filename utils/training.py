@@ -19,6 +19,7 @@ def set_seed(seed=42):
     torch.cuda.manual_seed_all(seed)
     torch.backends.cudnn.deterministic = False
     torch.backends.cudnn.benchmark = True
+    print(f"Random seed set to {seed} (cudnn.benchmark=True)", flush=True)
 
 
 def log_gpu_memory(tag=""):
