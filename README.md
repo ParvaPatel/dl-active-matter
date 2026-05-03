@@ -31,6 +31,7 @@ checkpoints/
 ├── videomae_base/best_eval.pt      # VideoMAE ViT-B (scaling study)
 ├── jepa_small/best_eval.pt         # JEPA v1 ViT-S
 ├── jepa_base/best_eval.pt          # JEPA v1 ViT-B (scaling study)
+├── jepa_v2/best_eval.pt            # JEPA v2 (L2-norm ablation, negative result)
 ├── jepa_v3_tuned/best_eval.pt      # JEPA v3 (λ_v=0.26, HPO-tuned)
 ├── jepa_v3_strongvar/best_eval.pt  # JEPA v3 (λ_v=0.80, strong VICReg)
 └── supervised_small/best_eval.pt   # End-to-end supervised baseline

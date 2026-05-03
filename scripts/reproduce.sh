@@ -9,7 +9,7 @@
 #
 # Available models:
 #   videomae_small, videomae_base, jepa_small, jepa_base,
-#   jepa_v3_tuned, jepa_v3_strongvar, supervised_small
+#   jepa_v2, jepa_v3_tuned, jepa_v3_strongvar, supervised_small
 
 MODEL=${1:?Usage: bash scripts/reproduce.sh <model_name>}
 CKPT_DIR=/scratch/$USER/checkpoints/$MODEL

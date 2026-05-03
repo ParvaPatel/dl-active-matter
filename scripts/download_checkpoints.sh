@@ -35,7 +35,7 @@ print('Download complete!')
 
 echo ""
 echo "=== Verifying checkpoints ==="
-for model in videomae_small videomae_base jepa_small jepa_base jepa_v3_tuned jepa_v3_strongvar supervised_small; do
+for model in videomae_small videomae_base jepa_small jepa_base jepa_v2 jepa_v3_tuned jepa_v3_strongvar supervised_small; do
   if [ -f "$CKPT_DIR/$model/best_eval.pt" ]; then
     echo "  [OK] $model"
   else
