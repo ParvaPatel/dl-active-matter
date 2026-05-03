@@ -7,7 +7,6 @@
 # 2. Writes test_results.txt
 # 3. Generates publication figures in report/
 
-set -e
 cd "$(dirname "$0")/.."
 
 RESULTS_FILE="test_results.txt"
@@ -33,14 +32,14 @@ EVAL_DIRS=(
     ["supervised_small"]="logs/supervised_small_eval"
 )
 
-for name in videomae_small videomae_base jepa_small jepa_small_target jepa_base jepa_base_target jepa_v2 jepa_v2_target \
+for name in videomae_small videomae_base jepa_small jepa_base jepa_v2 \
             jepa_v3_tuned jepa_v3_tuned_target \
             jepa_v3_strongvar jepa_v3_strongvar_target \
             supervised_small; do
     dir="${EVAL_DIRS[$name]}"
     if [ -d "$dir" ]; then
         echo "  Parsing $name ($dir/)..."
-        python scripts/parse_logs.py --experiment "$name" --log_dir "$dir/" >> "$RESULTS_FILE" 2>&1
+        python scripts/parse_logs.py --experiment "$name" --log_dir "$dir/" >> "$RESULTS_FILE" 2>&1 || echo "  WARNING: parse failed for $name"
         echo "" >> "$RESULTS_FILE"
     else
         echo "  SKIP: $dir not found"
