@@ -19,6 +19,9 @@ singularity exec --nv \
     source /ext3/miniconda3/etc/profile.d/conda.sh
     conda activate dl-active-matter
 
+    # Install viz dependencies if missing (overlay is read-only, use --user)
+    pip install --user --quiet matplotlib scikit-learn 2>/dev/null || true
+
     export PYTHONUNBUFFERED=1
     cd /scratch/\$USER/dl-active-matter
 
