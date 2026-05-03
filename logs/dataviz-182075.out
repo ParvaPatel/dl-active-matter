@@ -1,0 +1,8 @@
+=== Dataset visualization started at Sun May  3 01:14:46 EDT 2026 ===
+[train] 45 HDF5 files → 11550 samples (16 frames, 224×224 crop, stride=1)
+Dataset: 11550 samples
+Saved: report/fig_dataset.png
+Saved: report/fig_dataset_channels.png
+=== Done at $(date) ===
+-rw-r--r--. 1 psp8502 psp8502 1711540 May  3 01:15 report/fig_dataset.png
+-rw-r--r--. 1 psp8502 psp8502 1849490 May  3 01:15 report/fig_dataset_channels.png
