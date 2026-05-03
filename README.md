@@ -14,13 +14,13 @@ Test-set performance (z-score normalized MSE, lower is better):
 
 | Model | Encoder | LP MSE | LP α | LP ζ | kNN MSE | kNN α | kNN ζ |
 |-------|---------|--------|------|------|---------|-------|-------|
-| Supervised (upper bound) | ViT-S | **0.017** | **0.009** | **0.025** | **0.015** | **0.005** | **0.025** |
-| **VideoMAE** | ViT-S | **0.036** | 0.021 | 0.052 | **0.050** | 0.021 | 0.078 |
-| JEPA v1 | ViT-S | 0.060 | 0.023 | 0.098 | 0.089 | 0.038 | 0.140 |
-| JEPA v3 (λ_v=0.26, tuned) | ViT-S | 0.076 | 0.035 | 0.117 | 0.189 | 0.196 | 0.182 |
-| JEPA v3 (λ_v=0.80, strong) | ViT-S | 0.079 | 0.043 | 0.115 | 0.075 | 0.006 | 0.144 |
-| VideoMAE | ViT-B | 0.081 | 0.036 | 0.125 | 0.149 | 0.078 | 0.220 |
-| JEPA v1 | ViT-B | 0.084 | 0.052 | 0.116 | 0.149 | 0.065 | 0.232 |
+| Supervised (upper bound) | ViT-S | **0.018** | **0.009** | **0.027** | **0.015** | **0.005** | **0.025** |
+| **VideoMAE** | ViT-S | **0.044** | 0.023 | 0.066 | **0.050** | 0.021 | 0.078 |
+| JEPA v1 | ViT-S | 0.061 | 0.027 | 0.096 | 0.089 | 0.038 | 0.140 |
+| JEPA v3 (λ_v=0.26, tuned) | ViT-S | 0.092 | 0.036 | 0.149 | 0.189 | 0.196 | 0.182 |
+| JEPA v3 (λ_v=0.80, strong) | ViT-S | 0.091 | 0.054 | 0.129 | 0.075 | 0.006 | 0.144 |
+| VideoMAE | ViT-B | 0.083 | 0.037 | 0.130 | 0.149 | 0.078 | 0.220 |
+| JEPA v1 | ViT-B | 0.085 | 0.046 | 0.125 | 0.149 | 0.065 | 0.232 |
 
 **Key findings**:
 - VideoMAE consistently outperforms JEPA with ViT encoders — the opposite of prior work using CNN encoders

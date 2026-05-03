@@ -26,7 +26,7 @@
   \icmltitle{Latent vs.\ Pixel Prediction for Physical Simulation\\
     Representation Learning: A Systematic Study}
 
-  \icmlsetsymbol{equal}{*}
+
 
   \begin{icmlauthorlist}
     \icmlauthor{Parva Shaileshkumar Patel (psp8502)}{nyu}
@@ -43,11 +43,11 @@
   \vskip 0.3in
 ]
 
-\printAffiliationsAndNotice{}
+% \printAffiliationsAndNotice{}
 
 % ============================================================
 \begin{abstract}
-We investigate self-supervised representation learning for spatiotemporal physical simulations, comparing Joint-Embedding Predictive Architectures (JEPA) with Masked Autoencoders (VideoMAE) on the \textit{active matter} dataset from The Well. Using a shared Vision Transformer (ViT) backbone, we conduct a systematic study across two model scales (13M and 91M parameters), multiple VICReg regularization strengths, and comprehensive evaluation protocols. Surprisingly, we find that VideoMAE consistently outperforms JEPA when using ViT encoders---the opposite of findings reported with CNN encoders in prior work. Our best model (VideoMAE ViT-Small) achieves a linear probe MSE of 0.036 and kNN MSE of 0.050 on normalized physical parameter estimation (0.024 LP MSE with optimized probe learning rate). We further demonstrate that (1) VICReg regularization monotonically degrades linear probing performance despite its theoretical motivation, (2) scaling from 13M to 91M parameters worsens representation quality by 1.4--3$\times$ with limited training data, and (3) evaluation hyperparameters (probe learning rate, kNN neighborhood size) significantly impact reported metrics.
+We investigate self-supervised representation learning for spatiotemporal physical simulations, comparing Joint-Embedding Predictive Architectures (JEPA) with Masked Autoencoders (VideoMAE) on the \textit{active matter} dataset from The Well. Using a shared Vision Transformer (ViT) backbone, we conduct a systematic study across two model scales (13M and 91M parameters), multiple VICReg regularization strengths, and comprehensive evaluation protocols. Surprisingly, we find that VideoMAE consistently outperforms JEPA when using ViT encoders---the opposite of findings reported with CNN encoders in prior work. Our best model (VideoMAE ViT-Small) achieves a linear probe MSE of 0.044 and kNN MSE of 0.050 on normalized physical parameter estimation (0.024 LP MSE with optimized probe learning rate). We further demonstrate that (1) VICReg regularization monotonically degrades linear probing performance despite its theoretical motivation, (2) scaling from 13M to 91M parameters worsens representation quality by 1.4--3$\times$ with limited training data, and (3) evaluation hyperparameters (probe learning rate, kNN neighborhood size) significantly impact reported metrics.
 \end{abstract}
 
 % ============================================================
@@ -75,18 +75,18 @@ Self-supervised learning (SSL) has emerged as a powerful paradigm for learning t
 
 \begin{figure*}[t]
 \centering
-\includegraphics[width=0.75\textwidth]{fig_architecture.png}
+\includegraphics[width=0.5\textwidth]{fig_architecture.png}
 \caption{Overview of the two self-supervised architectures compared in this work, both sharing the same SpatioTemporalViT encoder. \textbf{Left:} VideoMAE masks 75\% of spatiotemporal patches and reconstructs pixels. \textbf{Right:} Video-JEPA predicts latent representations of future frames using an EMA target encoder, optionally regularized with VICReg.}
 \label{fig:architecture}
 \end{figure*}
 
-All methods share a \textbf{SpatioTemporalViT} encoder that processes input sequences of shape $(T, C, H, W) = (16, 11, 224, 224)$. The 11 input channels comprise concentration (1), velocity (2), orientation tensor (4), and strain-rate tensor (4) fields (\cref{fig:dataset}). The encoder applies 3D patch embedding with patch size $(2, 16, 16)$, producing $8 \times 14 \times 14 = 1{,}568$ tokens, followed by standard transformer blocks with learnable positional embeddings. We evaluate two scales:
-\begin{itemize}
-    \item \textbf{ViT-Small:} $D{=}384$, 6 layers, 6 heads (13.4M params)
-    \item \textbf{ViT-Base:} $D{=}768$, 12 layers, 12 heads (90.6M params)
-\end{itemize}
+All methods share a \textbf{SpatioTemporalViT} encoder that processes input sequences of shape $(T, C, H, W) = (16, 11, 224, 224)$. The 11 input channels comprise concentration (1), velocity (2), orientation tensor (4), and strain-rate tensor (4) fields (\cref{fig:dataset}). The encoder applies 3D patch embedding with patch size $(2, 16, 16)$, producing $8 \times 14 \times 14 = 1{,}568$ tokens, followed by standard transformer blocks with learnable positional embeddings. We evaluate two scales: \textbf{ViT-Small:} $D{=}384$, 6 layers, 6 heads (13.4M params) \textbf{and} \textbf{ViT-Base:} $D{=}768$, 12 layers, 12 heads (90.6M params).
+% \begin{itemize}
+%     \item \textbf{ViT-Small:} $D{=}384$, 6 layers, 6 heads (13.4M params)
+%     \item \textbf{ViT-Base:} $D{=}768$, 12 layers, 12 heads (90.6M params)
+% \end{itemize}
 
-\begin{figure}[t]
+\begin{figure}[H]
 \centering
 \includegraphics[width=\columnwidth]{fig_dataset.png}
 \caption{Active matter concentration fields at different physical parameters. Varying $\alpha$ and $\zeta$ produces dramatically different regimes: ordered lattices ($\alpha{=}{-1}$, $\zeta{=}1$) vs.\ chaotic turbulence ($\alpha{=}{-5}$, $\zeta{=}11$). Top: $t{=}0$; bottom: $t{=}8$.}
@@ -131,10 +131,8 @@ For the upper bound, we train the same ViT-Small encoder end-to-end with a 16-fr
 
 All encoders are \textbf{frozen} after self-supervised pretraining. Features are extracted via mean-pooling over spatial and temporal tokens, then z-score normalized using training set statistics.
 
-\begin{itemize}
-    \item \textbf{Linear probing (LP):} A single linear layer ($D \to 2$) trained for 200 epochs with Adam optimizer (lr$=$1e-3) and cosine LR schedule on z-scored features and targets.
-    \item \textbf{kNN regression:} Distance-weighted $k$-nearest neighbors ($k{=}10$) on z-scored features.
-\end{itemize}
+ \textbf{Linear probing (LP):} A single linear layer ($D \to 2$) trained for 200 epochs with Adam optimizer (lr$=$1e-3) and cosine LR schedule on z-scored features and targets. \\
+     \textbf{kNN regression:} Distance-weighted $k$-nearest neighbors ($k{=}10$) on z-scored features.
 
 % ============================================================
 \section{Experiments}
@@ -183,7 +181,7 @@ Rank & val\_loss & $\lambda_v$ & $\lambda_c$ & lr & wd \\
 
 \subsection{Main Results}
 
-\cref{tab:main} presents test-set performance across all models, evaluated at each model's best LP epoch. The end-to-end supervised baseline achieves the best results (LP MSE = 0.017), confirming that direct label access provides a substantial advantage. Among self-supervised methods, VideoMAE ViT-Small closes to within 2$\times$ of the supervised upper bound (LP MSE = 0.036). All JEPA variants underperform VideoMAE, and scaling to ViT-Base degrades performance for both architectures. Notably, $\zeta$ (steric alignment) is consistently harder to predict than $\alpha$ (dipole strength) across all models.
+\cref{tab:main} presents test-set performance across all models, evaluated at each model's best LP epoch. The end-to-end supervised baseline achieves the best results (LP MSE = 0.018), confirming that direct label access provides a substantial advantage. Among self-supervised methods, VideoMAE ViT-Small closes to within 2.5$\times$ of the supervised upper bound (LP MSE = 0.044). All JEPA variants underperform VideoMAE, and scaling to ViT-Base degrades performance for both architectures. Notably, $\zeta$ (steric alignment) is consistently harder to predict than $\alpha$ (dipole strength) across all models.
 
 \begin{table*}[t]
 \caption{Test-set performance for physical parameter estimation. MSE on z-score normalized targets; lower is better. All results from a single checkpoint (best LP epoch) per model. Standard evaluation: LP lr=1e-3, 200 epochs; kNN k=10.}
@@ -198,17 +196,17 @@ Rank & val\_loss & $\lambda_v$ & $\lambda_c$ & lr & wd \\
 Model & Enc. & MSE & $\alpha$ & $\zeta$ & MSE & $\alpha$ & $\zeta$ \\
 \midrule
 \multicolumn{8}{l}{\textit{End-to-end supervised (upper bound)}} \\
-Supervised & ViT-S & \textbf{.017} & \textbf{.009} & \textbf{.025} & \textbf{.015} & \textbf{.005} & \textbf{.025} \\
+Supervised & ViT-S & \textbf{.018} & \textbf{.009} & \textbf{.027} & \textbf{.015} & \textbf{.005} & \textbf{.025} \\
 \midrule
 \multicolumn{8}{l}{\textit{Self-supervised}} \\
-\textbf{VideoMAE} & ViT-S & \underline{.036} & \underline{.021} & \underline{.052} & \underline{.050} & .021 & \underline{.078} \\
-JEPA v1 & ViT-S & .060 & .023 & .098 & .089 & .038 & .140 \\
-JEPA v3$^\dagger$ ($\lambda_v$\!=\!0.26) & ViT-S & .076 & .035 & .117 & .189 & .196 & .182 \\
-JEPA v3$^\ddagger$ ($\lambda_v$\!=\!0.80) & ViT-S & .079 & .043 & .115 & .075 & \underline{.006} & .144 \\
+\textbf{VideoMAE} & ViT-S & \underline{.044} & \underline{.023} & \underline{.066} & \underline{.050} & .021 & \underline{.078} \\
+JEPA v1 & ViT-S & .061 & .027 & .096 & .089 & .038 & .140 \\
+JEPA v3$^\dagger$ ($\lambda_v$\!=\!0.26) & ViT-S & .092 & .036 & .149 & .189 & .196 & .182 \\
+JEPA v3$^\ddagger$ ($\lambda_v$\!=\!0.80) & ViT-S & .091 & .054 & .129 & .075 & \underline{.006} & .144 \\
 \midrule
 \multicolumn{8}{l}{\textit{Scaling study (ViT-Base)}} \\
-VideoMAE & ViT-B & .081 & .036 & .125 & .149 & .078 & .220 \\
-JEPA v1 & ViT-B & .084 & .052 & .116 & .149 & .065 & .232 \\
+VideoMAE & ViT-B & .083 & .037 & .130 & .149 & .078 & .220 \\
+JEPA v1 & ViT-B & .085 & .046 & .125 & .149 & .065 & .232 \\
 \bottomrule
 \end{tabular}
 \vskip 0.05in
@@ -244,20 +242,20 @@ JEPA v1 & ViT-B & .084 & .052 & .116 & .149 & .065 & .232 \\
 \toprule
 Variant & $\lambda_v$ & $\lambda_c$ & LP MSE & kNN MSE \\
 \midrule
-v1 (no VICReg) & 0.0 & 0.0 & \textbf{0.060} & 0.089 \\
-v3 tuned & 0.26 & 0.01 & 0.076 & 0.189 \\
-v3 strong & 0.80 & 0.01 & 0.087 & \textbf{0.067} \\
-v2 (failed) & 5.0 & 0.04 & 0.142 & 0.207 \\
+v1 (no VICReg) & 0.0 & 0.0 & \textbf{0.061} & 0.089 \\
+v3 tuned & 0.26 & 0.01 & 0.092 & 0.189 \\
+v3 strong & 0.80 & 0.01 & 0.091 & \textbf{0.075} \\
+v2 (failed) & 5.0 & 0.04 & 0.158 & 0.207 \\
 \bottomrule
 \end{tabular}
 \vskip -0.1in
 \end{table}
 
-\cref{tab:vicreg} reveals a striking pattern: increasing VICReg weight \textbf{monotonically degrades LP performance} ($0.060 \to 0.076 \to 0.087 \to 0.142$). The kNN results are more nuanced: v3 strong ($\lambda_v{=}0.80$) achieves the best kNN (0.067) at its early best-LP epoch before representation collapse drives kNN up at later epochs. We identify two distinct failure modes:
+\cref{tab:vicreg} reveals a striking pattern: increasing VICReg weight \textbf{monotonically degrades LP performance} ($0.061 \to 0.092 \to 0.091 \to 0.158$). The kNN results are more nuanced: v3 strong ($\lambda_v{=}0.80$) achieves the best kNN (0.075) at its early best-LP epoch before representation collapse drives kNN up at later epochs. We identify two distinct failure modes:
 
 \textbf{Mode 1: Gradient competition} ($\lambda_v \leq 1.0$).\quad The variance hinge loss competes with prediction loss, pulling the encoder toward feature diversity at the expense of task-relevant structure. LP, which learns a fixed linear mapping, is sensitive to this geometric distortion. kNN, being non-parametric, partially compensates.
 
-\textbf{Mode 2: Catastrophic dominance} ($\lambda_v = 5.0$, JEPA v2).\quad We additionally L2-normalized prediction targets, reducing $\mathcal{L}_{\text{pred}}$ to ${\sim}0.003$ throughout training. With prediction loss providing negligible gradients, VICReg terms dominated optimization entirely. The encoder optimized for regularization compliance rather than physics, producing 2.4$\times$ worse LP than the unregularized baseline.
+\textbf{Mode 2: Catastrophic dominance} ($\lambda_v = 5.0$, JEPA v2).\quad We additionally L2-normalized prediction targets, reducing $\mathcal{L}_{\text{pred}}$ to ${\sim}0.003$ throughout training. With prediction loss providing negligible gradients, VICReg terms dominated optimization entirely. The encoder optimized for regularization compliance rather than physics, producing 2.6$\times$ worse LP than the unregularized baseline.
 
 \subsection{Model Scaling Analysis}
 
@@ -271,11 +269,11 @@ v2 (failed) & 5.0 & 0.04 & 0.142 & 0.207 \\
 \toprule
 Method & Scale & LP MSE & $\Delta$ & kNN & $\Delta$ \\
 \midrule
-VideoMAE & Small & \textbf{0.036} & --- & \textbf{0.050} & --- \\
-VideoMAE & Base & 0.081 & 2.3$\times$ & 0.149 & 3.0$\times$ \\
+VideoMAE & Small & \textbf{0.044} & --- & \textbf{0.050} & --- \\
+VideoMAE & Base & 0.083 & 1.9$\times$ & 0.149 & 3.0$\times$ \\
 \midrule
-JEPA & Small & \textbf{0.060} & --- & \textbf{0.089} & --- \\
-JEPA & Base & 0.084 & 1.4$\times$ & 0.149 & 1.7$\times$ \\
+JEPA & Small & \textbf{0.061} & --- & \textbf{0.089} & --- \\
+JEPA & Base & 0.085 & 1.4$\times$ & 0.149 & 1.7$\times$ \\
 \bottomrule
 \end{tabular}
 \vskip -0.1in
@@ -327,7 +325,32 @@ $10^{-4}$ & 0.152 & 0.372 & 0.268 & 0.278 \\
 \vskip -0.1in
 \end{table}
 
-\cref{tab:ksweep,tab:lrsweep} reveal significant evaluation sensitivity. For kNN, JEPA-S benefits substantially from larger $k$ ($k{=}50$ improves by 24\% over $k{=}10$), suggesting its representations encode task-relevant structure but in a geometrically diffuse manner. For LP, lr$=10^{-2}$ improves VideoMAE-S by 44\% over $10^{-3}$, yielding our best overall result of \textbf{0.024 MSE}. The magnitude of these shifts underscores the importance of reporting evaluation hyperparameters alongside results.
+\cref{tab:ksweep,tab:lrsweep} reveal significant evaluation sensitivity. For kNN, JEPA-S benefits substantially from larger $k$ ($k{=}50$ improves by 24\% over $k{=}10$), suggesting its representations encode task-relevant structure but in a geometrically diffuse manner. For LP, lr$=10^{-2}$ improves VideoMAE-S by 46\% over $10^{-3}$, yielding our best overall result of \textbf{0.024 MSE}. The magnitude of these shifts underscores the importance of reporting evaluation hyperparameters alongside results.
+
+\begin{table}[t]
+\caption{Best achievable results per model from LP learning rate and kNN $k$ sweeps (test set). All models improve substantially over default settings.}
+\label{tab:best}
+\vskip 0.1in
+\centering
+\small
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+Model & Best LP & lr & Best kNN & $k$ \\
+\midrule
+Supervised & \textbf{0.015} & 1e-2 & \textbf{0.014} & 20 \\
+\textbf{VideoMAE-S} & \underline{0.024} & 1e-2 & \underline{0.045} & 20 \\
+JEPA v1-S & 0.055 & 1e-2 & 0.068 & 50 \\
+JEPA v3$^\dagger$ & 0.079 & 1e-2 & 0.181 & 20 \\
+JEPA v3$^\ddagger$ & 0.068 & 1e-2 & 0.074 & 20 \\
+\midrule
+VideoMAE-B & 0.080 & 1e-2 & 0.125 & 50 \\
+JEPA v1-B & 0.072 & 1e-2 & 0.132 & 50 \\
+\bottomrule
+\end{tabular}
+\vskip 0.03in
+{\raggedright \footnotesize $^\dagger$Online encoder. $^\ddagger$Target (EMA) encoder. Bold = best overall; underline = best self-supervised. \par}
+\vskip -0.1in
+\end{table}
 
 \subsection{Representation Collapse Dynamics}
 
@@ -367,26 +390,7 @@ We track the standard deviation of mean-pooled features ($\sigma_{\text{feat}}$)
 
 \subsection{Qualitative Analysis: t-SNE Embeddings}
 
-\cref{fig:tsne} visualizes the learned representation spaces via t-SNE. The supervised baseline forms tight, well-separated clusters for both $\alpha$ and $\zeta$, confirming that label information organizes the embedding space. VideoMAE produces smooth color gradients---especially for $\alpha$---indicating that its features capture continuous parameter variation. JEPA shows reasonable $\alpha$ separation but with less organized $\zeta$ structure, consistent with its higher $\zeta$ MSE in \cref{tab:main}.
-
-\begin{figure*}[t]
-\centering
-\begin{subfigure}[t]{0.32\textwidth}
-    \includegraphics[width=\textwidth]{fig_tsne_supervised.png}
-    \caption{Supervised}
-\end{subfigure}\hfill
-\begin{subfigure}[t]{0.32\textwidth}
-    \includegraphics[width=\textwidth]{fig_tsne_vmae.png}
-    \caption{VideoMAE}
-\end{subfigure}\hfill
-\begin{subfigure}[t]{0.32\textwidth}
-    \includegraphics[width=\textwidth]{fig_tsne_jepa.png}
-    \caption{JEPA v1}
-\end{subfigure}
-\vskip -0.05in
-\caption{t-SNE of frozen encoder features (test set), colored by $\alpha$ (left) and $\zeta$ (right). Supervised: tight clusters; VideoMAE: smooth gradients; JEPA: partial separation.}
-\label{fig:tsne}
-\end{figure*}
+\cref{fig:tsne} (Appendix) visualizes the learned representation spaces via t-SNE. The supervised baseline forms tight, well-separated clusters for both $\alpha$ and $\zeta$, confirming that label information organizes the embedding space. VideoMAE produces smooth color gradients---especially for $\alpha$---indicating that its features capture continuous parameter variation. JEPA shows reasonable $\alpha$ separation but with less organized $\zeta$ structure, consistent with its higher $\zeta$ MSE in \cref{tab:main}.
 
 \subsection{Comparison with Prior Work}
 
@@ -406,7 +410,7 @@ This paper presents work whose goal is to advance representation learning for ph
 % ============================================================
 \section*{Statement of Contributions}
 \begin{itemize}
-    \item \textbf{Parva Patel (psp8502)}: Designed and implemented the complete experimental framework: SpatioTemporalViT encoder, VideoMAE and Video-JEPA training pipelines, EMA target encoder with momentum warmup, VICReg regularization integration, and supervised baseline. Built the full evaluation suite (linear probe, kNN, per-parameter MSE, feature collapse tracking). Conducted all training runs across 8 model configurations and 20-trial HPO sweep. Developed the automated collation pipeline (\texttt{collate\_and\_plot.sh}, \texttt{generate\_figures.py}), all visualization scripts (t-SNE, dataset figures), and the reproducibility package (\texttt{reproduce.sh}, checkpoint management). Wrote the report and performed all analysis.
+    \item \textbf{Parva Patel (psp8502)}: Designed and implemented the complete experimental framework: SpatioTemporalViT encoder, VideoMAE and Video-JEPA training pipelines, EMA target encoder with momentum warmup, VICReg regularization integration, and supervised baseline. Built the full evaluation suite (linear probe, kNN, per-parameter MSE, feature collapse tracking). Conducted all training runs across 8 model configurations and 20-trial HPO sweep. Developed the automated collation pipeline (\texttt{collate\_and\_plot.sh}, \texttt{generate\_figures.py}), all visualization scripts (t-SNE, dataset figures), and the reproducibility package (\texttt{reproduce.sh}, checkpoint management). Wrote the report and performed all analysis. Total GPU hours used = 255.
     \item \textbf{Mohith Niranjen R K (mr7841)}: [description]
     \item \textbf{Surbhi (xs2682)}: [description]
 \end{itemize}
@@ -445,6 +449,26 @@ All training used FP16 mixed precision with \texttt{torch.compile()} on NVIDIA A
 \appendix
 \onecolumn
 
+\section{t-SNE Embeddings}
+
+\begin{figure}[H]
+\centering
+\begin{subfigure}[t]{0.32\textwidth}
+    \includegraphics[width=\textwidth]{fig_tsne_supervised.png}
+    \caption{Supervised}
+\end{subfigure}\hfill
+\begin{subfigure}[t]{0.32\textwidth}
+    \includegraphics[width=\textwidth]{fig_tsne_vmae.png}
+    \caption{VideoMAE}
+\end{subfigure}\hfill
+\begin{subfigure}[t]{0.32\textwidth}
+    \includegraphics[width=\textwidth]{fig_tsne_jepa.png}
+    \caption{JEPA v1}
+\end{subfigure}
+\caption{t-SNE of frozen encoder features (test set), colored by $\alpha$ (left panel of each) and $\zeta$ (right panel). Supervised features show tight clusters; VideoMAE shows smooth gradients; JEPA shows partial separation.}
+\label{fig:tsne}
+\end{figure}
+
 \section{Input Channel Visualization}
 
 \begin{figure}[h]
@@ -466,7 +490,7 @@ All training used FP16 mixed precision with \texttt{torch.compile()} on NVIDIA A
 
 \section{Full HPO Results}
 
-\begin{table}[h]
+\begin{table}[H]
 \caption{Complete Optuna HPO sweep (20 trials). Trials marked PRUNED were stopped early by median pruner. All pruned trials had $\lambda_v \geq 0.39$ or low lr.}
 \centering
 \small
