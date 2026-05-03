@@ -29,7 +29,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--output", type=str, default="report/fig_dataset.png")
     parser.add_argument("--data_dir", type=str,
-                        default=os.path.expandvars("/scratch/$USER/active_matter"))
+                        default=os.path.expandvars("/scratch/$USER/data/active_matter"))
     parser.add_argument("--split", type=str, default="train")
     args = parser.parse_args()
 
