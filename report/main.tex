@@ -211,7 +211,7 @@ VideoMAE & ViT-B & .081 & .036 & .125 & .149 & .078 & .220 \\
 JEPA v1 & ViT-B & .084 & .052 & .116 & .149 & .065 & .232 \\
 \bottomrule
 \end{tabular}
-{\raggedright \footnotesize Bold = best overall; underline = best self-supervised. $^\dagger$Online encoder. $^\ddagger$Target (EMA) encoder. \par}
+{\raggedright \footnotesize Bold = best overall; underline = best self-supervised. $^\dagger$Online encoder. $^\ddagger$Target (EMA) encoder. LP values exhibit ${\sim}{\pm}0.01$ run-to-run variance due to probe initialization and CUDA non-determinism (\texttt{cudnn.benchmark=True}); kNN is fully deterministic and reproduces exactly. \par}
 \vskip -0.1in
 \end{table}
 
