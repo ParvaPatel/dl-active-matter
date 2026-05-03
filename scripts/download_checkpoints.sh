@@ -8,7 +8,7 @@
 # IMPORTANT: Replace this with your actual Google Drive folder ID
 # after uploading the checkpoints.
 # ======================================================================
-GDRIVE_FOLDER_ID="REPLACE_WITH_GDRIVE_FOLDER_ID"
+GDRIVE_FOLDER_ID="1o2nbCbxdOdfLvs7bTWUwU_iuOsf4RqGK"
 
 CKPT_DIR=/scratch/$USER/checkpoints
 
