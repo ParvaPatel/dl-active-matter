@@ -75,7 +75,7 @@ Self-supervised learning (SSL) has emerged as a powerful paradigm for learning t
 
 \begin{figure*}[t]
 \centering
-\includegraphics[width=0.95\textwidth]{fig_architecture.png}
+\includegraphics[width=0.75\textwidth]{fig_architecture.png}
 \caption{Overview of the two self-supervised architectures compared in this work, both sharing the same SpatioTemporalViT encoder. \textbf{Left:} VideoMAE masks 75\% of spatiotemporal patches and reconstructs pixels. \textbf{Right:} Video-JEPA predicts latent representations of future frames using an EMA target encoder, optionally regularized with VICReg.}
 \label{fig:architecture}
 \end{figure*}
@@ -185,7 +185,7 @@ Rank & val\_loss & $\lambda_v$ & $\lambda_c$ & lr & wd \\
 
 \cref{tab:main} presents test-set performance across all models, evaluated at each model's best LP epoch. The end-to-end supervised baseline achieves the best results (LP MSE = 0.017), confirming that direct label access provides a substantial advantage. Among self-supervised methods, VideoMAE ViT-Small closes to within 2$\times$ of the supervised upper bound (LP MSE = 0.036). All JEPA variants underperform VideoMAE, and scaling to ViT-Base degrades performance for both architectures. Notably, $\zeta$ (steric alignment) is consistently harder to predict than $\alpha$ (dipole strength) across all models.
 
-\begin{table}[t]
+\begin{table*}[t]
 \caption{Test-set performance for physical parameter estimation. MSE on z-score normalized targets; lower is better. All results from a single checkpoint (best LP epoch) per model. Standard evaluation: LP lr=1e-3, 200 epochs; kNN k=10.}
 \label{tab:main}
 \vskip 0.1in
@@ -211,9 +211,10 @@ VideoMAE & ViT-B & .081 & .036 & .125 & .149 & .078 & .220 \\
 JEPA v1 & ViT-B & .084 & .052 & .116 & .149 & .065 & .232 \\
 \bottomrule
 \end{tabular}
+\vskip 0.05in
 {\raggedright \footnotesize Bold = best overall; underline = best self-supervised. $^\dagger$Online encoder. $^\ddagger$Target (EMA) encoder. LP values exhibit ${\sim}{\pm}0.01$ run-to-run variance due to probe initialization and CUDA non-determinism (\texttt{cudnn.benchmark=True}); kNN is fully deterministic and reproduces exactly. \par}
 \vskip -0.1in
-\end{table}
+\end{table*}
 
 \begin{figure}[t]
 \centering
@@ -333,30 +334,34 @@ $10^{-4}$ & 0.152 & 0.372 & 0.268 & 0.278 \\
 \begin{figure}[t]
 \centering
 \includegraphics[width=\columnwidth]{fig_collapse.png}
-\caption{Feature standard deviation ($\sigma$) during training. VideoMAE features stabilize early while all JEPA variants exhibit continuous contraction, indicating progressive representation collapse.}
+\vskip -0.05in
+\caption{Feature $\sigma$ during training. VideoMAE stabilizes early; JEPA variants contract continuously ($0.75 \to 0.12$, ${\sim}6\times$).}
 \label{fig:collapse}
 \end{figure}
 
-We track the standard deviation of mean-pooled features ($\sigma_{\text{feat}}$) across training epochs to monitor representation collapse (\cref{fig:collapse}). VideoMAE features stabilize early ($\sigma \approx 0.02$ by epoch 60), while JEPA features continuously contract ($\sigma$: $0.75 \to 0.12$ over 100 epochs). Despite this ${\sim}6\times$ contraction, JEPA representations remain discriminative for LP (which applies z-score normalization), but kNN performance degrades as geometric neighborhood structure is distorted by the collapsing feature scale.
+We track the standard deviation of mean-pooled features ($\sigma_{\text{feat}}$) across training epochs (\cref{fig:collapse}). VideoMAE features stabilize early ($\sigma \approx 0.02$ by epoch 60), while JEPA features continuously contract. Despite this contraction, JEPA representations remain discriminative for LP (which applies z-score normalization), but kNN performance degrades as geometric neighborhood structure is distorted.
 
 \begin{figure}[t]
 \centering
 \includegraphics[width=\columnwidth]{fig_knn_collapse.png}
-\caption{kNN MSE over training epochs. JEPA Base (dashed) exhibits catastrophic collapse between epochs 45--70, with MSE spiking to 0.75 before partially recovering. All other models remain stable.}
+\vskip -0.05in
+\caption{kNN MSE over training. JEPA Base (dashed) collapses between epochs 45--70 (MSE spikes to 0.75).}
 \label{fig:knn_collapse}
 \end{figure}
 
 \begin{figure}[t]
 \centering
 \includegraphics[width=\columnwidth]{fig_lp_knn_divergence.png}
-\caption{JEPA v3 Tuned: LP MSE improves over training while kNN MSE simultaneously degrades---a \textit{directional collapse} where feature variance contracts anisotropically. The dashed line shows feature std monotonically decreasing throughout.}
+\vskip -0.05in
+\caption{JEPA v3 Tuned: LP improves while kNN degrades---\textit{directional collapse} where feature $\sigma$ contracts anisotropically.}
 \label{fig:lp_knn_divergence}
 \end{figure}
 
 \begin{figure}[t]
 \centering
 \includegraphics[width=\columnwidth]{fig_lp_trajectory.png}
-\caption{Linear probe MSE on the test set evaluated at every 5th training epoch. VideoMAE steadily improves through training while JEPA variants plateau early. Supervised baseline (lower bound) converges by epoch 10.}
+\vskip -0.05in
+\caption{LP MSE trajectory. VideoMAE steadily improves; JEPA variants plateau early. Supervised converges by epoch 10.}
 \label{fig:lp_trajectory}
 \end{figure}
 
@@ -378,7 +383,8 @@ We track the standard deviation of mean-pooled features ($\sigma_{\text{feat}}$)
     \includegraphics[width=\textwidth]{fig_tsne_jepa.png}
     \caption{JEPA v1}
 \end{subfigure}
-\caption{t-SNE of frozen encoder features on the test set, colored by $\alpha$ (left panel of each) and $\zeta$ (right panel). Supervised features show tight clusters; VideoMAE shows smooth gradients; JEPA shows partial separation.}
+\vskip -0.05in
+\caption{t-SNE of frozen encoder features (test set), colored by $\alpha$ (left) and $\zeta$ (right). Supervised: tight clusters; VideoMAE: smooth gradients; JEPA: partial separation.}
 \label{fig:tsne}
 \end{figure*}
 
