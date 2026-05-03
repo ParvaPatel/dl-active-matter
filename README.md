@@ -56,7 +56,7 @@ bash scripts/setup.sh
 bash scripts/download_checkpoints.sh
 ```
 
-This downloads all 8 model checkpoints to `/scratch/$USER/checkpoints/`.
+This downloads all 8 model checkpoints to `/scratch/$USER/checkpoints/` from [**Google Drive**](https://drive.google.com/drive/folders/1o2nbCbxdOdfLvs7bTWUwU_iuOsf4RqGK).
 
 ### Step 3: Reproduce Any Model's Results
 

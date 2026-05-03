@@ -249,7 +249,7 @@ def main():
     lr_values = [1e-2, 1e-3, 1e-4]
     print(f"\n=== Linear Probe LR sweep (epochs={args.probe_epochs}) ===")
     print(f"{'LR':<12} {'Total MSE':<12} {'α MSE':<12} {'ζ MSE':<12}")
-    best_lp_mse, best_lp_alpha, best_lp_zeta, best_lr = lp_mse, lp_alpha, lp_zeta, args.lr
+    best_lp_mse, best_lp_alpha, best_lp_zeta, best_lr = lp_mse, lp_alpha, lp_zeta, args.probe_lr
     for lr_val in lr_values:
         lr_mse, lr_alpha, lr_zeta = linear_probe(
             train_feat, train_targets, eval_feat, eval_targets,
