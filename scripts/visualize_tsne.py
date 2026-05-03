@@ -17,8 +17,13 @@ import torch
 import numpy as np
 from torch.utils.data import DataLoader
 from torch.amp import autocast
-from sklearn.manifold import TSNE
-from sklearn.preprocessing import StandardScaler
+# Try sklearn, fall back to PCA if unavailable
+try:
+    from sklearn.manifold import TSNE
+    HAS_TSNE = True
+except (ImportError, ValueError):
+    HAS_TSNE = False
+    print("sklearn unavailable, using PCA instead of t-SNE")
 
 try:
     import matplotlib
@@ -98,14 +103,25 @@ def main():
     features, alpha, zeta = extract_features(encoder, loader, device, context_frames)
     print(f"Features shape: {features.shape}")
 
-    # Standardize features before t-SNE
-    features = StandardScaler().fit_transform(features)
+    # Standardize features (manual z-score, no sklearn needed)
+    feat_mean = features.mean(axis=0)
+    feat_std = features.std(axis=0) + 1e-8
+    features = (features - feat_mean) / feat_std
 
-    # Run t-SNE
-    print(f"Running t-SNE (perplexity={args.perplexity})...")
-    tsne = TSNE(n_components=2, perplexity=args.perplexity, random_state=42,
-                n_iter=1000, init="pca", learning_rate="auto")
-    embedded = tsne.fit_transform(features)
+    # Dimensionality reduction
+    if HAS_TSNE:
+        print(f"Running t-SNE (perplexity={args.perplexity})...")
+        tsne = TSNE(n_components=2, perplexity=args.perplexity, random_state=42,
+                    n_iter=1000, init="pca", learning_rate="auto")
+        embedded = tsne.fit_transform(features)
+        method_name = "t-SNE"
+    else:
+        print("Running PCA (2 components)...")
+        # Use torch for PCA
+        feat_tensor = torch.tensor(features, dtype=torch.float32)
+        U, S, V = torch.pca_lowrank(feat_tensor, q=2)
+        embedded = (feat_tensor @ V[:, :2]).numpy()
+        method_name = "PCA"
 
     # Plot: 2 panels — colored by α, colored by ζ
     os.makedirs(os.path.dirname(args.output) or ".", exist_ok=True)
@@ -114,17 +130,17 @@ def main():
 
     sc1 = ax1.scatter(embedded[:, 0], embedded[:, 1], c=alpha, cmap="viridis",
                       s=8, alpha=0.6, rasterized=True)
-    ax1.set_title("Colored by α (alignment)")
-    ax1.set_xlabel("t-SNE 1")
-    ax1.set_ylabel("t-SNE 2")
-    plt.colorbar(sc1, ax=ax1, label="α")
+    ax1.set_title(f"Colored by alpha ({method_name})")
+    ax1.set_xlabel(f"{method_name} 1")
+    ax1.set_ylabel(f"{method_name} 2")
+    plt.colorbar(sc1, ax=ax1, label="alpha")
 
     sc2 = ax2.scatter(embedded[:, 0], embedded[:, 1], c=zeta, cmap="plasma",
                       s=8, alpha=0.6, rasterized=True)
-    ax2.set_title("Colored by ζ (activity)")
-    ax2.set_xlabel("t-SNE 1")
-    ax2.set_ylabel("t-SNE 2")
-    plt.colorbar(sc2, ax=ax2, label="ζ")
+    ax2.set_title(f"Colored by zeta ({method_name})")
+    ax2.set_xlabel(f"{method_name} 1")
+    ax2.set_ylabel(f"{method_name} 2")
+    plt.colorbar(sc2, ax=ax2, label="zeta")
 
     fig.suptitle(args.title, fontsize=16, fontweight="bold")
     fig.tight_layout()
