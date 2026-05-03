@@ -236,31 +236,41 @@ def main():
     k_values = [1, 3, 5, 10, 20, 50]
     print(f"\n=== kNN k-sweep ===")
     print(f"{'k':<6} {'Total MSE':<12} {'α MSE':<12} {'ζ MSE':<12}")
+    best_knn_mse, best_knn_alpha, best_knn_zeta, best_k = knn_mse, knn_alpha, knn_zeta, args.k
     for k_val in k_values:
         k_mse, k_alpha, k_zeta = knn_evaluate(
             train_feat, train_targets, eval_feat, eval_targets, k=k_val,
         )
         print(f"{k_val:<6} {k_mse:<12.4f} {k_alpha:<12.4f} {k_zeta:<12.4f}")
+        if k_mse < best_knn_mse:
+            best_knn_mse, best_knn_alpha, best_knn_zeta, best_k = k_mse, k_alpha, k_zeta, k_val
 
     # === Linear Probe LR sweep (for ablation) ===
     lr_values = [1e-2, 1e-3, 1e-4]
     print(f"\n=== Linear Probe LR sweep (epochs={args.probe_epochs}) ===")
     print(f"{'LR':<12} {'Total MSE':<12} {'α MSE':<12} {'ζ MSE':<12}")
+    best_lp_mse, best_lp_alpha, best_lp_zeta, best_lr = lp_mse, lp_alpha, lp_zeta, args.lr
     for lr_val in lr_values:
         lr_mse, lr_alpha, lr_zeta = linear_probe(
             train_feat, train_targets, eval_feat, eval_targets,
             embed_dim, epochs=args.probe_epochs, lr=lr_val, device=device,
         )
         print(f"{lr_val:<12.0e} {lr_mse:<12.4f} {lr_alpha:<12.4f} {lr_zeta:<12.4f}")
+        if lr_mse < best_lp_mse:
+            best_lp_mse, best_lp_alpha, best_lp_zeta, best_lr = lr_mse, lr_alpha, lr_zeta, lr_val
 
     # Summary
     print("\n" + "=" * 50)
     print("RESULTS SUMMARY")
     print("=" * 50)
-    print(f"{'Method':<15} {'Total MSE':<12} {'α MSE':<12} {'ζ MSE':<12}")
-    print(f"{'Linear Probe':<15} {lp_mse:<12.4f} {lp_alpha:<12.4f} {lp_zeta:<12.4f}")
+    print(f"{'Method':<20} {'Total MSE':<12} {'α MSE':<12} {'ζ MSE':<12}")
+    print(f"{'LP (lr=1e-3)':<20} {lp_mse:<12.4f} {lp_alpha:<12.4f} {lp_zeta:<12.4f}")
     knn_label = f"kNN (k={args.k})"
-    print(f"{knn_label:<15} {knn_mse:<12.4f} {knn_alpha:<12.4f} {knn_zeta:<12.4f}")
+    print(f"{knn_label:<20} {knn_mse:<12.4f} {knn_alpha:<12.4f} {knn_zeta:<12.4f}")
+    print("")
+    print("★ BEST RESULTS (from sweeps)")
+    print(f"{'Best LP (lr='+f'{best_lr:.0e})':<20} {best_lp_mse:<12.4f} {best_lp_alpha:<12.4f} {best_lp_zeta:<12.4f}")
+    print(f"{'Best kNN (k='+f'{best_k})':<20} {best_knn_mse:<12.4f} {best_knn_alpha:<12.4f} {best_knn_zeta:<12.4f}")
 
 
 if __name__ == "__main__":
