@@ -21,8 +21,11 @@ EVAL_DIRS=(
     ["videomae_small"]="logs/videomae_small_eval"
     ["videomae_base"]="logs/videomae_base_eval"
     ["jepa_small"]="logs/jepa_small_eval"
+    ["jepa_small_target"]="logs/jepa_small_target_eval"
     ["jepa_base"]="logs/jepa_base_eval"
+    ["jepa_base_target"]="logs/jepa_base_target_eval"
     ["jepa_v2"]="logs/jepa_v2_model_eval"
+    ["jepa_v2_target"]="logs/jepa_v2_target_eval"
     ["jepa_v3_tuned"]="logs/jepa_v3_tuned_eval"
     ["jepa_v3_tuned_target"]="logs/jepa_v3_tuned_target_eval"
     ["jepa_v3_strongvar"]="logs/jepa_v3_strongvar_eval"
@@ -30,7 +33,7 @@ EVAL_DIRS=(
     ["supervised_small"]="logs/supervised_small_eval"
 )
 
-for name in videomae_small videomae_base jepa_small jepa_base jepa_v2 \
+for name in videomae_small videomae_base jepa_small jepa_small_target jepa_base jepa_base_target jepa_v2 jepa_v2_target \
             jepa_v3_tuned jepa_v3_tuned_target \
             jepa_v3_strongvar jepa_v3_strongvar_target \
             supervised_small; do
