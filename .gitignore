@@ -23,7 +23,6 @@ data/active_matter/
 
 # Checkpoints (live on /scratch)
 checkpoints/
-*.ckpt
 
 # W&B
 wandb/
@@ -39,6 +38,7 @@ wandb/
 # OS
 .DS_Store
 Thumbs.db
+~$*
 
 # Slurm logs
 slurm-*.out
@@ -47,3 +47,12 @@ slurm-*.out
 # Singularity
 *.sif
 *.ext3
+
+# Project scratch / AI-generated planning files (not relevant to submission)
+implementation_plan.md
+project_history.md
+EXPERIMENT_LOG.md
+test_results_archive.txt
+
+# MS Office temp files
+*.docx
