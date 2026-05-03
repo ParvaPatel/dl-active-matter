@@ -1,0 +1,43 @@
+=== t-SNE / PCA visualization started at Sun May  3 00:06:45 EDT 2026 ===
+Sun May  3 00:06:45 2026       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 580.159.03             Driver Version: 580.159.03     CUDA Version: 13.0     |
++-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA A100-SXM4-40GB          On  |   00000000:00:04.0 Off |                    0 |
+| N/A   30C    P0             47W /  400W |       0MiB /  40960MiB |      0%      Default |
+|                                         |                        |             Disabled |
++-----------------------------------------+------------------------+----------------------+
+
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+--- VideoMAE Small (epoch 90) ---
+[test] 21 HDF5 files → 1716 samples (16 frames, 224×224 crop, stride=1)
+Extracting features...
+Features shape: (1716, 384)
+Running t-SNE (perplexity=30.0)...
+Saved: report/fig_tsne_vmae.png
+--- JEPA v1 Small (epoch 80, target encoder) ---
+[test] 21 HDF5 files → 1300 samples (32 frames, 224×224 crop, stride=1)
+Extracting features...
+Features shape: (1300, 384)
+Running t-SNE (perplexity=30.0)...
+Saved: report/fig_tsne_jepa.png
+--- Supervised (epoch 65) ---
+[test] 21 HDF5 files → 1716 samples (16 frames, 224×224 crop, stride=1)
+Extracting features...
+Features shape: (1716, 384)
+Running t-SNE (perplexity=30.0)...
+Saved: report/fig_tsne_supervised.png
+=== Done at $(date) ===
+-rw-r--r--. 1 psp8502 psp8502 238722 May  3 00:11 report/fig_tsne_jepa.png
+-rw-r--r--. 1 psp8502 psp8502 280972 May  3 00:12 report/fig_tsne_supervised.png
+-rw-r--r--. 1 psp8502 psp8502 264414 May  3 00:09 report/fig_tsne_vmae.png
