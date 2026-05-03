@@ -119,7 +119,7 @@ def main():
     if HAS_TSNE:
         print(f"Running t-SNE (perplexity={args.perplexity})...")
         tsne = TSNE(n_components=2, perplexity=args.perplexity, random_state=42,
-                    n_iter=1000, init="pca", learning_rate="auto")
+                    max_iter=1000, init="pca", learning_rate="auto")
         embedded = tsne.fit_transform(features)
         method_name = "t-SNE"
     else:
