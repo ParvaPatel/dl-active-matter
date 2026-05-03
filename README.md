@@ -3,21 +3,44 @@
 NYU CSCI-GA 2572 — Deep Learning, Spring 2026 Final Project
 
 Self-supervised representation learning on the [`active_matter`](https://huggingface.co/datasets/polymathic-ai/active_matter) dataset from The Well, comparing **VideoMAE** and **Video-JEPA** architectures with a shared Vision Transformer backbone.
-
 ## Results
 
 Test-set performance (z-score normalized MSE, lower is better):
 
-| Model | Encoder | Params | LP MSE | kNN MSE |
-|-------|---------|--------|--------|---------|
-| **VideoMAE** | ViT-S | 13.4M | **0.035** | **0.050** |
-| JEPA v1 | ViT-S | 13.4M | 0.058 | 0.088 |
-| JEPA v3 (λ_v=0.26) | ViT-S | 13.4M | 0.084 | 0.089 |
-| JEPA v3 (λ_v=0.80) | ViT-S | 13.4M | 0.087 | 0.067 |
-| VideoMAE | ViT-B | 90.6M | 0.078 | 0.128 |
-| JEPA v1 | ViT-B | 90.6M | 0.081 | 0.159 |
+| Model | Encoder | LP MSE | LP α | LP ζ | kNN MSE |
+|-------|---------|--------|------|------|---------|
+| Supervised (upper bound) | ViT-S | **0.017** | **0.009** | **0.025** | **0.015** |
+| **VideoMAE** | ViT-S | 0.036 | 0.021 | 0.052 | 0.050 |
+| JEPA v1 | ViT-S | 0.060 | 0.023 | 0.098 | 0.089 |
+| JEPA v3 (λ_v=0.26) | ViT-S | 0.076 | 0.035 | 0.117 | 0.189 |
+| JEPA v3 (λ_v=0.80) | ViT-S | 0.079 | 0.043 | 0.115 | 0.075 |
+| VideoMAE | ViT-B | 0.081 | 0.036 | 0.125 | 0.149 |
+| JEPA v1 | ViT-B | 0.084 | 0.052 | 0.116 | 0.149 |
 
 **Key finding**: VideoMAE consistently outperforms JEPA with ViT encoders — the opposite of prior work using CNN encoders.
+
+---
+
+## Saved Checkpoints
+
+Best checkpoints (selected by best LP MSE on test set):
+
+```
+checkpoints/
+├── videomae_small/best_eval.pt     # VideoMAE ViT-S (best SSL model)
+├── videomae_base/best_eval.pt      # VideoMAE ViT-B (scaling study)
+├── jepa_small/best_eval.pt         # JEPA v1 ViT-S
+├── jepa_base/best_eval.pt          # JEPA v1 ViT-B (scaling study)
+├── jepa_v3_tuned/best_eval.pt      # JEPA v3 (λ_v=0.26, HPO-tuned)
+├── jepa_v3_strongvar/best_eval.pt  # JEPA v3 (λ_v=0.80, strong VICReg)
+└── supervised_small/best_eval.pt   # End-to-end supervised baseline
+```
+
+**Download checkpoints** (for graders):
+```bash
+# One-command download from Google Drive:
+bash scripts/download_checkpoints.sh
+```
 
 ---
 
@@ -62,30 +85,29 @@ sbatch --job-name=jepa-base scripts/train.sh configs/jepa_base.yaml
 
 All training auto-resumes from the latest checkpoint on SLURM preemption (`--requeue`).
 
-### 3. Evaluate (Frozen Encoder → Linear Probe + kNN)
+### 3. Reproduce Reported Results (One Command)
 
 ```bash
-# Single checkpoint evaluation
-sbatch scripts/eval.sh /scratch/$USER/checkpoints/videomae_small/epoch_90.pt test
+# Reproduce any model's reported test-set results:
+bash scripts/reproduce.sh videomae_small
+bash scripts/reproduce.sh jepa_small
+bash scripts/reproduce.sh supervised_small
 
-# For JEPA, use --use_target_encoder to evaluate the EMA encoder
-sbatch scripts/eval.sh /scratch/$USER/checkpoints/jepa_small/epoch_80.pt test --use_target_encoder
+# Check output:
+cat logs/reproduce-videomae_small-*.out
+```
 
+### 4. Full Evaluation Pipeline
+
+```bash
 # Epoch sweep (evaluates every 5th epoch)
 bash scripts/eval_videomae_base_sweep.sh
 
-# Parse results into table
-python scripts/parse_logs.py --experiment videomae_small --log_dir logs/videomae_small_eval/
-```
+# Collate all results + generate figures
+bash scripts/collate_and_plot.sh
 
-### 4. Visualize
-
-```bash
-# t-SNE embeddings of learned representations
-python scripts/visualize_tsne.py --checkpoint <path> --split test
-
-# Training curves & comparison plots
-python scripts/visualize.py
+# t-SNE / PCA embeddings
+sbatch scripts/run_tsne.sh
 ```
 
 ---

@@ -181,27 +181,27 @@ Rank & val\_loss & $\lambda_v$ & $\lambda_c$ & lr & wd \\
 \vskip 0.1in
 \centering
 \small
-\begin{tabular}{@{}lcrccccc@{}}
+\begin{tabular}{@{}lccccccc@{}}
 \toprule
-& & & \multicolumn{3}{c}{Linear Probe} & \multicolumn{2}{c}{kNN} \\
-\cmidrule(lr){4-6} \cmidrule(lr){7-8}
-Model & Enc. & Ep. & MSE & $\alpha$ & $\zeta$ & MSE & $\alpha$ \\
+& & \multicolumn{3}{c}{Linear Probe} & \multicolumn{2}{c}{kNN} \\
+\cmidrule(lr){3-5} \cmidrule(lr){6-7}
+Model & Encoder & MSE & $\alpha$ & $\zeta$ & MSE & $\alpha$ \\
 \midrule
-\multicolumn{8}{l}{\textit{End-to-end supervised (upper bound)}} \\
-Supervised & ViT-S & 65 & \textbf{.017} & \textbf{.009} & \textbf{.025} & \textbf{.015} & \textbf{.005} \\
+\multicolumn{7}{l}{\textit{End-to-end supervised (upper bound)}} \\
+Supervised & ViT-S & \textbf{.017} & \textbf{.009} & \textbf{.025} & \textbf{.015} & \textbf{.005} \\
 \midrule
-\multicolumn{8}{l}{\textit{Self-supervised}} \\
-\textbf{VideoMAE} & ViT-S & 90 & \underline{.036} & \underline{.021} & \underline{.052} & \underline{.050} & .021 \\
-JEPA v1 & ViT-S & 80 & .060 & .023 & .098 & .089 & .038 \\
-JEPA v3$^\dagger$ ($\lambda_v$\!=\!0.26) & ViT-S & 90 & .076 & .035 & .117 & .189 & .196 \\
-JEPA v3$^\ddagger$ ($\lambda_v$\!=\!0.80) & ViT-S & 10 & .079 & .043 & .115 & .075 & \underline{.006} \\
+\multicolumn{7}{l}{\textit{Self-supervised}} \\
+\textbf{VideoMAE} & ViT-S & \underline{.036} & \underline{.021} & \underline{.052} & \underline{.050} & .021 \\
+JEPA v1 & ViT-S & .060 & .023 & .098 & .089 & .038 \\
+JEPA v3$^\dagger$ ($\lambda_v$\!=\!0.26) & ViT-S & .076 & .035 & .117 & .189 & .196 \\
+JEPA v3$^\ddagger$ ($\lambda_v$\!=\!0.80) & ViT-S & .079 & .043 & .115 & .075 & \underline{.006} \\
 \midrule
-\multicolumn{8}{l}{\textit{Scaling study (ViT-Base)}} \\
-VideoMAE & ViT-B & 75 & .081 & .036 & .125 & .149 & .078 \\
-JEPA v1 & ViT-B & 95 & .084 & .052 & .116 & .149 & .065 \\
+\multicolumn{7}{l}{\textit{Scaling study (ViT-Base)}} \\
+VideoMAE & ViT-B & .081 & .036 & .125 & .149 & .078 \\
+JEPA v1 & ViT-B & .084 & .052 & .116 & .149 & .065 \\
 \bottomrule
 \end{tabular}
-{\raggedright \footnotesize Bold = best overall; underline = best self-supervised. $^\dagger$Online encoder. $^\ddagger$Target (EMA) encoder. kNN $\zeta$ column omitted for space; follows same trend. \par}
+{\raggedright \footnotesize Bold = best overall; underline = best self-supervised. $^\dagger$Online encoder. $^\ddagger$Target (EMA) encoder. kNN $\zeta$ omitted for space; follows same trend. \par}
 \vskip -0.1in
 \end{table}
 
